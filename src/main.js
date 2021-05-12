@@ -5,7 +5,7 @@ let config = {
     width: 960,
     height: 720,
     pixelArt: true,
-    //scene: [Menu, Play],
+    scene: [Floor_1],
 
     /*
     physics: {
@@ -24,4 +24,4 @@ let config = {
 
 
 let game = new Phaser.Game(config);
-let keyLEFT, keyRIGHT, keyF, keyR, keyUP, keyDOWN, keySPACE;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN;
