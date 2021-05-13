@@ -10,7 +10,9 @@ class Floor_1 extends Phaser.Scene{
     }
     create(){
         this.createKeys();
+        
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
+        let playerCollider = this.physics.add.collider(this.player, 0);
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);

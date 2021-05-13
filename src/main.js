@@ -7,11 +7,11 @@ let config = {
     pixelArt: true,
     scene: [Floor_1],
 
-    /*
+    
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,    // Set to true for testing purposes only
+            debug: true,    // Set to true for testing purposes only
             gravity: {
                 x: 0,
                 y: 0
@@ -19,7 +19,7 @@ let config = {
             fps: 60
         }
     },
-    */   
+    
 };
 
 

@@ -1,7 +1,10 @@
-class Player extends Phaser.GameObjects.Sprite{
+class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene,x,y,texture,frame){
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
+        scene.physics.add.existing(this);
+        this.body.collideWorldBounds = true;
+
 
         this.speed = 1.5;
     }
@@ -10,16 +13,16 @@ class Player extends Phaser.GameObjects.Sprite{
     }
 
     movement(){
-        if(keyUP.isDown && this.y > 0){
+        if(keyUP.isDown){
             this.y -= this.speed;
         }
-        if(keyDOWN.isDown && this.y < game.config.height){
+        if(keyDOWN.isDown){
             this.y += this.speed;
         }
-        if(keyLEFT.isDown && this.x > 0){
+        if(keyLEFT.isDown){
             this.x -= this.speed;
         }
-        if(keyRIGHT.isDown && this.x < game.config.width){
+        if(keyRIGHT.isDown){
             this.x += this.speed;
         }
         
