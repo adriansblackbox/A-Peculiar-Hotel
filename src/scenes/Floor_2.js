@@ -1,7 +1,14 @@
-class Floor_1 extends Phaser.Scene{
+class Floor_2 extends Phaser.Scene{
 
+    // Pt. 2 of transfering state to a different scene
+    ////////////////////////////
+    init(data){
+        this.testNumber = data.test;
+    }
+    ///////////////////////////
+ 
     constructor() {
-        super("Floor_1");    
+        super("Floor_2");    
     }
 
     preload(){
@@ -13,7 +20,7 @@ class Floor_1 extends Phaser.Scene{
         
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
 
-        this.test = 5;
+        console.log(this.testNumber);
         
     }
     createKeys(){
@@ -24,17 +31,5 @@ class Floor_1 extends Phaser.Scene{
     }
     update(){
         this.player.update();
-        this.collisions();
-
-
-        // Pt. 1 of transfering state to a different scene
-        ////////////////////////////
-        if(keyLEFT.isDown){
-            this.scene.start('Floor_2', {test: this.test});
-        }
-        ////////////////////////////
-    }
-    collisions(){
-
     }
 }
