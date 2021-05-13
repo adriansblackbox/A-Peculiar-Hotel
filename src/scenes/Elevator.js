@@ -1,15 +1,9 @@
-class Floor_1 extends Phaser.Scene{
+class Elevator extends Phaser.Scene{
 
     constructor() {
-        super("Floor_1");    
+        super("Elevator");    
     }
 
-        // Pt. 2 of transfering state to a different scene
-    ////////////////////////////
-    init(data){
-        this.test = data.test;
-    }
-    ///////////////////////////
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
 
@@ -18,6 +12,8 @@ class Floor_1 extends Phaser.Scene{
         this.createKeys();
         
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
+
+        this.test = 5;
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);

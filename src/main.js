@@ -5,7 +5,7 @@ let config = {
     width: 960,
     height: 720,
     pixelArt: true,
-    scene: [Floor_1, Floor_2],
+    scene: [Elevator, Floor_1, Floor_2],
 
     
     physics: {
