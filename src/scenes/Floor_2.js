@@ -12,15 +12,16 @@ class Floor_2 extends Phaser.Scene{
     }
 
     preload(){
+        this.load.image('BG', './assets/floor2BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
+        this.load.image('elevator', './assets/ElevatorDoor.png');
 
     }
     create(){
         this.createKeys();
-        
+        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG');
+        this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
-
-        console.log(this.testNumber);
         
     }
     createKeys(){
