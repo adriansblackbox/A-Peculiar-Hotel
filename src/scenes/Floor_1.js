@@ -5,11 +5,12 @@ class Floor_1 extends Phaser.Scene{
     }
 
     preload(){
+        this.load.image('player', './assets/Detective Doggert 001.png');
 
     }
     create(){
         this.createKeys();
-         
+        this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -18,6 +19,6 @@ class Floor_1 extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     }
     update(){
-
+        this.player.update();
     }
 }
