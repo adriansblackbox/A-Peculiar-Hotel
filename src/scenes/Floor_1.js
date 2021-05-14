@@ -21,6 +21,7 @@ class Floor_1 extends Phaser.Scene{
         this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
+        this.cameras.main.startFollow(this.player);
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
