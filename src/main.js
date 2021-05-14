@@ -1,5 +1,3 @@
-//will probably want to change size
-// Bailey: doubling size of the canvas from Rocket Patrol Assignment
 let config = {
     type: Phaser.AUTO,
     width: 960,
@@ -7,7 +5,7 @@ let config = {
     pixelArt: true,
     scene: [Elevator, Floor_1, Floor_2],
 
-    
+    // physics logic
     physics: {
         default: 'arcade',
         arcade: {
@@ -19,7 +17,7 @@ let config = {
             fps: 60
         }
     },
-
+    // scale game logic
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
