@@ -3,7 +3,7 @@ class Floor_2 extends Phaser.Scene{
     // Pt. 2 of transfering state to a different scene
     ////////////////////////////
     init(data){
-        this.testNumber = data.test;
+        this.test = data.test;
     }
     ///////////////////////////
  
@@ -12,14 +12,14 @@ class Floor_2 extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('BG', './assets/floor2BG.png');
+        this.load.image('BG2', './assets/floor2BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
 
     }
     create(){
         this.createKeys();
-        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG');
+        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG2');
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         
@@ -32,5 +32,13 @@ class Floor_2 extends Phaser.Scene{
     }
     update(){
         this.player.update();
+        this.collisions();
+    }
+    collisions(){
+        this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+    }
+
+    elveatorExit(){
+        this.scene.start('Elevator', {test: this.test});
     }
 }
