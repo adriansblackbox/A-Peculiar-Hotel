@@ -3,7 +3,7 @@ let config = {
     width: 960,
     height: 720,
     pixelArt: true,
-    scene: [Elevator, Floor_1, Floor_2],
+    scene: [Elevator, Floor_1, Floor_2, Drawing],
 
     // physics logic
     physics: {
@@ -27,4 +27,4 @@ let config = {
 
 
 let game = new Phaser.Game(config);
-let keyLEFT, keyRIGHT, keyUP, keyDOWN;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN, noteBookKey, eraseKey;

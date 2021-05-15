@@ -29,10 +29,14 @@ class Floor_2 extends Phaser.Scene{
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(){
         this.player.update();
         this.collisions();
+        if(noteBookKey.isDown){
+            this.scene.start('Drawing');
+        }
     }
     collisions(){
         this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);

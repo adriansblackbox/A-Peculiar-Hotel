@@ -18,7 +18,7 @@ class Floor_1 extends Phaser.Scene{
     }
     create(){
         this.createKeys();
-        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
+        this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         this.cameras.main.startFollow(this.player);
@@ -28,10 +28,15 @@ class Floor_1 extends Phaser.Scene{
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        eraseKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
     }
     update(){
         this.player.update();
         this.collisions();
+        if(noteBookKey.isDown){
+            this.scene.start('Drawing');
+        }
     }
     collisions(){
         this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
