@@ -1,6 +1,7 @@
 //https://phaser.io/examples/v3/view/game-objects/shapes/draw
 class Drawing extends Phaser.Scene{
 
+
     constructor() {
         super("Drawing");          
         
@@ -31,8 +32,9 @@ class Drawing extends Phaser.Scene{
     }
     update(){
         if(eraseKey.isDown){
-            this.rt.clear();
-            console.log("clear");
+            //this.rt.clear();
+            console.log(this.game.config.prevScene);
+            this.scene.switch(this.game.config.prevScene);
         }
     }
 

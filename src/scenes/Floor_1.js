@@ -29,13 +29,13 @@ class Floor_1 extends Phaser.Scene{
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        eraseKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
     }
     update(){
         this.player.update();
         this.collisions();
         if(noteBookKey.isDown){
-            this.scene.start('Drawing');
+            game.config.prevScene = 'Floor_1';
+            this.scene.switch('Drawing');
         }
     }
     collisions(){

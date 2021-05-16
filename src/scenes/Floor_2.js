@@ -10,6 +10,7 @@ class Floor_2 extends Phaser.Scene{
     constructor() {
         super("Floor_2");    
     }
+    
 
     preload(){
         this.load.image('BG2', './assets/floor2BG.png');
@@ -35,7 +36,8 @@ class Floor_2 extends Phaser.Scene{
         this.player.update();
         this.collisions();
         if(noteBookKey.isDown){
-            this.scene.start('Drawing');
+            game.config.prevScene = 'Floor_2';
+            this.scene.switch('Drawing');
         }
     }
     collisions(){

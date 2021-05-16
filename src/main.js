@@ -5,6 +5,8 @@ let config = {
     pixelArt: true,
     scene: [Elevator, Floor_1, Floor_2, Drawing],
 
+    prevScene: '',
+
     // physics logic
     physics: {
         default: 'arcade',
