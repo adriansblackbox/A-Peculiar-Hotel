@@ -19,9 +19,13 @@ class Elevator extends Phaser.Scene{
         //this.startBtn.on('pointerout', function (event) {}, this);
         this.floorList = ['Floor_1', 'Floor_2'];
         this.randFloor = Phaser.Math.Between(0, 1);
+        noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.startBtn.on('pointerdown', function (event) {this.scene.start(this.floorList[this.randFloor], {test: this.test}); },this); // Start game on click.
     }
     update(){
-
+        if(noteBookKey.isDown){
+            game.config.prevScene = 'Elevator';
+            this.scene.switch('Drawing');
+        }
     }
 }
