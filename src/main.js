@@ -1,7 +1,9 @@
 let config = {
     type: Phaser.AUTO,
-    width: 960,
-    height: 720,
+    //width: 960,
+    //height: 720,
+    width: 640,
+    height: 360,
     pixelArt: true,
     scene: [Elevator, Floor_1, Floor_2, Drawing],
 

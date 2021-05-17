@@ -6,7 +6,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //this.body.collideWorldBounds = true;
 
 
-        this.speed = 1.5;
+        this.speed = 1.2;
     }
     update(){
         this.movement();

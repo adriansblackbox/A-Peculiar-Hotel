@@ -14,11 +14,20 @@ class Floor_1 extends Phaser.Scene{
         this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
-
+        this.load.image('F1tiles', './assets/proto_floor1.png');
+        this.load.tilemapTiledJSON('floor1norm','./assets/prototypeFloor1.json' );
     }
     create(){
+        this.cameras.main.roundPixels = true;
         this.createKeys();
-        this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
+        //this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
+        const map = this.make.tilemap({key: 'floor1norm'});
+        const tileset = map.addTilesetImage('proto_floor1', 'F1tiles');
+
+        map.createLayer('ground', tileset);
+        const walls = map.createLayer('floor1bounds', tileset);
+        walls.setCollisionByProperty({collides: true});
+
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         this.cameras.main.startFollow(this.player);
