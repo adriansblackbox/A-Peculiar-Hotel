@@ -28,12 +28,12 @@ class Floor_1 extends Phaser.Scene{
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
 
-        const debugGraphics = this.add.graphics().setAlpha(0.7);
-        walls.renderDebug(debugGraphics, {
-            tileColor: null,
-            collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-            faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        })
+        //const debugGraphics = this.add.graphics().setAlpha(0.7);
+        //walls.renderDebug(debugGraphics, {
+            //tileColor: null,
+            //collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+            //faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+        //})
 
 
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
@@ -43,7 +43,7 @@ class Floor_1 extends Phaser.Scene{
         this.physics.add.collider(this.player, walls);
     }
     createKeys(){
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyLEFT = this.input.keyboard.addKey('A');
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
