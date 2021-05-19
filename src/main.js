@@ -5,7 +5,7 @@ let config = {
     width: 640,
     height: 360,
     pixelArt: true,
-    scene: [Elevator, Floor_1, Floor_2, Drawing],
+    scene: [Menu, Elevator, Floor_1, Floor_2, Drawing],
 
     prevScene: '',
 
