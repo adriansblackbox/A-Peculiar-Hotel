@@ -1,7 +1,7 @@
-class Floor_1 extends Phaser.Scene{
+class Lobby extends Phaser.Scene{
 
     constructor() {
-        super("Floor_1");    
+        super("Lobby");    
     }
 
         // Pt. 2 of transfering state to a different scene
@@ -14,19 +14,24 @@ class Floor_1 extends Phaser.Scene{
         this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
-        this.load.image('F1tiles', './assets/testtiles.png');
-        this.load.tilemapTiledJSON('floor1norm','./assets/testmap.json' );
+        this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
+        this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
     }
     create(){
         this.cameras.main.roundPixels = true;
         this.createKeys();
         //this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
-        const map = this.make.tilemap({key: 'floor1norm'});
-        const tileset = map.addTilesetImage('floo1testtiles', 'F1tiles');
+        const map = this.make.tilemap({key: 'lobby'});
+        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
 
         map.createLayer('Ground', tileset);
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);
+        this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevator', 0);
+        this.elevator.body.offset.y = 0.5;
+        this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
+        map.createLayer('overPlayer', tileset);
 
         //const debugGraphics = this.add.graphics().setAlpha(0.7);
         //walls.renderDebug(debugGraphics, {
@@ -36,8 +41,6 @@ class Floor_1 extends Phaser.Scene{
         //})
 
 
-        this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
-        this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
@@ -53,7 +56,7 @@ class Floor_1 extends Phaser.Scene{
         this.player.update();
         this.collisions();
         if(noteBookKey.isDown){
-            game.config.prevScene = 'Floor_1';
+            game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
     }

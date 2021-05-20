@@ -1,5 +1,8 @@
 class Elevator extends Phaser.Scene{
 
+    init(data){
+        this.test = data.test;
+    }
     constructor() {
         super("Elevator");    
     }
@@ -17,8 +20,9 @@ class Elevator extends Phaser.Scene{
 
         //this.startBtn.on('pointerover', function (event) {}, this);
         //this.startBtn.on('pointerout', function (event) {}, this);
-        this.floorList = ['Floor_1', 'Floor_2'];
+        this.floorList = ['Lobby', 'Floor_2'];
         this.randFloor = Phaser.Math.Between(0, 1);
+        
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.startBtn.on('pointerdown', function (event) {this.scene.start(this.floorList[this.randFloor], {test: this.test}); },this); // Start game on click.
     }

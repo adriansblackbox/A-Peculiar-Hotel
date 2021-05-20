@@ -5,15 +5,16 @@ let config = {
     width: 640,
     height: 360,
     pixelArt: true,
-    scene: [Menu, Elevator, Floor_1, Floor_2, Drawing],
+    scene: [Menu, Lobby, Elevator, Floor_2, Drawing],
 
     prevScene: '',
+    visitedScenes: [],
 
     // physics logic
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,    // Set to true for testing purposes only
+            //debug: true,    // Set to true for testing purposes only
             gravity: {
                 x: 0,
                 y: 0

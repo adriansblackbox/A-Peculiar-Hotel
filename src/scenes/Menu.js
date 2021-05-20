@@ -67,7 +67,7 @@ class Menu extends Phaser.Scene{
         //this.floorList = ['Floor_1', 'Floor_2'];
         //this.randFloor = Phaser.Math.Between(0, 1);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.startBtn.on('pointerdown', function (event) {this.scene.start('Elevator', {test: this.test}); },this); // Start game on click.
+        this.startBtn.on('pointerdown', function (event) {this.scene.start('Lobby', {test: this.test}); },this); // Start game on click.
 
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
 
