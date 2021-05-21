@@ -18,7 +18,10 @@ class Lobby extends Phaser.Scene{
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
     }
     create(){
-        this.floorList = ['Floor_1', 'Floor_2'];
+        this.enteredElevator = false;
+        this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4', 'Floor_5', 'Floor_6'];
+
+
         this.cameras.main.roundPixels = true;
         this.createKeys();
         //this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
@@ -30,6 +33,7 @@ class Lobby extends Phaser.Scene{
         walls.setCollisionByProperty({collides: true});
         map.createLayer('extra', tileset);
         this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevator', 0);
+        this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
@@ -54,7 +58,8 @@ class Lobby extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(){
-        this.player.update();
+        if(!this.enteredElevator)
+            this.player.update();
         this.collisions();
         if(noteBookKey.isDown){
             game.config.prevScene = 'Lobby';
@@ -62,10 +67,15 @@ class Lobby extends Phaser.Scene{
         }
     }
     collisions(){
-        this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+        if(!this.enteredElevator)
+            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
     }
 
     elveatorExit(){
-        this.scene.start('Elevator', {test: this.test, floorList: this.floorList});
+        this.enteredElevator = true;
+        this.cameras.main.fadeOut(1500, 0, 0, 0)
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('Elevator', {test: this.test, floorList: this.floorList});
+        })
     }
 }

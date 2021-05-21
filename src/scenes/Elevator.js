@@ -13,6 +13,10 @@ class Elevator extends Phaser.Scene{
 
     }
     create(){
+        this.nextFloorPressed = false;
+        this.fadingOut = false;
+        this.cameras.main.fadeIn(1500, 0, 0, 0)
+
 
         this.startBtn = this.add.sprite(game.config.width/2, game.config.height/2, 'button').setInteractive();
         
@@ -31,11 +35,22 @@ class Elevator extends Phaser.Scene{
         
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         console.log(this.floorList);
+
         this.startBtn.on('pointerdown', function (event) {
-            this.scene.start(this.nextFloor, {test: this.test, floorList: this.floorList});
-        },this); // Start game on click.
+            this.nextFloorPressed = true;
+        },this);
+       
     }
     update(){
+
+        if(this.nextFloorPressed && !this.fadingOut){
+            this.fadingOut = true;
+            this.cameras.main.fadeOut(1500, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start(this.nextFloor, {test: this.test, floorList: this.floorList});
+            })
+        }
+
         if(noteBookKey.isDown){
             game.config.prevScene = 'Elevator';
             this.scene.switch('Drawing');
