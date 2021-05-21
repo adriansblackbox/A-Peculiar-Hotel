@@ -18,6 +18,7 @@ class Lobby extends Phaser.Scene{
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
     }
     create(){
+        this.floorList = ['Floor_1', 'Floor_2'];
         this.cameras.main.roundPixels = true;
         this.createKeys();
         //this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
@@ -65,6 +66,6 @@ class Lobby extends Phaser.Scene{
     }
 
     elveatorExit(){
-        this.scene.start('Elevator', {test: this.test});
+        this.scene.start('Elevator', {test: this.test, floorList: this.floorList});
     }
 }

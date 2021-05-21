@@ -5,10 +5,10 @@ let config = {
     width: 640,
     height: 360,
     pixelArt: true,
-    scene: [Menu, Lobby, Elevator, Floor_2, Drawing],
+    scene: [Menu, Lobby, Elevator, Floor_1, Floor_2, Drawing],
 
     prevScene: '',
-    visitedScenes: [],
+
 
     // physics logic
     physics: {

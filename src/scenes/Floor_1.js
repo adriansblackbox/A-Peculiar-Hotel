@@ -1,4 +1,4 @@
-class Floor_2 extends Phaser.Scene{
+class Floor_1 extends Phaser.Scene{
 
     // Pt. 2 of transfering state to a different scene
     ////////////////////////////
@@ -9,19 +9,19 @@ class Floor_2 extends Phaser.Scene{
     ///////////////////////////
  
     constructor() {
-        super("Floor_2");    
+        super("Floor_1");    
     }
     
 
     preload(){
-        this.load.image('BG2', './assets/floor2BG.png');
+        this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
 
     }
     create(){
         this.createKeys();
-        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG2');
+        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         this.cameras.main.startFollow(this.player);
@@ -37,7 +37,7 @@ class Floor_2 extends Phaser.Scene{
         this.player.update();
         this.collisions();
         if(noteBookKey.isDown){
-            game.config.prevScene = 'Floor_2';
+            game.config.prevScene = 'Floor_1';
             this.scene.switch('Drawing');
         }
     }

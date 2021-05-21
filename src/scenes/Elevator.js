@@ -2,6 +2,7 @@ class Elevator extends Phaser.Scene{
 
     init(data){
         this.test = data.test;
+        this.floorList = data.floorList;
     }
     constructor() {
         super("Elevator");    
@@ -20,11 +21,19 @@ class Elevator extends Phaser.Scene{
 
         //this.startBtn.on('pointerover', function (event) {}, this);
         //this.startBtn.on('pointerout', function (event) {}, this);
-        this.floorList = ['Lobby', 'Floor_2'];
-        this.randFloor = Phaser.Math.Between(0, 1);
+        
+        this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
+        this.nextFloor = this.floorList[this.randFloor];
+
+        if(this.floorList.length > 0){
+            this.floorList.splice(this.randFloor, 1);
+        }
         
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.startBtn.on('pointerdown', function (event) {this.scene.start(this.floorList[this.randFloor], {test: this.test}); },this); // Start game on click.
+        console.log(this.floorList);
+        this.startBtn.on('pointerdown', function (event) {
+            this.scene.start(this.nextFloor, {test: this.test, floorList: this.floorList});
+        },this); // Start game on click.
     }
     update(){
         if(noteBookKey.isDown){
