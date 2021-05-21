@@ -74,9 +74,6 @@ class Menu extends Phaser.Scene{
         this.text = this.add.text(game.config.width/4, game.config.height/3, "Haunted Hotel\nMove with WASD\nR to go to notebook to draw, T to clear notebook", this.style);
     }
     update(){
-        if(noteBookKey.isDown){
-            game.config.prevScene = 'Elevator';
-            this.scene.switch('Drawing');
-        }
+        
     }
 }
