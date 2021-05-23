@@ -6,13 +6,15 @@ class Menu extends Phaser.Scene{
 
     preload(){
         //this.load.atlas('particle', './assets/particle.png','./assets/particleJSON.json');
+        this.load.image('BG', './assets/HauntedHotelMenu.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('button', './assets/ElevatorButton.png');
+        this.load.image('start', './assets/Start.png');
     }
     create(){
         const textures = this.textures;
-
-        this.startBtn = this.add.sprite(game.config.width/2, game.config.height/1.5, 'button').setInteractive();
+        this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG');
+        this.startBtn = this.add.sprite(game.config.width/2.35, game.config.height/1.4, 'start').setInteractive();
         const origion = this.startBtn.getTopLeft();
         
         this.imageSource = {
@@ -71,7 +73,7 @@ class Menu extends Phaser.Scene{
 
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
 
-        this.text = this.add.text(game.config.width/4, game.config.height/3, "Haunted Hotel\nMove with WASD\nR to go to notebook to draw, T to clear notebook", this.style);
+        this.text = this.add.text(game.config.width/4, game.config.height/1.2, "Haunted Hotel\nMove with WASD\nR to go to notebook to draw, T to clear notebook", this.style);
     }
     update(){
         
