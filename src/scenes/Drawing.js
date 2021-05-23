@@ -11,12 +11,16 @@ class Drawing extends Phaser.Scene{
         this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('brush', './assets/testBrush.png');
-        this.load.image('brush', './assets/testPencil.png');
+        this.load.image('pencil', './assets/testPencil.png');
     }
     
     create ()
     {
+        this.canvas = this.sys.canvas;
+        this.canvas.style.cursor = 'none';
+        
         this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
+        this.newCursor = this.add.image(game.config.width/2, game.config.height/2, 'pencil');
         this.rt = this.add.renderTexture(0,0,960,720);
 
         //the 32's depend on the sprite size and screen size
@@ -38,6 +42,8 @@ class Drawing extends Phaser.Scene{
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
+        this.newCursor.x = game.input.mousePointer.x;
+        this.newCursor.y = game.input.mousePointer.y;
     }
 
 }
