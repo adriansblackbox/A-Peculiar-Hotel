@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene{
         this.load.image('BG', './assets/HauntedHotelMenu.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('button', './assets/ElevatorButton.png');
+        this.load.image('rain', './assets/Rain.png');
         this.load.image('start', './assets/Start.png');
     }
     create(){
@@ -31,7 +32,7 @@ class Menu extends Phaser.Scene{
             }
         };
         //https://phaser.io/examples/v3/view/game-objects/particle-emitter/emit-from-texture
-        const particles = this.add.particles('player');
+        const particles = this.add.particles('rain');
         particles.createEmitter({
             /*
             x:0,
@@ -44,20 +45,22 @@ class Menu extends Phaser.Scene{
             emitZone: {type: 'random', source: this.imageSource}
             */
            quantity: 10,
-           x: this.startBtn.x,
-           y: this.startBtn.y,
+           //x: this.startBtn.x,
+           //y: this.startBtn.y,
+           y: 0,
+           x: {min: 0, max: 800},
            //speedY: {min: 20, max: 50},
            //speedX: {min: 20, max: 50},
            //accelerationY: 1000,
-           speed: 200,
-           lifespan: {min: 100, max: 300},
+           speedY: {min:200, max: 400},
+           lifespan: {min: 100, max: 700},
            alpha: {start: 1, end: 0, ease: 'Sine.easeIn'},
-           scale: {start: .1, end: .2},
+           scale: {start: .2, end: 0},
            //rotate: {min: 30, max: 110},
            //angle: {min: 30, max: 110},
            blendMode: 'ADD',
            frequency: 15,
-           emitZone: { type: 'random', source: this.imageSource }
+           //emitZone: { type: 'random', source: this.imageSource }
            //follow: this.startBtn
         });
 
