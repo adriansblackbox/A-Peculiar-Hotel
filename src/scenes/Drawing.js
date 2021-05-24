@@ -35,10 +35,15 @@ class Drawing extends Phaser.Scene{
     }
     createKeys(){
         eraseKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
+        goBack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
     }
     update(){
         if(eraseKey.isDown){
-            //this.rt.clear();
+            this.rt.clear();
+            //console.log(this.game.config.prevScene);
+            //this.scene.switch(this.game.config.prevScene);
+        }
+        if(goBack.isDown){
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
