@@ -7,7 +7,7 @@ class Lobby extends Phaser.Scene{
         // Pt. 2 of transfering state to a different scene
     ////////////////////////////
     init(data){
-        this.test = data.test;
+        // data to be passed into lobby
     }
     ///////////////////////////
     preload(){
@@ -19,6 +19,17 @@ class Lobby extends Phaser.Scene{
     create(){
         this.enteredElevator = false;
         this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4', 'Floor_5', 'Floor_6'];
+
+        this.password = [];
+        this.passwordIndex = -1;
+
+        this.passwordElements = [1, 2, 3, 4, 5, 6];
+        while(this.password.length < 6){
+            let randIndex = Phaser.Math.Between(0, this.passwordElements.length - 1);
+            this.password.push(this.passwordElements[randIndex]);
+            this.passwordElements.splice(randIndex, 1);
+        }
+        console.log('Password: ' + this.password);
 
 
         this.cameras.main.roundPixels = true;
@@ -66,7 +77,7 @@ class Lobby extends Phaser.Scene{
         this.enteredElevator = true;
         this.cameras.main.fadeOut(1500, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('Elevator', {test: this.test, floorList: this.floorList});
+            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         })
     }
 }

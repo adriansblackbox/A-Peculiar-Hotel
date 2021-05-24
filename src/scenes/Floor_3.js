@@ -3,8 +3,9 @@ class Floor_3 extends Phaser.Scene{
     // Pt. 2 of transfering state to a different scene
     ////////////////////////////
     init(data){
-        this.test = data.test;
+        this.password = data.password;
         this.floorList = data.floorList;
+        this.passwordIndex = data.passwordIndex;
     }
     ///////////////////////////
  
@@ -54,7 +55,7 @@ class Floor_3 extends Phaser.Scene{
         this.elevatorEntered = true;
         this.cameras.main.fadeOut(1500, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('Elevator', {test: this.test, floorList: this.floorList});
+            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         })
     }
 }

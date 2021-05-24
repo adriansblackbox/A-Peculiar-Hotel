@@ -1,7 +1,8 @@
 class Elevator extends Phaser.Scene{
 
     init(data){
-        this.test = data.test;
+        this.password = data.password;
+        this.passwordIndex = data.passwordIndex;
         this.floorList = data.floorList;
     }
     constructor() {
@@ -13,7 +14,12 @@ class Elevator extends Phaser.Scene{
 
     }
     create(){
+        console.log(this.password);
         this.nextFloorPressed = false;
+
+        if(this.passwordIndex < 6)
+            this.passwordIndex++;
+
         this.fadingOut = false;
         this.cameras.main.fadeIn(1500, 0, 0, 0)
 
@@ -47,7 +53,7 @@ class Elevator extends Phaser.Scene{
             this.fadingOut = true;
             this.cameras.main.fadeOut(1500, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start(this.nextFloor, {test: this.test, floorList: this.floorList});
+                this.scene.start(this.nextFloor, {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
             })
         }
 
