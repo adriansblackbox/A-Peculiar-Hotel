@@ -9,7 +9,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.body.offset.y = 17.5;
 
 
-        this.speed = 56;
+        this.speed = 0;
         this.direction = '';
         this.moveList = [];
         this.index = 0;

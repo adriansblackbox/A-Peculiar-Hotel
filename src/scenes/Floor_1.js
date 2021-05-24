@@ -20,7 +20,7 @@ class Floor_1 extends Phaser.Scene{
 
     }
     create(){
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.elevatorEntered = false;
         this.createKeys();
         this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
