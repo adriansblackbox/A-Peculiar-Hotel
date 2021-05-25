@@ -37,6 +37,7 @@ class Floor_1 extends Phaser.Scene{
 
 
         this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
+        this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
         this.player = new Player(this, game.config.width + 20, 430, 'player', 0);
         this.cameras.main.startFollow(this.player);
