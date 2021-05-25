@@ -15,6 +15,8 @@ class Lobby extends Phaser.Scene{
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
+        this.load.image('monster','./assets/MM1.png' );
+
     }
     create(){
         this.enteredElevator = false;
@@ -42,6 +44,7 @@ class Lobby extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevator', 0);
         this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
+        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0);
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
 
@@ -66,6 +69,7 @@ class Lobby extends Phaser.Scene{
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
+        this.monster.update();
     }
     collisions(){
         if(!this.enteredElevator)
