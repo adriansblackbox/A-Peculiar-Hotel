@@ -18,17 +18,30 @@ class Floor_1 extends Phaser.Scene{
         this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
+        this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
+        this.load.tilemapTiledJSON('floor1','./assets/Floor_1.json' );
 
     }
     create(){
         this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.elevatorEntered = false;
         this.createKeys();
-        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
+
+        const map = this.make.tilemap({key: 'floor1'});
+        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);
+
+
         this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
         this.elevator.body.immovable = true;
         this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         this.cameras.main.startFollow(this.player);
+
+        this.physics.add.collider(this.player, walls);
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
