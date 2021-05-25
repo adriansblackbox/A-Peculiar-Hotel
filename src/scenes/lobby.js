@@ -74,8 +74,12 @@ class Lobby extends Phaser.Scene{
     collisions(){
         if(!this.enteredElevator)
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+        this.physics.world.collide(this.player, this.monster, this.memoryErased, null, this);
     }
-
+    memoryErased(){
+        this.player.x = game.config.width/2 - 12;
+        this.player.y = game.config.height + 150;
+    }
     elveatorExit(){
         this.enteredElevator = true;
         this.cameras.main.fadeOut(1500, 0, 0, 0)
