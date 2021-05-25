@@ -31,8 +31,6 @@ class Lobby extends Phaser.Scene{
         }
         console.log('Password: ' + this.password);
 
-
-        this.cameras.main.roundPixels = true;
         this.createKeys();
         const map = this.make.tilemap({key: 'lobby'});
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
@@ -46,6 +44,7 @@ class Lobby extends Phaser.Scene{
         this.elevator.body.offset.y = 0.5;
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
+
 
 
         this.cameras.main.startFollow(this.player);
