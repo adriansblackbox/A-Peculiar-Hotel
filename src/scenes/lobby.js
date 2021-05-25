@@ -38,9 +38,9 @@ class Lobby extends Phaser.Scene{
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
 
         map.createLayer('Ground', tileset);
+        map.createLayer('extra', tileset);
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
         this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevator', 0);
         this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
