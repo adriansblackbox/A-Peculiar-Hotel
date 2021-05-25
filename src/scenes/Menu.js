@@ -76,7 +76,7 @@ class Menu extends Phaser.Scene{
 
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
 
-        this.text = this.add.text(game.config.width/4, game.config.height/1.2, "Haunted Hotel\nMove with WASD\nR to go to notebook to draw, T to clear notebook", this.style);
+        this.text = this.add.text(game.config.width/4, game.config.height/1.2, "Haunted Hotel\nMove with WASD\nR to go to notebook to draw, T to clear notebook, Y to go back to scene", this.style);
     }
     update(){
         
