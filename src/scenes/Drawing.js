@@ -11,7 +11,7 @@ class Drawing extends Phaser.Scene{
         this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('brush', './assets/testBrush.png');
-        this.load.image('pencil', './assets/testPencil.png');
+        this.load.image('pencil', './assets/BiggerPencil.png');
     }
     
     create ()
@@ -27,7 +27,7 @@ class Drawing extends Phaser.Scene{
         this.input.on('pointermove', function (pointer) {
             if (pointer.isDown)
             {
-                this.rt.draw('brush', pointer.x - 32, pointer.y - 32);
+                this.rt.draw('brush', pointer.x-48, pointer.y+16);
             }
         }, this);
         //https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.RenderTexture.html#clear__anchor   graphics stuff
