@@ -23,8 +23,12 @@ class Floor_1 extends Phaser.Scene{
 
     }
     create(){
+        this.findingTime = 10000;
+
+
+
+
         this.cameras.main.fadeIn(1000, 0, 0, 0);
-        this.elevatorEntered = false;
         this.createKeys();
 
         const map = this.make.tilemap({key: 'floor1'});
@@ -50,6 +54,7 @@ class Floor_1 extends Phaser.Scene{
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
         if(!this.elevatorEntered)
@@ -59,10 +64,11 @@ class Floor_1 extends Phaser.Scene{
             game.config.prevScene = 'Floor_1';
             this.scene.switch('Drawing');
         }
+        if(interactKey.isDown){
+            this.scene.start('Floor_1_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
+        }
     }
     collisions(){
-        if(!this.elevatorEntered)
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
     }
 
     elveatorExit(){

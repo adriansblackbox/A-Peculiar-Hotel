@@ -1,11 +1,11 @@
 let config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     //width: 960,
     //height: 720,
     width: 640,
     height: 360,
     pixelArt: true,
-    scene: [Menu, Lobby, Elevator, Floor_1, Floor_2, Floor_3, Floor_4, Floor_5, Floor_6, Drawing],
+    scene: [Menu, Lobby, Elevator, Floor_1, Floor_2, Floor_3, Floor_4, Floor_5, Floor_1_OTHER, Drawing],
 
     // variables for states in game
     prevScene: '',
@@ -33,4 +33,4 @@ let config = {
 
 
 let game = new Phaser.Game(config);
-let keyLEFT, keyRIGHT, keyUP, keyDOWN, noteBookKey, eraseKey, goBack;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN, noteBookKey, eraseKey, goBack, interactKey;

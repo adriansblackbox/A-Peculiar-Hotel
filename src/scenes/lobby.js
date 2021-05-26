@@ -20,13 +20,14 @@ class Lobby extends Phaser.Scene{
     }
     create(){
         this.enteredElevator = false;
-        this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4', 'Floor_5', 'Floor_6'];
+        //this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
+        this.floorList = ['Floor_1'];
 
         this.password = [];
         this.passwordIndex = -1;
 
         this.passwordElements = [0, 1, 2, 3, 4, 5];
-        while(this.password.length < 6){
+        while(this.password.length < 4){
             let randIndex = Phaser.Math.Between(0, this.passwordElements.length - 1);
             this.password.push(this.passwordElements[randIndex]);
             this.passwordElements.splice(randIndex, 1);
