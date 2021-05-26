@@ -15,7 +15,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            //debug: true,    // Set to true for testing purposes only
+            debug: true,    // Set to true for testing purposes only
             gravity: {
                 x: 0,
                 y: 0
