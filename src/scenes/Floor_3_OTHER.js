@@ -1,8 +1,9 @@
-class Floor_2 extends Phaser.Scene{
+class Floor_3_OTHER extends Phaser.Scene{
 
     // Pt. 2 of transfering state to a different scene
     ////////////////////////////
     init(data){
+        this.findingTime = data.findingTime
         this.password = data.password;
         this.floorList = data.floorList;
         this.passwordIndex = data.passwordIndex;
@@ -10,69 +11,54 @@ class Floor_2 extends Phaser.Scene{
     ///////////////////////////
  
     constructor() {
-        super("Floor_2");    
+        super("Floor_3_OTHER");    
     }
     
 
     preload(){
-        this.load.image('BG1', './assets/floor1BG.png');
+        this.load.image('BG6', './assets/floor6BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
-        this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
-        this.load.tilemapTiledJSON('floor1','./assets/Floor_1.json' );
 
     }
     create(){
-        this.findingTime = 10000;
+        this.timeOut = false;
 
-
-
-
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
+        this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
-
-        const map = this.make.tilemap({key: 'floor1'});
-        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
-
-        map.createLayer('Ground', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
-
-
-        this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
-        this.elevator.body.offset.y = 0.5;
-        this.elevator.body.immovable = true;
-        this.player = new Player(this, game.config.width + 20, 430, 'player', 0);
+        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG6');
+        this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
         this.cameras.main.startFollow(this.player);
-
-        this.physics.add.collider(this.player, walls);
     }
     createKeys(){
+
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
-    update(){
-        if(!this.elevatorEntered)
+    update(time, delta){
+        if(this.findingTime > 0)
             this.player.update();
+        else if(!this.timeOut && this.findingTime <= 0){
+            this.timeOut = true;
+            this.exitLevel();
+        }
+
+        this.findingTime -= delta;
+
         this.collisions();
         if(noteBookKey.isDown){
-            game.config.prevScene = 'Floor_2';
+            game.config.prevScene = 'Floor_3_OTHER';
             this.scene.switch('Drawing');
-        }
-        if(interactKey.isDown){
-            this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         }
     }
     collisions(){
+        
     }
 
-    elveatorExit(){
-        this.elevatorEntered = true;
+    exitLevel(){
         this.cameras.main.fadeOut(1500, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});

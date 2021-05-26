@@ -20,8 +20,8 @@ class Lobby extends Phaser.Scene{
     }
     create(){
         this.enteredElevator = false;
-        //this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
-        this.floorList = ['Floor_1'];
+        this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
+
 
         this.password = [];
         this.passwordIndex = -1;

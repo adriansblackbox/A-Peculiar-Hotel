@@ -47,7 +47,6 @@ class Floor_1_OTHER extends Phaser.Scene{
         }
 
         this.findingTime -= delta;
-        console.log(this.findingTime);
 
         this.collisions();
         if(noteBookKey.isDown){

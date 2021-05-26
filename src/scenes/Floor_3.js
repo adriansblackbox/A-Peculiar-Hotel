@@ -15,20 +15,38 @@ class Floor_3 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('BG3', './assets/floor3BG.png');
+        this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
+        this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
+        this.load.tilemapTiledJSON('floor1','./assets/Floor_1.json' );
 
     }
     create(){
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
-        this.elevatorEntered = false;
+        this.findingTime = 10000;
+
+
+
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.createKeys();
-        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG3');
-        this.elevator = this.physics.add.sprite(game.config.width/2, 0 + 20, 'elevator', 0);
+
+        const map = this.make.tilemap({key: 'floor1'});
+        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);
+
+
+        this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
+        this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
+        this.player = new Player(this, game.config.width + 20, 430, 'player', 0);
         this.cameras.main.startFollow(this.player);
+
+        this.physics.add.collider(this.player, walls);
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -36,6 +54,7 @@ class Floor_3 extends Phaser.Scene{
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
         if(!this.elevatorEntered)
@@ -45,10 +64,11 @@ class Floor_3 extends Phaser.Scene{
             game.config.prevScene = 'Floor_3';
             this.scene.switch('Drawing');
         }
+        if(interactKey.isDown){
+            this.scene.start('Floor_3_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
+        }
     }
     collisions(){
-        if(!this.elevatorEntered)
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
     }
 
     elveatorExit(){
