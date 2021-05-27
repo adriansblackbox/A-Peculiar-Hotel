@@ -86,6 +86,7 @@ class Lobby extends Phaser.Scene{
         if(this.player.x <= this.chest.x + 30 && this.player.x >= this.chest.x - 30 && 
             this.player.y <= this.chest.y + 30 && this.player.y >= this.chest.y - 30){
                 this.chestText.setText("Press E");
+                // put if E pressed logic here
         }else{
             this.chestText.setText("");
         }
