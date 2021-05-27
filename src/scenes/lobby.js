@@ -45,6 +45,13 @@ class Lobby extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevator', 0);
         this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
+
+        //starting to add the text (make sure to add character sprites below these lines)
+        this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
+
+        this.text = this.add.text(game.config.width/2.5, game.config.height*1.2, "WASD to move", this.style);
+        //end of text stuff
+
         this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0);
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
@@ -54,6 +61,8 @@ class Lobby extends Phaser.Scene{
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
+
+        
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey('A');
