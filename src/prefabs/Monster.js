@@ -50,6 +50,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         }
 
         /*
+        
         //back and fourth movement based on starting position
         if(this.x < this.startingX + 100 && this.direction == false){
             this.setVelocity(this.speed, 0);
