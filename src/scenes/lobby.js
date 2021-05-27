@@ -16,6 +16,8 @@ class Lobby extends Phaser.Scene{
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
         this.load.image('monster','./assets/GhostSprite.png' );
+        this.load.image('chest','./assets/chest.png' );
+
 
     }
     create(){
@@ -57,6 +59,7 @@ class Lobby extends Phaser.Scene{
         map.createLayer('overPlayer', tileset);
 
 
+        this.chest = this.physics.add.sprite(game.config.width/2 - 80, game.config.height + 150, 'chest', 0);
 
         this.cameras.main.startFollow(this.player);
 
@@ -65,7 +68,7 @@ class Lobby extends Phaser.Scene{
         
     }
     createKeys(){
-        keyLEFT = this.input.keyboard.addKey('A');
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -74,12 +77,18 @@ class Lobby extends Phaser.Scene{
     update(){
         if(!this.enteredElevator)
             this.player.update();
+            //this.monster.update(this.player.x, this.player.y);
         this.collisions();
         if(noteBookKey.isDown){
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
-        this.monster.update(this.player.x, this.player.y);
+        if(this.player.x <= this.chest.x + 30 && this.player.x >= this.chest.x - 30 && 
+            this.player.y <= this.chest.y + 30 && this.player.y >= this.chest.y - 30){
+            console.log('Open Chest');
+        }else{
+            console.log('cant open chest');
+        }
     }
     collisions(){
         if(!this.enteredElevator)
