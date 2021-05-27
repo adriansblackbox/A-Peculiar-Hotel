@@ -21,11 +21,23 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.onLEFT = false;
         this.onRIGHT = false;
     }
-    update(){
-        this.movement();
+    update(playerX, playerY){
+        //console.log("thisX: " , this.x);
+        //console.log("playerX: ",playerX);
+        this.movement(playerX, playerY);
     }
 
-    movement(){
+    movement(pX, pY){
+
+        if(this.x < pX - 1){
+            this.setVelocityX(-this.speed);
+        }
+        if(this.x > pX + 1){
+            this.setVelocityX(this.speed);
+        }
+
+        /*
+        //back and fourth movement based on starting position
         if(this.x < this.startingX + 100 && this.direction == false){
             this.setVelocity(this.speed, 0);
             console.log("if statement");
@@ -35,28 +47,10 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         }
         else if(this.x > this.startingX - 100 && this.direction == true){
             this.setVelocity(-this.speed,0);
-            if(this,this.x < this.startingX - 90){
+            if(this.x < this.startingX - 90){
                 this.direction = false;
             }
         }
-        /*
-        if(this.direction == 'UP'){
-            this.setVelocity(0, -this.speed);
-        }
-        if(this.direction == 'DOWN'){
-            this.setVelocity(0, this.speed);
-        }
-        if(this.direction == 'LEFT'){
-            this.setVelocity(-this.speed, 0);
-        }
-        if(this.direction == 'RIGHT'){
-            this.setVelocity(this.speed, 0);
-        }
-
-        if(this.direction == 'IDLE'){
-            this.setVelocity(0, 0);
-        }
         */
-
     }
 }

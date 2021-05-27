@@ -15,7 +15,7 @@ class Lobby extends Phaser.Scene{
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
-        this.load.image('monster','./assets/MM1.png' );
+        this.load.image('monster','./assets/GhostSprite.png' );
 
     }
     create(){
@@ -70,7 +70,7 @@ class Lobby extends Phaser.Scene{
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
-        this.monster.update();
+        this.monster.update(this.player.x, this.player.y);
     }
     collisions(){
         if(!this.enteredElevator)
