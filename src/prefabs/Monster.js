@@ -28,17 +28,24 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
     }
 
     movement(pX, pY){
-
-        if(this.x > pX){
+        if(this.x > pX - 1 && this.x < pX + 1)
+        {
+            this.setVelocityX(0);
+        }
+        else if(this.x > pX){
             this.setVelocityX(-this.speed);
         }
-        if(this.x < pX){
+        else if(this.x < pX){
             this.setVelocityX(this.speed);
         }
-        if(this.y > pY){
+        if(this.y > pY - 1 && this.y < pY + 1)
+        {
+            this.setVelocityY(0);
+        }
+        else if(this.y > pY){
             this.setVelocityY(-this.speed);
         }
-        if(this.y < pY){
+        else if(this.y < pY){
             this.setVelocityY(this.speed);
         }
 
