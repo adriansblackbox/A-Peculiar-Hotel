@@ -60,11 +60,11 @@ class Lobby extends Phaser.Scene{
 
 
         this.chest = this.physics.add.sprite(game.config.width/2 - 80, game.config.height + 150, 'chest', 0);
+        this.chestText = this.add.text(this.chest.x,this.chest.y - 20, "", this.style);
 
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
-
         
     }
     createKeys(){
@@ -85,9 +85,9 @@ class Lobby extends Phaser.Scene{
         }
         if(this.player.x <= this.chest.x + 30 && this.player.x >= this.chest.x - 30 && 
             this.player.y <= this.chest.y + 30 && this.player.y >= this.chest.y - 30){
-            console.log('Open Chest');
+                this.chestText.setText("Press E");
         }else{
-            console.log('cant open chest');
+            this.chestText.setText("");
         }
     }
     collisions(){
