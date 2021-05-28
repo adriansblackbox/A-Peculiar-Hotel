@@ -22,7 +22,8 @@ class Drawing extends Phaser.Scene{
         this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
         this.newCursor = this.add.image(game.config.width/2, game.config.height/2, 'pencil');
         this.rt = this.add.renderTexture(0,0,960,720);
-
+        this.text = this.add.text(game.config.width/1.6, game.config.height/1.1, "T-Key to clear notebook", this.style);
+        this.text = this.add.text(game.config.width/1.68, game.config.height/1.2, "Y-Key to go back to level", this.style);
         //the 32's depend on the sprite size and screen size
         this.input.on('pointermove', function (pointer) {
             if (pointer.isDown)

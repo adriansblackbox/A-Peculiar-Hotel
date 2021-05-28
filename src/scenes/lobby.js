@@ -52,6 +52,7 @@ class Lobby extends Phaser.Scene{
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
 
         this.text = this.add.text(game.config.width/2.5, game.config.height*1.2, "WASD to move", this.style);
+        this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
         this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0);
