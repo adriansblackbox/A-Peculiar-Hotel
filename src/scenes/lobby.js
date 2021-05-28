@@ -17,10 +17,21 @@ class Lobby extends Phaser.Scene{
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
         this.load.image('monster','./assets/GhostSprite.png' );
         this.load.image('chest','./assets/chest.png' );
-
+        this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
 
     }
     create(){
+        let lobbyBGMConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
+            pan: 0
+        }
+        this.sound.play('elevatorMusic', lobbyBGMConfig);
         this.enteredElevator = false;
         this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
 
