@@ -19,7 +19,7 @@ class Floor_4 extends Phaser.Scene{
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
-        this.load.tilemapTiledJSON('floor1','./assets/Floor_1.json' );
+        this.load.tilemapTiledJSON('floor4','./assets/Floor_4.json' );
 
     }
     create(){
@@ -31,7 +31,7 @@ class Floor_4 extends Phaser.Scene{
         this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.createKeys();
 
-        const map = this.make.tilemap({key: 'floor1'});
+        const map = this.make.tilemap({key: 'floor4'});
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
 
         map.createLayer('Ground', tileset);
@@ -40,10 +40,10 @@ class Floor_4 extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
+        this.elevator = this.physics.add.sprite(game.config.width - 100, 400, 'elevator', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        this.player = new Player(this, game.config.width + 20, 430, 'player', 0);
+        this.player = new Player(this, game.config.width - 100, 430, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);

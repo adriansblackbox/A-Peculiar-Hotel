@@ -43,7 +43,7 @@ class Elevator extends Phaser.Scene{
 
         console.log(this.floorList);
 
-        if(this.floorList.length != 0){
+        if(this.nextFloor != null){
             this.startBtn = this.add.sprite(game.config.width/2, game.config.height/2, 'button').setInteractive();
 
             this.startBtn.on('pointerdown', function (event) {
