@@ -6,6 +6,9 @@ class Floor_4 extends Phaser.Scene{
         this.password = data.password;
         this.floorList = data.floorList;
         this.passwordIndex = data.passwordIndex;
+        this.finishedLevel = data.finishedLevel;
+        this.playerX = data.playerX;
+        this.playerY = data.playerY;
     }
     ///////////////////////////
  
@@ -40,10 +43,13 @@ class Floor_4 extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.elevator = this.physics.add.sprite(game.config.width - 100, 400, 'elevator', 0);
+        this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        this.player = new Player(this, game.config.width - 100, 430, 'player', 0);
+        if(!this.finishedLevel)
+            this.player = new Player(this, game.config.width + 20, 430, 'player', 0);
+        else
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);

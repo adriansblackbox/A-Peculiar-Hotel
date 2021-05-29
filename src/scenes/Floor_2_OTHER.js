@@ -7,6 +7,7 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.password = data.password;
         this.floorList = data.floorList;
         this.passwordIndex = data.passwordIndex;
+        this.finishedLevel = data.finishedLevel;
     }
     ///////////////////////////
  
@@ -61,7 +62,8 @@ class Floor_2_OTHER extends Phaser.Scene{
     exitLevel(){
         this.cameras.main.fadeOut(1500, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
+            this.scene.start('Floor_2', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true
+            , playerX: this.player.x, playerY: this.player.y});
         })
     }
 }
