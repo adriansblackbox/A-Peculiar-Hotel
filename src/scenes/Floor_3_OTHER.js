@@ -39,6 +39,63 @@ class Floor_3_OTHER extends Phaser.Scene{
         this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG6');
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
+
+        this.createAnims();
+        this.playerisRight = false;
+        this.playerisLeft = false;
+        this.playerisUp = false;
+        this.playerisDown = false;
+    }
+    createAnims(){
+        this.anims.create({
+            key: 'playerDOWN',
+            frames: this.anims.generateFrameNumbers('playerDOWN', { start: 0, end: 6, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerUP',
+            frames: this.anims.generateFrameNumbers('playerUP', { start: 0, end: 6, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerLEFT',
+            frames: this.anims.generateFrameNumbers('playerLEFT', { start: 0, end: 13, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerRIGHT',
+            frames: this.anims.generateFrameNumbers('playerRIGHT', { start: 0, end: 13, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleDOWN',
+            frames: this.anims.generateFrameNumbers('playerIdleDOWN', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleUP',
+            frames: this.anims.generateFrameNumbers('playerIdleUP', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleRIGHT',
+            frames: this.anims.generateFrameNumbers('playerIdleRIGHT', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleLEFT',
+            frames: this.anims.generateFrameNumbers('playerIdleLEFT', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+
     }
     createKeys(){
 
@@ -49,10 +106,49 @@ class Floor_3_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
-        if(this.findingTime > 0)
+        if(this.findingTime > 0){
             this.player.update();
-        else if(!this.timeOut && this.findingTime <= 0){
+            if(this.player.direction == 'LEFT'){
+                this.player.anims.play('playerLEFT', true);
+                this.playerisLeft = true;
+                this.playerisRight = false;
+                this.playerisUp = false;
+                this.playerisDown = false;
+            }
+            if(this.player.direction == 'RIGHT'){
+                this.player.anims.play('playerRIGHT', true);
+                this.playerisLeft = false;
+                this.playerisRight = true;
+                this.playerisUp = false;
+                this.playerisDown = false;
+            }
+            if(this.player.direction == 'UP'){
+                this.player.anims.play('playerUP', true);
+                this.playerisLeft = false;
+                this.playerisRight = false;
+                this.playerisUp = true;
+                this.playerisDown = false;
+            }
+            if(this.player.direction == 'DOWN'){
+                this.player.anims.play('playerDOWN', true);
+                this.playerisLeft = false;
+                this.playerisRight = false;
+                this.playerisUp = false;
+                this.playerisDown = true;
+            }
+            if(this.player.direction == 'IDLE'){
+                if(this.playerisDown)
+                    this.player.anims.play('playerIdleDOWN', true);
+                if(this.playerisUp)
+                    this.player.anims.play('playerIdleUP', true);
+                if(this.playerisLeft)
+                    this.player.anims.play('playerIdleLEFT', true);
+                if(this.playerisRight)
+                    this.player.anims.play('playerIdleRIGHT', true);
+            }
+        }else if(!this.timeOut && this.findingTime <= 0){
             this.timeOut = true;
+            this.player.anims.stop();
             this.exitLevel();
         }
 

@@ -71,13 +71,13 @@ class Floor_4 extends Phaser.Scene{
         this.anims.create({
             key: 'playerDOWN',
             frames: this.anims.generateFrameNumbers('playerDOWN', { start: 0, end: 6, first: 0}),
-            frameRate: 15,
+            frameRate: 10,
             repeat: -1
         });
         this.anims.create({
             key: 'playerUP',
             frames: this.anims.generateFrameNumbers('playerUP', { start: 0, end: 6, first: 0}),
-            frameRate: 15,
+            frameRate: 10,
             repeat: -1
         });
         this.anims.create({
