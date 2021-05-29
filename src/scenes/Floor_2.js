@@ -23,7 +23,14 @@ class Floor_2 extends Phaser.Scene{
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('floor2','./assets/Floor_2.json' );
-
+        this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
+        this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
+        this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
+        this.load.spritesheet('playerRIGHT', 'assets/DetDogRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
+        this.load.spritesheet('playerIdleDOWN', 'assets/idleForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
+        this.load.spritesheet('playerIdleUP', 'assets/idleBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
+        this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
+        this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
     }
     create(){
         this.findingTime = 10000;
@@ -53,6 +60,63 @@ class Floor_2 extends Phaser.Scene{
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
+
+        this.createAnims();
+        this.playerisRight = false;
+        this.playerisLeft = false;
+        this.playerisUp = false;
+        this.playerisDown = false;
+    }
+    createAnims(){
+        this.anims.create({
+            key: 'playerDOWN',
+            frames: this.anims.generateFrameNumbers('playerDOWN', { start: 0, end: 6, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerUP',
+            frames: this.anims.generateFrameNumbers('playerUP', { start: 0, end: 6, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerLEFT',
+            frames: this.anims.generateFrameNumbers('playerLEFT', { start: 0, end: 13, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerRIGHT',
+            frames: this.anims.generateFrameNumbers('playerRIGHT', { start: 0, end: 13, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleDOWN',
+            frames: this.anims.generateFrameNumbers('playerIdleDOWN', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleUP',
+            frames: this.anims.generateFrameNumbers('playerIdleUP', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleRIGHT',
+            frames: this.anims.generateFrameNumbers('playerIdleRIGHT', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerIdleLEFT',
+            frames: this.anims.generateFrameNumbers('playerIdleLEFT', { start: 0, end: 0, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -63,8 +127,49 @@ class Floor_2 extends Phaser.Scene{
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
-        if(!this.elevatorEntered)
+        if(!this.elevatorEntered){
             this.player.update();
+            if(this.player.direction == 'LEFT'){
+                this.player.anims.play('playerLEFT', true);
+                this.playerisLeft = true;
+                this.playerisRight = false;
+                this.playerisUp = false;
+                this.playerisDown = false;
+            }
+            if(this.player.direction == 'RIGHT'){
+                this.player.anims.play('playerRIGHT', true);
+                this.playerisLeft = false;
+                this.playerisRight = true;
+                this.playerisUp = false;
+                this.playerisDown = false;
+            }
+            if(this.player.direction == 'UP'){
+                this.player.anims.play('playerUP', true);
+                this.playerisLeft = false;
+                this.playerisRight = false;
+                this.playerisUp = true;
+                this.playerisDown = false;
+            }
+            if(this.player.direction == 'DOWN'){
+                this.player.anims.play('playerDOWN', true);
+                this.playerisLeft = false;
+                this.playerisRight = false;
+                this.playerisUp = false;
+                this.playerisDown = true;
+            }
+            if(this.player.direction == 'IDLE'){
+                if(this.playerisDown)
+                    this.player.anims.play('playerIdleDOWN', true);
+                if(this.playerisUp)
+                    this.player.anims.play('playerIdleUP', true);
+                if(this.playerisLeft)
+                    this.player.anims.play('playerIdleLEFT', true);
+                if(this.playerisRight)
+                    this.player.anims.play('playerIdleRIGHT', true);
+            }
+        }else{
+            this.player.anims.stop();
+        }
         this.collisions();
         if(noteBookKey.isDown){
             game.config.prevScene = 'Floor_2';
