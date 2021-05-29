@@ -53,6 +53,8 @@ class Floor_3 extends Phaser.Scene{
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
+        map.createLayer('abovePlayer', tileset);
+
         this.physics.add.collider(this.player, walls);
     }
     createKeys(){
@@ -72,7 +74,8 @@ class Floor_3 extends Phaser.Scene{
             this.scene.switch('Drawing');
         }
         if(interactKey.isDown && !this.finishedLevel){
-            this.scene.start('Floor_3_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
+            this.scene.start('Floor_3_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+            playerX: this.player.x, playerY: this.player.y});
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }

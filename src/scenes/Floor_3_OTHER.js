@@ -8,6 +8,8 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.floorList = data.floorList;
         this.passwordIndex = data.passwordIndex;
         this.finishedLevel = data.finishedLevel;
+        this.playerX = data.playerX;
+        this.playerY = data.playerY;
     }
     ///////////////////////////
  
@@ -28,7 +30,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
         this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG6');
-        this.player = new Player(this, game.config.width/2, game.config.height/2, 'player', 0);
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
     }
     createKeys(){
