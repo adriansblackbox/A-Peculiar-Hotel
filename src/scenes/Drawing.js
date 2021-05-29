@@ -8,7 +8,7 @@ class Drawing extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('BG1', './assets/Notepad.png');
+        this.load.image('Notepad', './assets/Notepad.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('brush', './assets/testBrush.png');
         this.load.image('pencil', './assets/BiggerPencil.png');
@@ -19,7 +19,7 @@ class Drawing extends Phaser.Scene{
         this.canvas = this.sys.canvas;
         this.canvas.style.cursor = 'none';
         
-        this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG1');
+        this.background = this.add.image(game.config.width/2, game.config.height/2, 'Notepad');
         this.rt = this.add.renderTexture(0,0,960,720);
         this.text = this.add.text(game.config.width/1.6, game.config.height/1.1, "T-Key to clear notebook", this.style);
         this.text = this.add.text(game.config.width/1.68, game.config.height/1.2, "Y-Key to go back to level", this.style);
