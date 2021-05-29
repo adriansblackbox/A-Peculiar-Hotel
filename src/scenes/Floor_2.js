@@ -27,7 +27,7 @@ class Floor_2 extends Phaser.Scene{
     }
     create(){
         this.findingTime = 10000;
-
+        this.elevatorEntered = false;
 
 
 
@@ -70,8 +70,10 @@ class Floor_2 extends Phaser.Scene{
             game.config.prevScene = 'Floor_2';
             this.scene.switch('Drawing');
         }
-        if(interactKey.isDown){
+        if(interactKey.isDown && !this.finishedLevel){
             this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
+        }else if(this.finishedLevel && !this.enteredElevator){
+            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
     }
     collisions(){
