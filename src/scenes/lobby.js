@@ -18,7 +18,11 @@ class Lobby extends Phaser.Scene{
         this.load.image('monster','./assets/GhostSprite.png' );
         this.load.image('chest','./assets/chest.png' );
         this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
-
+        this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
+        this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
+        this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
+        this.load.spritesheet('playerRIGHT', 'assets/DetDogRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
+        //this.load.spritesheet('playerIDLE', 'assets/DetDogRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
     }
     create(){
         let lobbyBGMConfig = {
@@ -77,7 +81,36 @@ class Lobby extends Phaser.Scene{
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
+
+        this.createAnims();
         
+    }
+    createAnims(){
+        this.anims.create({
+            key: 'playerDOWN',
+            frames: this.anims.generateFrameNumbers('playerDOWN', { start: 0, end: 6, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerUP',
+            frames: this.anims.generateFrameNumbers('playerUP', { start: 0, end: 6, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerLEFT',
+            frames: this.anims.generateFrameNumbers('playerLEFT', { start: 0, end: 13, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playerRIGHT',
+            frames: this.anims.generateFrameNumbers('playerRIGHT', { start: 0, end: 13, first: 0}),
+            frameRate: 15,
+            repeat: -1
+        });
+
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -87,9 +120,24 @@ class Lobby extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(){
-        if(!this.enteredElevator)
+        if(!this.enteredElevator){
             this.player.update();
+            if(this.player.direction == 'LEFT')
+                this.player.anims.play('playerLEFT', true);
+            if(this.player.direction == 'RIGHT')
+                this.player.anims.play('playerRIGHT', true);
+            if(this.player.direction == 'UP')
+                this.player.anims.play('playerUP', true);
+            if(this.player.direction == 'DOWN')
+                this.player.anims.play('playerDOWN', true);
+            if(this.player.direction == 'IDLE'){
+                
+                this.player.anims.pause();
+            }
+                
             //this.monster.update(this.player.x, this.player.y);
+
+        }
         this.collisions();
         if(noteBookKey.isDown){
             game.config.prevScene = 'Lobby';
