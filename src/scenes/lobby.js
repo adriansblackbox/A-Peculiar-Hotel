@@ -17,6 +17,7 @@ class Lobby extends Phaser.Scene{
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
         this.load.image('monster','./assets/GhostSprite.png' );
         this.load.image('chest','./assets/chest.png' );
+        this.load.image('chestLit','./assets/chestLit.png' );
         this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -73,7 +74,13 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
+<<<<<<< Updated upstream
         this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0, 50);
+=======
+        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0);
+        this.monster1 = new Monster(this, game.config.width/2 - 50, game.config.height + 50, 'monster', 0);
+        this.monster2 = new Monster(this, game.config.width/2 + 20, game.config.height + 50, 'monster', 0);
+>>>>>>> Stashed changes
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
 
@@ -192,10 +199,14 @@ class Lobby extends Phaser.Scene{
                     this.player.anims.play('playerIdleRIGHT', true);
             }
                 
-            if(this.player.direction != 'IDLE')
+            if(this.player.direction != 'IDLE'){
                 this.monster.update(this.player.x, this.player.y);
-            else{
+                this.monster1.update(this.player.x, this.player.y);
+                this.monster2.update(this.player.x, this.player.y);
+            }else{
                 this.monster.body.setVelocity(0,0);
+                this.monster1.body.setVelocity(0,0);
+                this.monster2.body.setVelocity(0,0);
             }
 
         }else{
@@ -208,16 +219,20 @@ class Lobby extends Phaser.Scene{
         }
         if(this.player.x <= this.chest.x + 30 && this.player.x >= this.chest.x - 30 && 
             this.player.y <= this.chest.y + 30 && this.player.y >= this.chest.y - 30){
-                this.chestText.setText("Press E");
-                // put if E pressed logic here
+                this.chest.setTexture('chestLit', 0);
         }else{
-            this.chestText.setText("");
+            this.chest.setTexture('chest', 0);
         }
     }
     collisions(){
         if(!this.enteredElevator)
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         this.physics.world.collide(this.player, this.monster, this.memoryErased, null, this);
+        this.physics.add.collider(this.monster, this.monster1);
+        this.physics.add.collider(this.monster, this.monster2);
+        this.physics.add.collider(this.monster1, this.monster2);
+
+        
     }
     memoryErased(){
         this.player.x = game.config.width/2 - 12;

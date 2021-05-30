@@ -21,6 +21,9 @@ class Floor_2 extends Phaser.Scene{
         this.load.image('obj_1', './assets/chest.png');
         this.load.image('obj_2', './assets/chest.png');
         this.load.image('obj_3', './assets/chest.png');
+        this.load.image('obj_1Lit', './assets/chestLit.png');
+        this.load.image('obj_2Lit', './assets/chestLit.png');
+        this.load.image('obj_3Lit', './assets/chestLit.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
@@ -200,26 +203,35 @@ class Floor_2 extends Phaser.Scene{
     objectInteraction(){
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
             this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
+                this.obj_1.setTexture('obj_1Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = 5000;
                     this.playerDeciding = true;
                 }
+        }else{
+            this.obj_1.setTexture('obj_1', 0);
         }
 
         if(this.player.x <= this.obj_2.x + 30 && this.player.x >= this.obj_2.x - 30 && 
             this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
+                this.obj_2.setTexture('obj_2Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = 8000;
                     this.playerDeciding = true;
                 }
+        }else{
+            this.obj_2.setTexture('obj_2', 0);
         }
 
         if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
             this.player.y <= this.obj_3.y + 30 && this.player.y >= this.obj_3.y - 30){
+                this.obj_3.setTexture('obj_3Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = 10000;
                     this.playerDeciding = true;
                 }
+        }else{
+            this.obj_3.setTexture('obj_3', 0);
         }
         
     }
