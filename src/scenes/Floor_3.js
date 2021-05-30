@@ -51,11 +51,11 @@ class Floor_3 extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
+        this.elevator = this.physics.add.sprite(game.config.width - 256, 48, 'elevator', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
         if(!this.finishedLevel)
-            this.player = new Player(this, game.config.width + 20, 430, 'player', 0);
+            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
         else
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
