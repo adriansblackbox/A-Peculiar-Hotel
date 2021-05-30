@@ -19,7 +19,8 @@ class Floor_4_OTHER extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('BG6', './assets/floor6BG.png');
+        this.load.image('spirittiles', './assets/Spirit_Tiles.png');
+        this.load.tilemapTiledJSON('floor4OTHER','./assets/Floor_4_OTHER.json' );
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -36,9 +37,19 @@ class Floor_4_OTHER extends Phaser.Scene{
 
         this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
-        this. background = this.add.image(game.config.width/2, game.config.height/2, 'BG6');
-        this.player = new Player(this,this.playerX, this.playerY, 'player', 0);
+
+        const map = this.make.tilemap({key: 'floor4OTHER'});
+        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);
+
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
+
+        this.physics.add.collider(this.player, walls);
 
         this.createAnims();
         this.playerisRight = false;
