@@ -74,13 +74,9 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
-<<<<<<< Updated upstream
-        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0, 50);
-=======
         this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0);
         this.monster1 = new Monster(this, game.config.width/2 - 50, game.config.height + 50, 'monster', 0);
         this.monster2 = new Monster(this, game.config.width/2 + 20, game.config.height + 50, 'monster', 0);
->>>>>>> Stashed changes
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
 
