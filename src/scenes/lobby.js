@@ -73,7 +73,7 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
-        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0);
+        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 0, 50);
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
 

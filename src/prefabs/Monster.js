@@ -1,6 +1,6 @@
 class Monster extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x,y,texture,frame){
-        super(scene,x,y,texture,frame);
+    constructor(scene,x,y,texture,frame, speedP){
+        super(scene,x,y,texture,frame, speedP);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -10,7 +10,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
 
         this.startingX = this.x;
         this.startingY = this.y;
-        this.speed = 50; //58
+        this.speed = speedP; //58
         this.direction = false;
         this.moveList = [];
         this.index = 0;
