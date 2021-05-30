@@ -192,7 +192,11 @@ class Lobby extends Phaser.Scene{
                     this.player.anims.play('playerIdleRIGHT', true);
             }
                 
-            //this.monster.update(this.player.x, this.player.y);
+            if(this.player.direction != 'IDLE')
+                this.monster.update(this.player.x, this.player.y);
+            else{
+                this.monster.body.setVelocity(0,0);
+            }
 
         }else{
             this.player.anims.stop();

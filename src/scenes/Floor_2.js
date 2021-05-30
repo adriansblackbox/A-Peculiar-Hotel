@@ -19,6 +19,8 @@ class Floor_2 extends Phaser.Scene{
 
     preload(){
         this.load.image('obj_1', './assets/chest.png');
+        this.load.image('obj_2', './assets/chest.png');
+        this.load.image('obj_3', './assets/chest.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
@@ -72,6 +74,10 @@ class Floor_2 extends Phaser.Scene{
     createObjects(){
         this.obj_1 = this.physics.add.sprite(game.config.width - 550, 100, 'obj_1', 0);
         this.obj_1.body.setImmovable();
+        this.obj_2 = this.physics.add.sprite(game.config.width - 550, 150, 'obj_2', 0);
+        this.obj_2.body.setImmovable();
+        this.obj_3 = this.physics.add.sprite(game.config.width - 550, 200, 'obj_3', 0);
+        this.obj_3.body.setImmovable();
     }
     createAnims(){
         this.anims.create({
@@ -195,12 +201,27 @@ class Floor_2 extends Phaser.Scene{
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
             this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
                 if(interactKey.isDown){
+                    this.findingTime = 5000;
                     this.playerDeciding = true;
-                    //this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-                    //playerX: this.player.x, playerY: this.player.y});
                 }
         }
-            
+
+        if(this.player.x <= this.obj_2.x + 30 && this.player.x >= this.obj_2.x - 30 && 
+            this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
+                if(interactKey.isDown){
+                    this.findingTime = 8000;
+                    this.playerDeciding = true;
+                }
+        }
+
+        if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
+            this.player.y <= this.obj_3.y + 30 && this.player.y >= this.obj_3.y - 30){
+                if(interactKey.isDown){
+                    this.findingTime = 10000;
+                    this.playerDeciding = true;
+                }
+        }
+        
     }
     confirmObject(){
         if(keyUP.isDown){
@@ -212,6 +233,8 @@ class Floor_2 extends Phaser.Scene{
     }
     collisions(){
         this.physics.add.collider(this.player, this.obj_1);
+        this.physics.add.collider(this.player, this.obj_2);
+        this.physics.add.collider(this.player, this.obj_3);
     }
 
     elveatorExit(){
