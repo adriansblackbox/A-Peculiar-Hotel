@@ -18,7 +18,6 @@ class Floor_3 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('BG1', './assets/floor1BG.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');

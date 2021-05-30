@@ -18,7 +18,7 @@ class Floor_2 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('BG1', './assets/floor1BG.png');
+        this.load.image('obj_1', './assets/chest.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
@@ -35,7 +35,7 @@ class Floor_2 extends Phaser.Scene{
     create(){
         this.findingTime = 10000;
         this.elevatorEntered = false;
-
+        this.playerDeciding = false;
 
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
@@ -61,11 +61,17 @@ class Floor_2 extends Phaser.Scene{
 
         this.physics.add.collider(this.player, walls);
 
+        this.createObjects();
+
         this.createAnims();
         this.playerisRight = false;
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
+    }
+    createObjects(){
+        this.obj_1 = this.physics.add.sprite(game.config.width - 550, 100, 'obj_1', 0);
+        this.obj_1.body.setImmovable();
     }
     createAnims(){
         this.anims.create({
@@ -127,7 +133,7 @@ class Floor_2 extends Phaser.Scene{
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
-        if(!this.elevatorEntered){
+        if(!this.elevatorEntered && !this.playerDeciding){
             this.player.update();
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -169,20 +175,43 @@ class Floor_2 extends Phaser.Scene{
             }
         }else{
             this.player.anims.stop();
+            this.player.setVelocity(0,0);
         }
         this.collisions();
         if(noteBookKey.isDown){
             game.config.prevScene = 'Floor_2';
             this.scene.switch('Drawing');
         }
-        if(interactKey.isDown && !this.finishedLevel){
-            this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-            playerX: this.player.x, playerY: this.player.y});
+        if(!this.finishedLevel && !this.playerDeciding){
+            this.objectInteraction();
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
+        if(this.playerDeciding){
+            this.confirmObject();
+        }
+    }
+    objectInteraction(){
+        if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
+            this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
+                if(interactKey.isDown){
+                    this.playerDeciding = true;
+                    //this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                    //playerX: this.player.x, playerY: this.player.y});
+                }
+        }
+            
+    }
+    confirmObject(){
+        if(keyUP.isDown){
+            this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+            playerX: this.player.x, playerY: this.player.y});
+        }else if(keyDOWN.isDown){
+            this.playerDeciding = false;
+        }
     }
     collisions(){
+        this.physics.add.collider(this.player, this.obj_1);
     }
 
     elveatorExit(){

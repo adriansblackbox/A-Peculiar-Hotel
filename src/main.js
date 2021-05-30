@@ -5,7 +5,7 @@ let config = {
     width: 640,
     height: 360,
     pixelArt: true,
-    scene: [Floor_3, Menu, Lobby, Elevator, Floor_4, Floor_1, Floor_2, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing],
+    scene: [Floor_2, Menu, Lobby, Elevator, Floor_4, Floor_1, Floor_3, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing],
 
     // variables for states in game
     prevScene: '',
@@ -15,7 +15,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,    // Set to true for testing purposes only
+            debug: false,    // Set to true for testing purposes only
             gravity: {
                 x: 0,
                 y: 0
