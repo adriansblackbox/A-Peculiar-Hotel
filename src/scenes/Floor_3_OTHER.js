@@ -61,6 +61,9 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
+
+        //this.monster.anchor.setTo(.5);
+        //this.monster.pivot.x = 100;
     }
     createAnims(){
         this.anims.create({
@@ -122,8 +125,6 @@ class Floor_3_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
-        Phaser.Actions.RotateAroundDistance(this.monster, {x: 200, y: 200} , .2, 200);
-
         if(this.findingTime > 0){
             this.player.update();
             if(this.player.direction == 'LEFT'){
