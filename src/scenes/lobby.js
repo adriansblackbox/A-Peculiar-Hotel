@@ -57,6 +57,7 @@ class Lobby extends Phaser.Scene{
         this.createKeys();
         const map = this.make.tilemap({key: 'lobby'});
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
+        
 
         map.createLayer('Ground', tileset);
         map.createLayer('extra', tileset);
