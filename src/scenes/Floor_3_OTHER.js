@@ -44,7 +44,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
+        this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         map.createLayer('abovePlayer', tileset);
@@ -177,7 +177,7 @@ class Floor_3_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
-        this.cameras.main.fadeOut(1500, 0, 0, 0)
+        this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
         this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Floor_3', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true

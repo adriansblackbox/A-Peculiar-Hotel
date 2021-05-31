@@ -36,10 +36,13 @@ class Floor_1 extends Phaser.Scene{
     create(){
         this.findingTime = 10000;
         this.enteredElevator = false;
+        this.spiritStart = false;
 
+        if(!this.finishedLevel)
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+        else
+            this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
 
-
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.createKeys();
 
         const map = this.make.tilemap({key: 'floor1'});
@@ -193,9 +196,14 @@ class Floor_1 extends Phaser.Scene{
             game.config.prevScene = 'Floor_1';
             this.scene.switch('Drawing');
         }
-        if(interactKey.isDown && !this.finishedLevel){
-            this.scene.start('Floor_1_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-            playerX: this.player.x, playerY: this.player.y});
+        if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
+            this.spiritStart = true;
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Floor_1_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                playerX: this.player.x, playerY: this.player.y});
+            });
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
