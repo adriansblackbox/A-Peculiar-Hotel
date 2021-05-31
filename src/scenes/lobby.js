@@ -26,6 +26,8 @@ class Lobby extends Phaser.Scene{
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
     }
     create(){
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
         let lobbyBGMConfig = {
             mute: false,
             volume: 1,
