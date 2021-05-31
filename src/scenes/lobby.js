@@ -12,7 +12,6 @@ class Lobby extends Phaser.Scene{
     ///////////////////////////
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
-        this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
         this.load.image('monster','./assets/GhostSprite.png' );
@@ -27,6 +26,7 @@ class Lobby extends Phaser.Scene{
         this.load.spritesheet('playerIdleUP', 'assets/idleBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
+        this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
     }
     create(){
         let lobbyBGMConfig = {
@@ -63,7 +63,7 @@ class Lobby extends Phaser.Scene{
         map.createLayer('extra', tileset);
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
-        this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevator', 0);
+        this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevatorDoors', 0);
         this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
 
@@ -143,6 +143,11 @@ class Lobby extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('playerIdleLEFT', { start: 0, end: 0, first: 0}),
             frameRate: 15,
             repeat: -1
+        });
+        this.anims.create({
+            key: 'elevatorDoors',
+            frames: this.anims.generateFrameNumbers('elevatorDoors', { start: 0, end: 32, first: 0}),
+            frameRate: 15
         });
 
     }
@@ -236,7 +241,8 @@ class Lobby extends Phaser.Scene{
     }
     elveatorExit(){
         this.enteredElevator = true;
-        this.cameras.main.fadeOut(1500, 0, 0, 0)
+        this.elevator.anims.play('elevatorDoors', true);
+        this.cameras.main.fadeOut(3000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         })
