@@ -65,6 +65,10 @@ class Floor_4 extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
+
+        if(!this.finishedLevel){
+            this.elevator.anims.play('elevatorDoorsClose', true);
+        }
     }
     createAnims(){
         this.anims.create({
@@ -118,6 +122,11 @@ class Floor_4 extends Phaser.Scene{
         this.anims.create({
             key: 'elevatorDoors',
             frames: this.anims.generateFrameNumbers('elevatorDoors', { start: 0, end: 32, first: 0}),
+            frameRate: 15
+        });
+        this.anims.create({
+            key: 'elevatorDoorsClose',
+            frames: this.anims.generateFrameNumbers('elevatorDoors', { start: 32, end: 0, first: 32}),
             frameRate: 15
         });
     }
@@ -191,6 +200,7 @@ class Floor_4 extends Phaser.Scene{
     elveatorExit(){
         this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);
+        this.player.body.setVelocity(0, 0);
         this.cameras.main.fadeOut(3000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
