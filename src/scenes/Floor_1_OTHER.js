@@ -109,7 +109,6 @@ class Floor_1_OTHER extends Phaser.Scene{
             frameRate: 15,
             repeat: -1
         });
-        console.log("test");
     }
     createKeys(){
 
@@ -120,7 +119,6 @@ class Floor_1_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
-        console.log("test");
 
         if(this.findingTime > 0){
             this.player.update();
