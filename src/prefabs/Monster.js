@@ -55,33 +55,33 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         }
 
         if(this.level == 2){
+            //console.log("this x: " + this.x + " this y: " + this.y);
             //square room
             if(this.whichCorner == 1){
                 this.setVelocity(this.speed,0);
-                if(this.x > 100){
+                if(this.x > 400){
                     this.whichCorner = 2;
                 }
             }
             if(this.whichCorner == 2){
                 this.setVelocity(0,this.speed);
-                if(this.y > 100){
+                if(this.y > 660){
                     this.whichCorner = 3;
                 }
             }
             if(this.whichCorner == 3){
                 this.setVelocity(-this.speed,0);
-                console.log(this.x);
-                if(this.x < 100){
+                if(this.x < 150){
                     this.whichCorner = 4;
                 }
             }
             if(this.whichCorner == 4){
-
                 this.setVelocity(0,-this.speed);
-                if(this.y < -100){
+                if(this.y < 320){
                     this.whichCorner = 1;
                 }
             }
+            
         }
 
         if(this.level == 3){
