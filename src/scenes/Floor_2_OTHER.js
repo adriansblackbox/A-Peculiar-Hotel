@@ -49,7 +49,12 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
-        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 50, 2);
+        this.monster = new Monster(this, game.config.width/2 + 115, game.config.height/4.5, 'monster', 50, 1);
+        this.monster2 = new Monster(this, game.config.width/2 + 275, game.config.height/4.5, 'monster', 100, 1);
+        this.monster3 = new Monster(this, game.config.width/2 + 435, game.config.height/4.5, 'monster', 25, 1);
+
+        console.log(this.monster.level);
+
         this.physics.add.collider(this.player, walls);
 
 
@@ -166,6 +171,8 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.exitLevel();
         }
         this.monster.update(this.player.x, this.player.y);
+        this.monster2.update(this.player.x, this.player.y)
+        this.monster3.update(this.player.x, this.player.y)
 
         this.findingTime -= delta;
 

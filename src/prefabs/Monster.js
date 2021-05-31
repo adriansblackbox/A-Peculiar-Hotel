@@ -1,6 +1,6 @@
 class Monster extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x,y,texture,frame, speedP, levelP){
-        super(scene,x,y,texture,frame, speedP, levelP);
+    constructor(scene,x,y,texture, speedP, levelP){
+        super(scene,x,y,texture, speedP, levelP);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -23,30 +23,29 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.onRIGHT = false;
     }
     update(playerX, playerY){
-        console.log("thisX: " , this.x);
+        //console.log("thisX: " , this.x);
         //console.log("playerX: ",playerX);
         this.movement(playerX, playerY);
     }
 
     movement(pX, pY){
-        if(this.levelP == 1){
+        if(this.level == 1){
             //back and fourth movement based on starting position
-            if(this.x < this.startingX + 100 && this.direction == false){
-                this.setVelocity(this.speed, 0);
-                console.log("if statement");
-                if(this.x > this.startingX + 90){
+            if(this.y < (this.startingY + 100) && this.direction == false){
+                this.setVelocity(0,this.speed);
+                if(this.y > this.startingY + 90){
                     this.direction = true;
                 }
             }
-            else if(this.x > this.startingX - 100 && this.direction == true){
-                this.setVelocity(-this.speed,0);
-                if(this.x < this.startingX - 90){
+            else if(this.y > this.startingY - 100 && this.direction == true){
+                this.setVelocity(0,-this.speed);
+                if(this.y < this.startingY - 90){
                     this.direction = false;
                 }
             }
         }
         
-        if(this.levelP == 4){
+        if(this.level == 4){
             if(this.x > pX - 1 && this.x < pX + 1)
             {
                 this.setVelocityX(0);

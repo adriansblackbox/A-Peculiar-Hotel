@@ -47,7 +47,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         map.createLayer('extra', tileset);
         
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
-        this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
+        this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 2);
 
         this.cameras.main.startFollow(this.player);
 
