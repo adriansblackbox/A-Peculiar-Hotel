@@ -14,7 +14,6 @@ class Lobby extends Phaser.Scene{
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
-        this.load.image('monster','./assets/GhostSprite.png' );
         this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -72,9 +71,7 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
-        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 50, 1);
-        this.monster1 = new Monster(this, game.config.width/2 - 50, game.config.height + 50, 'monster', 0);
-        this.monster2 = new Monster(this, game.config.width/2 + 20, game.config.height + 50, 'monster', 0);
+        
         this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
         map.createLayer('overPlayer', tileset);
 
@@ -196,15 +193,7 @@ class Lobby extends Phaser.Scene{
                     this.player.anims.play('playerIdleRIGHT', true);
             }
                 
-            if(this.player.direction != 'IDLE'){
-                this.monster.update(this.player.x, this.player.y);
-                this.monster1.update(this.player.x, this.player.y);
-                this.monster2.update(this.player.x, this.player.y);
-            }else{
-                this.monster.body.setVelocity(0,0);
-                this.monster1.body.setVelocity(0,0);
-                this.monster2.body.setVelocity(0,0);
-            }
+
 
         }else{
             this.player.anims.stop();
@@ -218,17 +207,10 @@ class Lobby extends Phaser.Scene{
     collisions(){
         if(!this.enteredElevator)
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
-        this.physics.world.collide(this.player, this.monster, this.memoryErased, null, this);
-        this.physics.add.collider(this.monster, this.monster1);
-        this.physics.add.collider(this.monster, this.monster2);
-        this.physics.add.collider(this.monster1, this.monster2);
 
         
     }
-    memoryErased(){
-        this.player.x = game.config.width/2 - 12;
-        this.player.y = game.config.height + 150;
-    }
+    
     elveatorExit(){
         this.enteredElevator = true;
         this.player.body.setVelocity(0, 0);
