@@ -33,4 +33,5 @@ let config = {
 
 
 let game = new Phaser.Game(config);
+
 let keyLEFT, keyRIGHT, keyUP, keyDOWN, noteBookKey, eraseKey, goBack, interactKey, keyYes, keyNo;

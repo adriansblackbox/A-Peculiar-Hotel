@@ -19,6 +19,7 @@ class Floor_1_OTHER extends Phaser.Scene{
     
 
     preload(){
+        this.load.image('monster','./assets/GhostSprite.png' );
         this.load.image('spirittiles', './assets/Spirit_Tiles.png');
         this.load.tilemapTiledJSON('floor1OTHER','./assets/Floor_1_OTHER.json' );
         this.load.image('player', './assets/Detective Doggert 001.png');
@@ -44,8 +45,10 @@ class Floor_1_OTHER extends Phaser.Scene{
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
         map.createLayer('extra', tileset);
-
+        
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
+
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
@@ -55,6 +58,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
+
     }
     createAnims(){
         this.anims.create({
@@ -105,7 +109,7 @@ class Floor_1_OTHER extends Phaser.Scene{
             frameRate: 15,
             repeat: -1
         });
-
+        console.log("test");
     }
     createKeys(){
 
@@ -116,6 +120,8 @@ class Floor_1_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
+        console.log("test");
+
         if(this.findingTime > 0){
             this.player.update();
             if(this.player.direction == 'LEFT'){
@@ -169,6 +175,8 @@ class Floor_1_OTHER extends Phaser.Scene{
             game.config.prevScene = 'Floor_1_OTHER';
             this.scene.switch('Drawing');
         }
+        this.monster.update(this.player.x, this.player.y);
+
     }
     collisions(){
         
