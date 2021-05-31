@@ -53,7 +53,7 @@ class Floor_1 extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
+        //this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
 
         if(!this.finishedLevel)
             this.player = new Player(this, this.elevator.x, this.elevator.y + 60, 'player', 0);
@@ -183,8 +183,6 @@ class Floor_1 extends Phaser.Scene{
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
-        this.monster.update(this.player.x, this.player.y);
-
     }
     collisions(){
     }

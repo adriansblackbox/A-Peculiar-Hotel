@@ -19,6 +19,7 @@ class Floor_2_OTHER extends Phaser.Scene{
     
 
     preload(){
+        this.load.image('monster','./assets/GhostSprite.png' );
         this.load.tilemapTiledJSON('floor2OTHER','./assets/Floor_2_OTHER.json' );
         this.load.image('spirittiles', './assets/Spirit_Tiles.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
@@ -48,7 +49,7 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
-
+        this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 50, 2);
         this.physics.add.collider(this.player, walls);
 
 
@@ -164,6 +165,7 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.player.anims.stop();
             this.exitLevel();
         }
+        this.monster.update(this.player.x, this.player.y);
 
         this.findingTime -= delta;
 
