@@ -12,6 +12,8 @@ class Elevator extends Phaser.Scene{
     preload(){
         this.load.image('button', './assets/');
         this.load.image('keypad', './assets/keypad.png');
+        this.load.image('dogDialogue', './assets/catDialogue.png');
+        this.load.image('catDialogue', './assets/dogDialogue.png');
         this.load.spritesheet('elevatorScene', 'assets/elevatorWaiting.png', {frameWidth: 480, frameHeight: 360, startFrame: 0, endFrame: 11});
 
     }
@@ -28,6 +30,12 @@ class Elevator extends Phaser.Scene{
 
         this.elevatorScene = this.add.sprite(game.config.width/2, game.config.height/2, 'elevatorScene', 0);
         this.elevatorScene.anims.play('elevatorScene', true);
+
+        this.elevatorScene.alpha = 0.1;
+
+        this.dogDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'dogDialogue', 0);
+        this.catDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'catDialogue', 0);
+
 
         console.log(this.password);
         this.nextFloorPressed = false;
