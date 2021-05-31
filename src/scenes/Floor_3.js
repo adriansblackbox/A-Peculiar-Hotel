@@ -34,11 +34,14 @@ class Floor_3 extends Phaser.Scene{
     create(){
         this.findingTime = 10000;
         this.enteredElevator = false;
+        this.spiritStart = false;
 
 
 
-
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
+        if(!this.finishedLevel)
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+        else
+            this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
 
         const map = this.make.tilemap({key: 'floor3'});
@@ -50,13 +53,13 @@ class Floor_3 extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.elevator = this.physics.add.sprite(game.config.width - 256, 48, 'elevatorDoors', 0);
+        this.elevator = this.physics.add.sprite(game.config.width - 272, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        if(!this.finishedLevel)
+        //if(!this.finishedLevel)
             this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
-        else
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+       // else
+        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         map.createLayer('abovePlayer', tileset);
@@ -189,9 +192,14 @@ class Floor_3 extends Phaser.Scene{
             game.config.prevScene = 'Floor_3';
             this.scene.switch('Drawing');
         }
-        if(interactKey.isDown && !this.finishedLevel){
-            this.scene.start('Floor_3_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-            playerX: this.player.x, playerY: this.player.y});
+        if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
+            this.spiritStart = true;
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Floor_3_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                playerX: this.player.x, playerY: this.player.y});
+            });
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }

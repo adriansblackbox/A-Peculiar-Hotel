@@ -36,7 +36,7 @@ class Floor_1_OTHER extends Phaser.Scene{
     create(){
         this.timeOut = false;
 
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
+        this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
         const map = this.make.tilemap({key: 'floor1OTHER'});
         const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
@@ -109,7 +109,6 @@ class Floor_1_OTHER extends Phaser.Scene{
             frameRate: 15,
             repeat: -1
         });
-        console.log("test");
     }
     createKeys(){
 
@@ -120,7 +119,6 @@ class Floor_1_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
-        console.log("test");
 
         if(this.findingTime > 0){
             this.player.update();
@@ -183,7 +181,8 @@ class Floor_1_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
-        this.cameras.main.fadeOut(1500, 0, 0, 0)
+        this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+        this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Floor_1', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true
             , playerX: this.player.x, playerY: this.player.y});

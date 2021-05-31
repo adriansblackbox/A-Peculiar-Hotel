@@ -61,7 +61,7 @@ class Lobby extends Phaser.Scene{
         map.createLayer('extra', tileset);
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
-        this.elevator = this.physics.add.sprite(game.config.width/2 + 125, 0 + 48, 'elevatorDoors', 0);
+        this.elevator = this.physics.add.sprite(game.config.width/2 + 144, 0 + 48, 'elevatorDoors', 0);
         this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
 
@@ -233,7 +233,7 @@ class Lobby extends Phaser.Scene{
         this.enteredElevator = true;
         this.player.body.setVelocity(0, 0);
         this.elevator.anims.play('elevatorDoors', true);
-        this.cameras.main.fadeOut(3000, 0, 0, 0)
+        this.cameras.main.fadeOut(3000, 0,0,0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         })

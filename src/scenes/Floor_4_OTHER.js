@@ -35,7 +35,7 @@ class Floor_4_OTHER extends Phaser.Scene{
     create(){
         this.timeOut = false;
 
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
+        this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
 
         const map = this.make.tilemap({key: 'floor4OTHER'});
@@ -172,11 +172,11 @@ class Floor_4_OTHER extends Phaser.Scene{
         }
     }
     collisions(){
-        
     }
 
     exitLevel(){
-        this.cameras.main.fadeOut(1500, 0, 0, 0)
+        this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+        this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Floor_4', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true
             , playerX: this.player.x, playerY: this.player.y});

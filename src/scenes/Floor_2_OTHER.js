@@ -36,7 +36,7 @@ class Floor_2_OTHER extends Phaser.Scene{
     create(){
         this.timeOut = false;
 
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
+        this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
         const map = this.make.tilemap({key: 'floor2OTHER'});
         const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
@@ -45,8 +45,6 @@ class Floor_2_OTHER extends Phaser.Scene{
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
         map.createLayer('extra', tileset);
-
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.monster = new Monster(this, game.config.width/2 + 115, game.config.height/4.5, 'monster', 50, 1);
@@ -187,7 +185,8 @@ class Floor_2_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
-        this.cameras.main.fadeOut(1500, 0, 0, 0)
+        this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+        this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Floor_2', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true
             , playerX: this.player.x, playerY: this.player.y});

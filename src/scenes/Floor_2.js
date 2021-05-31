@@ -41,12 +41,16 @@ class Floor_2 extends Phaser.Scene{
         this.findingTime = 10000;
         this.elevatorEntered = false;
         this.playerDeciding = false;
+        this.spiritStart = false;
 
         this.tieObjects();
 
 
 
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
+        if(!this.finishedLevel)
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+        else
+            this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
         
 
@@ -62,10 +66,10 @@ class Floor_2 extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width + 944, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        if(!this.finishedLevel)
+        //if(!this.finishedLevel)
             this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
-        else
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        //else
+        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
@@ -303,9 +307,14 @@ class Floor_2 extends Phaser.Scene{
         this.confirmText.setX(this.player.x - 150);
         this.confirmText.setY(this.player.y + 130);
 
-        if(keyYes.isDown){
-            this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-            playerX: this.player.x, playerY: this.player.y});
+        if(keyYes.isDown && !this.finishedLevel && !this.spiritStart){
+            this.spiritStart = true;
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                playerX: this.player.x, playerY: this.player.y});
+            });
         }else if(keyNo.isDown){
             this.playerDeciding = false;
             this.foundText.setText("");
