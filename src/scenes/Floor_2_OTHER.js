@@ -53,10 +53,16 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.monster = new Monster(this, game.config.width/2 + 115, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
         this.monster2 = new Monster(this, game.config.width/2 + 275, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
         this.monster3 = new Monster(this, game.config.width/2 + 435, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster4 = new Monster(this, game.config.width/2 + 595, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster5 = new Monster(this, game.config.width/2 + 755, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster6 = new Monster(this, game.config.width/2 + 915, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
 
-        this.monster4 = new Monster(this, game.config.width/2 + 115, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster5 = new Monster(this, game.config.width/2 + 275, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster6 = new Monster(this, game.config.width/2 + 435, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster7 = new Monster(this, game.config.width/2 + 115, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster8 = new Monster(this, game.config.width/2 + 275, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster9 = new Monster(this, game.config.width/2 + 435, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster10 = new Monster(this, game.config.width/2 + 595, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster11 = new Monster(this, game.config.width/2 + 755, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        this.monster12 = new Monster(this, game.config.width/2 + 915, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
 
         console.log(this.monster.level);
 
@@ -181,7 +187,12 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.monster4.update(this.player.x, this.player.y);
         this.monster5.update(this.player.x, this.player.y);
         this.monster6.update(this.player.x, this.player.y);
-        
+        this.monster7.update(this.player.x, this.player.y);
+        this.monster8.update(this.player.x, this.player.y);
+        this.monster9.update(this.player.x, this.player.y);
+        this.monster10.update(this.player.x, this.player.y);
+        this.monster11.update(this.player.x, this.player.y);
+        this.monster12.update(this.player.x, this.player.y);
         this.findingTime -= delta;
 
         this.collisions();
