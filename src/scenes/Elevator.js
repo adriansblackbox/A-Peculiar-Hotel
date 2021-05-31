@@ -10,11 +10,25 @@ class Elevator extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('button', './assets/ElevatorButton.png');
+        this.load.image('button', './assets/');
         this.load.image('keypad', './assets/keypad.png');
+        this.load.spritesheet('elevatorScene', 'assets/elevatorWaiting.png', {frameWidth: 480, frameHeight: 360, startFrame: 0, endFrame: 11});
 
     }
     create(){
+
+        this.elevatorTime = 5000;
+
+        this.anims.create({
+            key: 'elevatorScene',
+            frames: this.anims.generateFrameNumbers('elevatorScene', { start: 0, end: 11, first: 0}),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.elevatorScene = this.add.sprite(game.config.width/2, game.config.height/2, 'elevatorScene', 0);
+        this.elevatorScene.anims.play('elevatorScene', true);
+
         console.log(this.password);
         this.nextFloorPressed = false;
 
@@ -44,11 +58,11 @@ class Elevator extends Phaser.Scene{
         console.log(this.floorList);
 
         if(this.nextFloor != null){
-            this.startBtn = this.add.sprite(game.config.width/2, game.config.height/2, 'button').setInteractive();
+            //this.startBtn = this.add.sprite(game.config.width/2, game.config.height/2, 'button').setInteractive();
 
-            this.startBtn.on('pointerdown', function (event) {
+            //this.startBtn.on('pointerdown', function (event) {
                 this.nextFloorPressed = true;
-            },this);
+            //},this);
         }else{
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
             this.button1 = this.physics.add.sprite(game.config.width/2 - 60, game.config.height/2 - 30).setInteractive();
@@ -106,9 +120,9 @@ class Elevator extends Phaser.Scene{
         }
        
     }
-    update(){
-        //console.log(this.inputPassword);
-
+    update(time, delta){
+        this.elevatorTime -= delta;
+        this.elevatorScene.anims.play('elevatorScene', true);
         if(this.inputPassword.length > 4){
             this.inputPassword.pop();
         }
@@ -119,7 +133,7 @@ class Elevator extends Phaser.Scene{
             }
         }
 
-        if(this.nextFloorPressed && !this.fadingOut){
+        if(this.elevatorTime <= 0 && !this.fadingOut){
             this.fadingOut = true;
             this.cameras.main.fadeOut(1500, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {

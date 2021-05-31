@@ -15,8 +15,6 @@ class Lobby extends Phaser.Scene{
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
         this.load.image('monster','./assets/GhostSprite.png' );
-        this.load.image('chest','./assets/chest.png' );
-        this.load.image('chestLit','./assets/chestLit.png' );
         this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -81,8 +79,6 @@ class Lobby extends Phaser.Scene{
         map.createLayer('overPlayer', tileset);
 
 
-        this.chest = this.physics.add.sprite(game.config.width/2 - 80, game.config.height + 150, 'chest', 0);
-        this.chestText = this.add.text(this.chest.x,this.chest.y - 20, "", this.style);
 
         this.cameras.main.startFollow(this.player);
 
@@ -217,12 +213,6 @@ class Lobby extends Phaser.Scene{
         if(noteBookKey.isDown){
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
-        }
-        if(this.player.x <= this.chest.x + 30 && this.player.x >= this.chest.x - 30 && 
-            this.player.y <= this.chest.y + 30 && this.player.y >= this.chest.y - 30){
-                this.chest.setTexture('chestLit', 0);
-        }else{
-            this.chest.setTexture('chest', 0);
         }
     }
     collisions(){
