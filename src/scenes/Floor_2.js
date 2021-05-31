@@ -282,7 +282,7 @@ class Floor_2 extends Phaser.Scene{
         this.foundText.setX(this.player.x - 100);
         this.foundText.setY(this.player.y + 100);
         this.itemText.setText(this.selectedItem);
-        this.itemText.setX(this.player.x - 10);
+        this.itemText.setX(this.player.x - 15);
         this.itemText.setY(this.player.y + 100);
         this.confirmText.setText("Use this item? Yes(Space)  No(Esc) ");
         this.confirmText.setX(this.player.x - 150);
