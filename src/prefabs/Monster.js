@@ -1,6 +1,6 @@
 class Monster extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x,y,texture,frame, speedP, levelP){
-        super(scene,x,y,texture,frame, speedP, levelP);
+    constructor(scene,x,y,texture, speedP, levelP){
+        super(scene,x,y,texture, speedP, levelP);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -15,38 +15,69 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.direction = false;
         this.moveList = [];
         this.index = 0;
+        this.circleSpeedX = 2;
+        this.circleSpeedY = 2;
+        this.danceMove = 2; //Phaser.Math.Between(1,2)
     }
     create(){
         this.onDOWN = false;
         this.onUP = false;
         this.onLEFT = false;
         this.onRIGHT = false;
+        console.log("ghost created");
     }
     update(playerX, playerY){
-        console.log("thisX: " , this.x);
+        //console.log("thisX: " , this.x);
         //console.log("playerX: ",playerX);
         this.movement(playerX, playerY);
     }
 
     movement(pX, pY){
-        if(this.levelP == 1){
+        if(this.level == 1){
             //back and fourth movement based on starting position
-            if(this.x < this.startingX + 100 && this.direction == false){
-                this.setVelocity(this.speed, 0);
-                console.log("if statement");
-                if(this.x > this.startingX + 90){
+            if(this.y < (this.startingY + 100) && this.direction == false){
+                this.setVelocity(0,this.speed);
+                if(this.y > this.startingY + 90){
                     this.direction = true;
                 }
             }
-            else if(this.x > this.startingX - 100 && this.direction == true){
-                this.setVelocity(-this.speed,0);
-                if(this.x < this.startingX - 90){
+            else if(this.y > this.startingY - 100 && this.direction == true){
+                this.setVelocity(0,-this.speed);
+                if(this.y < this.startingY - 90){
                     this.direction = false;
                 }
             }
         }
+
+        if(this.level == 2){
+            //square room
+
+        }
+        if(this.level == 3){
+            //ballroom
+            if(this.danceMove == 1){
+                //diagonall
+                if(this.circleSpeedX > -2 && this.direction == false){
+                    this.circleSpeedX -= .1;
+                    this.circleSpeedY -= .1;
+                    if(this.circleSpeedX < -1.9){
+                        this.direction = true;
+                    }
+                }
+                if(this.circleSpeedX < 2 && this.direction == true){
+                    this.circleSpeedX += .1;
+                    this.circleSpeedY += .1;
+                    if(this.circleSpeedX > 1.9){
+                        this.direction = false;
+                    }
+                }
+                this.setVelocity(this.speed*this.circleSpeedX, this.speed*this.circleSpeedY);
+            }
+            if(this.danceMove == 2){
+            }
+        }
         
-        if(this.levelP == 4){
+        if(this.level == 4){
             if(this.x > pX - 1 && this.x < pX + 1)
             {
                 this.setVelocityX(0);
