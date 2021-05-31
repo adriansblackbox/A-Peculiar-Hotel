@@ -42,9 +42,13 @@ class Floor_2 extends Phaser.Scene{
         this.elevatorEntered = false;
         this.playerDeciding = false;
 
+        this.tieObjects();
+
+
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.createKeys();
+        
 
         const map = this.make.tilemap({key: 'floor2'});
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
@@ -67,12 +71,45 @@ class Floor_2 extends Phaser.Scene{
         this.physics.add.collider(this.player, walls);
 
         this.createObjects();
+        this.createPrompts();
 
         this.createAnims();
         this.playerisRight = false;
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
+    }
+    tieObjects(){
+        this.selectedItem = "";
+        this.objectArray = ["Family Ring", "Pen", "Tattered Jacket"];
+        this.objectTime = [28000, 25000, 20000]
+
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_1_item = this.objectArray[this.randIndex];
+        this.object_1_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
+        }
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_2_item = this.objectArray[this.randIndex];
+        this.object_2_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
+        }
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_3_item = this.objectArray[this.randIndex];
+        this.object_3_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
+        }
+    }
+    createPrompts(){
+        this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
+        this.style1 = { font: "15px Arial", fill: "#ff0000", align: "center" };
+        this.foundText = this.add.text(0,0, "", this.style);
+        this.itemText = this.add.text(0,0, "", this.style1);
+        this.confirmText = this.add.text(0,0, "", this.style);
+        
     }
     createObjects(){
         this.obj_1 = this.physics.add.sprite(game.config.width - 550, 100, 'obj_1', 0);
@@ -140,6 +177,8 @@ class Floor_2 extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keyYes= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyNo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
     update(){
         if(!this.elevatorEntered && !this.playerDeciding){
@@ -205,7 +244,8 @@ class Floor_2 extends Phaser.Scene{
             this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
                 this.obj_1.setTexture('obj_1Lit', 0);
                 if(interactKey.isDown){
-                    this.findingTime = 5000;
+                    this.findingTime = this.object_1_time;
+                    this.selectedItem = this.object_1_item;
                     this.playerDeciding = true;
                 }
         }else{
@@ -216,7 +256,8 @@ class Floor_2 extends Phaser.Scene{
             this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
                 this.obj_2.setTexture('obj_2Lit', 0);
                 if(interactKey.isDown){
-                    this.findingTime = 8000;
+                    this.findingTime = this.object_2_time;
+                    this.selectedItem = this.object_2_item;
                     this.playerDeciding = true;
                 }
         }else{
@@ -227,7 +268,8 @@ class Floor_2 extends Phaser.Scene{
             this.player.y <= this.obj_3.y + 30 && this.player.y >= this.obj_3.y - 30){
                 this.obj_3.setTexture('obj_3Lit', 0);
                 if(interactKey.isDown){
-                    this.findingTime = 10000;
+                    this.findingTime = this.object_3_time;
+                    this.selectedItem = this.object_3_item;
                     this.playerDeciding = true;
                 }
         }else{
@@ -236,11 +278,24 @@ class Floor_2 extends Phaser.Scene{
         
     }
     confirmObject(){
-        if(keyUP.isDown){
+        this.foundText.setText("You found a ");
+        this.foundText.setX(this.player.x - 100);
+        this.foundText.setY(this.player.y + 100);
+        this.itemText.setText(this.selectedItem);
+        this.itemText.setX(this.player.x - 10);
+        this.itemText.setY(this.player.y + 100);
+        this.confirmText.setText("Use this item? Yes(Space)  No(Esc) ");
+        this.confirmText.setX(this.player.x - 150);
+        this.confirmText.setY(this.player.y + 130);
+
+        if(keyYes.isDown){
             this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
             playerX: this.player.x, playerY: this.player.y});
-        }else if(keyDOWN.isDown){
+        }else if(keyNo.isDown){
             this.playerDeciding = false;
+            this.foundText.setText("");
+            this.itemText.setText("");
+            this.confirmText.setText("");
         }
     }
     collisions(){
