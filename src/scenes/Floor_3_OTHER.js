@@ -50,6 +50,9 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster4 = new Monster(this, game.config.width/1.5, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
 
         map.createLayer('abovePlayer', tileset);
 
@@ -174,6 +177,9 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.findingTime -= delta;
 
         this.monster.update(this.player.x, this.player.y);
+        this.monster2.update(this.player.x, this.player.y);
+        this.monster3.update(this.player.x, this.player.y);
+        this.monster4.update(this.player.x, this.player.y);
 
         this.collisions();
         if(noteBookKey.isDown){

@@ -79,9 +79,9 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
                 this.setVelocity(this.speed*this.circleSpeedX, this.speed*this.circleSpeedY);
             }
             if(this.danceMove == 2){
-                this.vec.setToPolar(this.rotation, 20);
-                this.vx = this.vec.x * 10;
-                this.vy = this.vec.y * 10;
+                this.vec.setToPolar(this.rotation, 50);
+                this.vx = this.vec.x * 1;
+                this.vy = this.vec.y * 1;
                 this.setVelocity(this.vx,this.vy);
                 this.rotation += .1; 
             }
