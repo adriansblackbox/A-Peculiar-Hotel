@@ -5,11 +5,7 @@ let config = {
     width: 640,
     height: 320,
     pixelArt: true,
-<<<<<<< Updated upstream
     scene: [Floor_4, Menu, Elevator, Floor_2, Floor_3, Lobby, Floor_1, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_0],
-=======
-    scene: [Lobby, Menu, Elevator, Floor_1, Floor_2, Floor_3, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_0],
->>>>>>> Stashed changes
 
     //3 is ballroom, 1 is square patrolling ghost, 2 is long corridor, 4 is following ghosts
     // variables for states in game
