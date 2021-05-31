@@ -19,7 +19,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.circleSpeedY = 2;
         this.danceMove = 2; //Phaser.Math.Between(1,2)
         this.vec = new Phaser.Math.Vector2();
-
+        this.whichCorner = 1;
     }
     create(){
         this.onDOWN = false;
@@ -56,6 +56,18 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
 
         if(this.level == 2){
             //square room
+            if(this.whichCorner == 1){
+                
+            }
+            if(this.whichCorner == 2){
+
+            }
+            if(this.whichCorner == 3){
+
+            }
+            if(this.whichCorner == 4){
+
+            }
 
         }
         if(this.level == 3){
