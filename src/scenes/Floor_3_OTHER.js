@@ -45,11 +45,12 @@ class Floor_3_OTHER extends Phaser.Scene{
         walls.setCollisionByProperty({collides: true});
         map.createLayer('extra', tileset);
 
-        this.monster = new Monster(this, game.config.width/2, game.config.height/2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+
         map.createLayer('abovePlayer', tileset);
 
         this.physics.add.collider(this.player, walls);
@@ -121,6 +122,8 @@ class Floor_3_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
+        Phaser.Actions.RotateAroundDistance(this.monster, {x: 200, y: 200} , .2, 200);
+
         if(this.findingTime > 0){
             this.player.update();
             if(this.player.direction == 'LEFT'){

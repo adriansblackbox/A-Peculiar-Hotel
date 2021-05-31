@@ -64,8 +64,6 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.monster11 = new Monster(this, game.config.width/2 + 755, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
         this.monster12 = new Monster(this, game.config.width/2 + 915, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
 
-        console.log(this.monster.level);
-
         this.physics.add.collider(this.player, walls);
 
 
