@@ -3,7 +3,7 @@ let config = {
     //width: 960,
     //height: 720,
     width: 640,
-    height: 360,
+    height: 320,
     pixelArt: true,
     scene: [Lobby, Menu, Floor_4, Elevator, Floor_1, Floor_3, Floor_2, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing],
 
