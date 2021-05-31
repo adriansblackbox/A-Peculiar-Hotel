@@ -56,7 +56,7 @@ class Floor_1 extends Phaser.Scene{
         this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
 
         if(!this.finishedLevel)
-            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
+            this.player = new Player(this, this.elevator.x, this.elevator.y + 60, 'player', 0);
         else
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
