@@ -54,7 +54,7 @@ class Floor_1 extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevatorDoors', 0);
+        this.elevator = this.physics.add.sprite(game.config.width + 48, 400, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
         //this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);

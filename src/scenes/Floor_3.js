@@ -53,7 +53,7 @@ class Floor_3 extends Phaser.Scene{
         map.createLayer('extra', tileset);
 
 
-        this.elevator = this.physics.add.sprite(game.config.width - 256, 48, 'elevatorDoors', 0);
+        this.elevator = this.physics.add.sprite(game.config.width - 272, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
         //if(!this.finishedLevel)
