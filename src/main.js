@@ -5,7 +5,7 @@ let config = {
     width: 640,
     height: 320,
     pixelArt: true,
-    scene: [Floor_2, Lobby, Menu, Elevator,Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_3],
+    scene: [Floor_3, Lobby, Menu, Elevator,Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_2],
 
     // variables for states in game
     prevScene: '',

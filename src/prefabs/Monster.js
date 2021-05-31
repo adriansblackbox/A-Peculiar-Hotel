@@ -21,6 +21,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.onUP = false;
         this.onLEFT = false;
         this.onRIGHT = false;
+        console.log("ghost created");
     }
     update(playerX, playerY){
         //console.log("thisX: " , this.x);
