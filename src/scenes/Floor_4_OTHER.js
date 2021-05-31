@@ -50,7 +50,10 @@ class Floor_4_OTHER extends Phaser.Scene{
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
-        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', 100, 4);
+        this.monster = new Monster(this, game.config.width/2, game.config.height/2, 'monster', 100, 4);
+        this.monster2 = new Monster(this, game.config.width/1.5, game.config.height/2, 'monster', 100, 4);
+        this.monster3 = new Monster(this, game.config.width/1.3, game.config.height/2, 'monster', 100, 4);
+        this.monster4 = new Monster(this, game.config.width/1.7, game.config.height/2, 'monster', 100, 4);
 
         this.physics.add.collider(this.player, walls);
 
@@ -168,7 +171,20 @@ class Floor_4_OTHER extends Phaser.Scene{
 
         this.findingTime -= delta;
 
-        this.monster.update(this.player.x, this.player.y);
+        if(this.player.direction != 'IDLE' && this.timeOut == false)
+        {
+            this.monster.update(this.player.x, this.player.y);
+            this.monster2.update(this.player.x, this.player.y);
+            this.monster3.update(this.player.x, this.player.y);
+            this.monster4.update(this.player.x, this.player.y);
+        }
+        else{
+            this.monster.setVelocity(0,0);
+            this.monster2.setVelocity(0,0);
+            this.monster3.setVelocity(0,0);
+            this.monster4.setVelocity(0,0);
+
+        }
 
         this.collisions();
         if(noteBookKey.isDown){

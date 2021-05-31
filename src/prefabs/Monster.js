@@ -114,21 +114,22 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         }
         
         if(this.level == 4){
-            if(this.x > pX - 1 && this.x < pX + 1)
+            //console.log(this.y);
+            if(this.x > pX - 2 && this.x < pX + 2)
             {
                 this.setVelocityX(0);
             }
-            else if(this.x > pX){
+            else if(this.x >= pX){
                 this.setVelocityX(-this.speed);
             }
             else if(this.x < pX){
                 this.setVelocityX(this.speed);
             }
-            if(this.y > pY - 1 && this.y < pY + 1)
+            if(this.y > pY - 2 && this.y < pY + 2)
             {
                 this.setVelocityY(0);
             }
-            else if(this.y > pY){
+            else if(this.y >= pY){
                 this.setVelocityY(-this.speed);
             }
             else if(this.y < pY){
