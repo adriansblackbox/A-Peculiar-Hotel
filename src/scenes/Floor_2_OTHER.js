@@ -169,8 +169,8 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.exitLevel();
         }
         this.monster.update(this.player.x, this.player.y);
-        this.monster2.update(this.player.x, this.player.y)
-        this.monster3.update(this.player.x, this.player.y)
+        this.monster2.update(this.player.x, this.player.y);
+        this.monster3.update(this.player.x, this.player.y);
 
         this.findingTime -= delta;
 
