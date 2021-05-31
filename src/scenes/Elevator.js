@@ -119,7 +119,7 @@ class Elevator extends Phaser.Scene{
                 if(this.inputPassword.length == 4){
                     const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
                     if(equals(this.inputPassword, this.password)){
-                        // put last scene here
+                        this.scene.start('Floor_0');
                     }else{
                         this.scene.start('Lobby');
                     }

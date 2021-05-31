@@ -1,20 +1,26 @@
-class Lobby extends Phaser.Scene{
+class Floor_0 extends Phaser.Scene{
 
-    constructor() {
-        super("Lobby");    
-    }
-
-        // Pt. 2 of transfering state to a different scene
+    // Pt. 2 of transfering state to a different scene
     ////////////////////////////
     init(data){
-        // data to be passed into lobby
+        this.password = data.password;
+        this.floorList = data.floorList;
+        this.passwordIndex = data.passwordIndex;
+        this.finishedLevel = data.finishedLevel;
+        this.playerX = data.playerX;
+        this.playerY = data.playerY;
     }
     ///////////////////////////
+ 
+    constructor() {
+        super("Floor_0");    
+    }
+    
+
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
-        this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
-        this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
+        this.load.tilemapTiledJSON('floor4','./assets/Floor_4.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
@@ -26,57 +32,33 @@ class Lobby extends Phaser.Scene{
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
     }
     create(){
-        let lobbyBGMConfig = {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0,
-            pan: 0
-        }
-        this.sound.play('elevatorMusic', lobbyBGMConfig);
+        this.findingTime = 10000;
         this.enteredElevator = false;
-        this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
+        this.spiritStart = false;
 
 
-        this.password = [];
-        this.passwordIndex = -1;
-
-        this.passwordElements = [0, 1, 2, 3, 4, 5];
-        while(this.password.length < 4){
-            let randIndex = Phaser.Math.Between(0, this.passwordElements.length - 1);
-            this.password.push(this.passwordElements[randIndex]);
-            this.passwordElements.splice(randIndex, 1);
-        }
-        console.log('Password: ' + this.password);
-
+        if(!this.finishedLevel)
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+        else
+            this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
-        const map = this.make.tilemap({key: 'lobby'});
+
+        const map = this.make.tilemap({key: 'floor4'});
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
 
         map.createLayer('Ground', tileset);
-        map.createLayer('extra', tileset);
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
-        this.elevator = this.physics.add.sprite(game.config.width/2 + 144, 0 + 48, 'elevatorDoors', 0);
-        this.elevator.body.immovable = true;
+        map.createLayer('extra', tileset);
+
+
+        this.elevator = this.physics.add.sprite(game.config.width - 336, 560, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
-
-        //starting to add the text (make sure to add character sprites below these lines)
-        this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
-
-        this.text = this.add.text(game.config.width/2.5, game.config.height*1.2, "WASD to move", this.style);
-        this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
-        //end of text stuff
-
-        
-        this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
-        map.createLayer('overPlayer', tileset);
-
-
-
+        this.elevator.body.immovable = true;
+        //if(!this.finishedLevel)
+            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
+        //else
+        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
@@ -86,7 +68,10 @@ class Lobby extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
-        
+
+        if(!this.finishedLevel){
+            this.elevator.anims.play('elevatorDoorsClose', true);
+        }
     }
     createAnims(){
         this.anims.create({
@@ -142,7 +127,11 @@ class Lobby extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('elevatorDoors', { start: 0, end: 32, first: 0}),
             frameRate: 15
         });
-
+        this.anims.create({
+            key: 'elevatorDoorsClose',
+            frames: this.anims.generateFrameNumbers('elevatorDoors', { start: 32, end: 0, first: 32}),
+            frameRate: 15
+        });
     }
     createKeys(){
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -150,9 +139,10 @@ class Lobby extends Phaser.Scene{
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
-        if(!this.enteredElevator){
+        if(!this.elevatorEntered){
             this.player.update();
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -192,30 +182,34 @@ class Lobby extends Phaser.Scene{
                 if(this.playerisRight)
                     this.player.anims.play('playerIdleRIGHT', true);
             }
-                
-
-
         }else{
             this.player.anims.stop();
         }
         this.collisions();
         if(noteBookKey.isDown){
-            game.config.prevScene = 'Lobby';
+            game.config.prevScene = 'Floor_4';
             this.scene.switch('Drawing');
+        }
+        if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
+            this.spiritStart = true;
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Floor_4_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                playerX: this.player.x, playerY: this.player.y});
+            });
+        }else if(this.finishedLevel && !this.enteredElevator){
+            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
     }
     collisions(){
-        if(!this.enteredElevator)
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
-
-        
     }
-    
+
     elveatorExit(){
-        this.enteredElevator = true;
-        this.player.body.setVelocity(0, 0);
+        this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);
-        this.cameras.main.fadeOut(3000, 0,0,0)
+        this.player.body.setVelocity(0, 0);
+        this.cameras.main.fadeOut(3000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         })
