@@ -18,6 +18,7 @@ class Floor_1 extends Phaser.Scene{
     
 
     preload(){
+        this.load.image('monster','./assets/GhostSprite.png' );
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('elevator', './assets/ElevatorDoor.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
@@ -52,8 +53,10 @@ class Floor_1 extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width + 20, 400, 'elevator', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
+        this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
+
         if(!this.finishedLevel)
-            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
+            this.player = new Player(this, this.elevator.x, this.elevator.y + 60, 'player', 0);
         else
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
@@ -180,6 +183,7 @@ class Floor_1 extends Phaser.Scene{
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
+        this.monster.update(this.player.x, this.player.y);
 
     }
     collisions(){
