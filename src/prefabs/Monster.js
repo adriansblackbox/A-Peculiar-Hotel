@@ -42,12 +42,14 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
             //back and fourth movement based on starting position
             if(this.y < (this.startingY + 100) && this.direction == false){
                 this.setVelocity(0,this.speed);
+                this.alpha = 1;
                 if(this.y > this.startingY + 90){
                     this.direction = true;
                 }
             }
             else if(this.y > this.startingY - 100 && this.direction == true){
                 this.setVelocity(0,-this.speed);
+                this.alpha -= .01;
                 if(this.y < this.startingY - 90){
                     this.direction = false;
                 }
