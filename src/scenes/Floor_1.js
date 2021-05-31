@@ -59,10 +59,10 @@ class Floor_1 extends Phaser.Scene{
         this.elevator.body.immovable = true;
         //this.monster = new Monster(this, this.playerX - 10, this.playerY, 'monster', 50, 1);
 
-        if(!this.finishedLevel)
+        //if(!this.finishedLevel)
             this.player = new Player(this, this.elevator.x, this.elevator.y + 60, 'player', 0);
-        else
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        //else
+            //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);

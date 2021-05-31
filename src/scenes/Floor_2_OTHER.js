@@ -45,8 +45,6 @@ class Floor_2_OTHER extends Phaser.Scene{
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
         map.createLayer('extra', tileset);
-
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.createKeys();
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.monster = new Monster(this, game.config.width/2 - 12, game.config.height + 50, 'monster', 50, 2);

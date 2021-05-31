@@ -55,10 +55,10 @@ class Floor_4 extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width - 336, 560, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        if(!this.finishedLevel)
+        //if(!this.finishedLevel)
             this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
-        else
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        //else
+        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
