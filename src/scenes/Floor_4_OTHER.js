@@ -50,7 +50,7 @@ class Floor_4_OTHER extends Phaser.Scene{
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
-        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', 100, 2);
+        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', 100, 4);
 
         this.physics.add.collider(this.player, walls);
 
