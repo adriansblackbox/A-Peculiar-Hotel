@@ -50,18 +50,28 @@ class Floor_4_OTHER extends Phaser.Scene{
         this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
-        this.monster = new Monster(this, game.config.width/2, game.config.height/2, 'monster', 100, 4);
-        this.monster2 = new Monster(this, game.config.width/1.5, game.config.height/2, 'monster', 100, 4);
-        this.monster3 = new Monster(this, game.config.width/1.3, game.config.height/2, 'monster', 100, 4);
-        this.monster4 = new Monster(this, game.config.width/1.7, game.config.height/2, 'monster', 100, 4);
+        this.monster = new Monster(this, game.config.width/2, game.config.height/2, 'monster', 50, 4);
+        this.monster2 = new Monster(this, game.config.width/1.5, game.config.height/2, 'monster', 50, 4);
+        this.monster3 = new Monster(this, game.config.width/1.3, game.config.height/2, 'monster', 50, 4);
+        this.monster4 = new Monster(this, game.config.width/1.7, game.config.height/2, 'monster', 50, 4);
         this.monsterArr = [this.monster,this.monster2,this.monster3,this.monster4];
+       
+        /*
+        this.physics.add.collider(this.monster, this.monster3);
+        this.physics.add.collider(this.monster, this.monster4);
+        this.physics.add.collider(this.monster2, this.monster3);
+        this.physics.add.collider(this.monster2, this.monster4);
+        this.physics.add.collider(this.monster3, this.monster4);
+        */
+        /*
         for(this.i = 0; this.i < this.monsterArr.length; this.i++){
-            for(this.j = 0; this.j < this.monsterArr.length; this.j++){
+            for(this.j = this.i; this.j < this.monsterArr.length; this.j++){
                 if(this.i != this.j){
                     this.physics.add.collider(this.monsterArr[this.i], this.monsterArr[this.j]);
                 }
             }
         }
+        */
         this.physics.add.collider(this.player, walls);
 
         this.createAnims();
