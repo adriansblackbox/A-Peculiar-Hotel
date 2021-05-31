@@ -17,7 +17,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.index = 0;
         this.circleSpeedX = 2;
         this.circleSpeedY = 2;
-        this.danceMove = 2; //Phaser.Math.Between(1,2
+        this.danceMove = 2; //Phaser.Math.Between(1,2)
         this.vec = new Phaser.Math.Vector2();
 
     }
