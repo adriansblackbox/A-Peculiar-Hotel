@@ -1,3 +1,7 @@
+const COLOR_PRIMARY = 0x4e342e;
+const COLOR_LIGHT = 0x7b5e57;
+const COLOR_DARK = 0x260e04;
+
 class Elevator extends Phaser.Scene{
 
     init(data){
@@ -15,9 +19,29 @@ class Elevator extends Phaser.Scene{
         this.load.image('dogDialogue', './assets/catDialogue.png');
         this.load.image('catDialogue', './assets/dogDialogue.png');
         this.load.spritesheet('elevatorScene', 'assets/elevatorWaiting.png', {frameWidth: 480, frameHeight: 360, startFrame: 0, endFrame: 11});
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
 
+        this.load.bitmapFont('gothic', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.xml');
+        this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
+        this.load.audio('elevatorMusic', './assets/Elevator_bgm.wav');
     }
+
     create(){
+        let BGMConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
+            pan: 0
+        }
+        this.sound.play('elevatorMusic', BGMConfig);
 
         this.elevatorTime = 5000;
 
@@ -54,7 +78,7 @@ class Elevator extends Phaser.Scene{
         //this.startBtn.on('pointerover', function (event) {}, this);
         //this.startBtn.on('pointerout', function (event) {}, this);
         
-        this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
+        this.randFloor = Phaser.Math.Between(0, this.floorList.length() - 1);
         this.nextFloor = this.floorList[this.randFloor];
 
         if(this.floorList.length > 0){
