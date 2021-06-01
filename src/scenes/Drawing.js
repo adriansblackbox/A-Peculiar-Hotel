@@ -12,10 +12,24 @@ class Drawing extends Phaser.Scene{
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('brush', './assets/testBrush.png');
         this.load.image('pencil', './assets/BiggerPencil.png');
+        this.load.audio('notebookClose', './assets/Notebook_close.wav');
+        this.load.audio('notebookOpen', './assets/Notebook_open.wav');
+        this.load.audio('notebookErase', '.assets/Erase3.wav');
     }
     
     create ()
     {
+        let SFXConfig = {
+            mute: false,
+            volume: 0.55,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0
+        }
+
         this.canvas = this.sys.canvas;
         this.canvas.style.cursor = 'none';
         
@@ -41,11 +55,13 @@ class Drawing extends Phaser.Scene{
     }
     update(){
         if(eraseKey.isDown){
+            this.sound.play('notebookErase',SFXConfig);
             this.rt.clear();
             //console.log(this.game.config.prevScene);
             //this.scene.switch(this.game.config.prevScene);
         }
         if(goBack.isDown){
+            this.sound.play('notebookClose',SFXConfig)
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
