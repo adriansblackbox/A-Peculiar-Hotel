@@ -52,31 +52,16 @@ class Floor_2 extends Phaser.Scene{
         else
             this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
-        
-
-        const map = this.make.tilemap({key: 'floor2'});
-        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
-
-        map.createLayer('Ground', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
+        this.createMap();
 
 
         this.elevator = this.physics.add.sprite(game.config.width + 944, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        this.createObjects();
-        //if(!this.finishedLevel)
-            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
-        //else
-        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        //this.createObjects();
         this.cameras.main.startFollow(this.player);
 
-        this.physics.add.collider(this.player, walls);
-
-        this.createPrompts();
-
+        //this.createPrompts();
         this.createAnims();
         this.playerisRight = false;
         this.playerisLeft = false;
@@ -86,6 +71,23 @@ class Floor_2 extends Phaser.Scene{
         if(!this.finishedLevel){
             this.elevator.anims.play('elevatorDoorsClose', true);
         }
+    }
+    createMap(){
+        const map = this.make.tilemap({key: 'floor2'});
+        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);
+        const props = map.createLayer('props', tileset);
+        props.setCollisionByProperty({collides: true});
+        map.createLayer('abovePlayer', tileset);
+
+        this.elevator = this.physics.add.sprite(game.config.width + 944, 48, 'elevatorDoors', 0);
+        this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props);
     }
     tieObjects(){
         this.selectedItem = "";
@@ -250,12 +252,12 @@ class Floor_2 extends Phaser.Scene{
             this.scene.switch('Drawing');
         }
         if(!this.finishedLevel && !this.playerDeciding){
-            this.objectInteraction();
+            //this.objectInteraction();
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
         if(this.playerDeciding){
-            this.confirmObject();
+            //this.confirmObject();
         }
     }
     objectInteraction(){
