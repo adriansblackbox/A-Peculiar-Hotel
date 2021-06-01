@@ -122,7 +122,7 @@ class Floor_2 extends Phaser.Scene{
     createObjects(){
         this.obj_1 = this.physics.add.sprite(game.config.width - 522, 82, 'obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(game.config.width - 584, 122, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(game.config.width - 592, 122, 'obj_2', 0);
         this.obj_2.body.setImmovable();
         this.obj_3 = this.physics.add.sprite(game.config.width - 472, 84, 'obj_3', 0);
         this.obj_3.body.setImmovable();
