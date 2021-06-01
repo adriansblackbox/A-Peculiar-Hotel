@@ -18,12 +18,12 @@ class Floor_2 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('obj_1', './assets/chest.png');
-        this.load.image('obj_2', './assets/chest.png');
-        this.load.image('obj_3', './assets/chest.png');
-        this.load.image('obj_1Lit', './assets/chestLit.png');
-        this.load.image('obj_2Lit', './assets/chestLit.png');
-        this.load.image('obj_3Lit', './assets/chestLit.png');
+        this.load.image('obj_1', './assets/object_1.png');
+        this.load.image('obj_2', './assets/object_2.1.png');
+        this.load.image('obj_3', './assets/object_3.png');
+        this.load.image('obj_1Lit', './assets/object_1_Lit.png');
+        this.load.image('obj_2Lit', './assets/object_2.1_Lit.png');
+        this.load.image('obj_3Lit', './assets/object_3_Lit.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('floor2','./assets/Floor_2.json' );
@@ -66,6 +66,7 @@ class Floor_2 extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(game.config.width + 944, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
+        this.createObjects();
         //if(!this.finishedLevel)
             this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
         //else
@@ -74,7 +75,6 @@ class Floor_2 extends Phaser.Scene{
 
         this.physics.add.collider(this.player, walls);
 
-        this.createObjects();
         this.createPrompts();
 
         this.createAnims();
@@ -120,11 +120,11 @@ class Floor_2 extends Phaser.Scene{
         
     }
     createObjects(){
-        this.obj_1 = this.physics.add.sprite(game.config.width - 550, 100, 'obj_1', 0);
+        this.obj_1 = this.physics.add.sprite(game.config.width - 522, 82, 'obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(game.config.width - 550, 150, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(game.config.width - 584, 122, 'obj_2', 0);
         this.obj_2.body.setImmovable();
-        this.obj_3 = this.physics.add.sprite(game.config.width - 550, 200, 'obj_3', 0);
+        this.obj_3 = this.physics.add.sprite(game.config.width - 472, 84, 'obj_3', 0);
         this.obj_3.body.setImmovable();
     }
     createAnims(){
@@ -284,7 +284,7 @@ class Floor_2 extends Phaser.Scene{
         }
 
         if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
-            this.player.y <= this.obj_3.y + 30 && this.player.y >= this.obj_3.y - 30){
+            this.player.y <= this.obj_3.y + 60 && this.player.y >= this.obj_3.y - 60){
                 this.obj_3.setTexture('obj_3Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_3_time;
