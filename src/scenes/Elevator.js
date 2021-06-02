@@ -28,6 +28,7 @@ class Elevator extends Phaser.Scene{
         this.load.bitmapFont('gothic', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.xml');
         this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
         this.load.audio('elevatorMusic', './assets/Elevator_bgm.wav');
+        this.load.audio('elevatorOpen', './assets/Elevator_open.wav');
         this.load.audio('notebookOpen','./assets/Notebook_open.wav');
     }
 
@@ -156,7 +157,7 @@ class Elevator extends Phaser.Scene{
        
     }
     update(time, delta){
-        if(!(this.musicplaying)){
+        if(!(this.musicplaying) && !this.fadingOut){
             this.musicplaying = true;
             this.elevator_bgm.play();
         }
@@ -174,6 +175,20 @@ class Elevator extends Phaser.Scene{
 
         if(this.elevatorTime <= 0 && !this.fadingOut){
             this.fadingOut = true;
+            let SFXConfig ={
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0 
+            }
+            this.elevator_bgm.stop();
+            this.musicplaying = false;
+            this.sound.play('elevatorOpen',SFXConfig);
+
             this.cameras.main.fadeOut(1500, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start(this.nextFloor, {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: false, playerX: 0, playerY: 0});
