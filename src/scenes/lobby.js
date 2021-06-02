@@ -25,7 +25,7 @@ class Lobby extends Phaser.Scene{
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
         this.load.audio('notebookOpen','./assets/Notebook_open.wav');
         this.load.audio('elevatorOpen', './assets/Elevator_open.wav');
-        this.load.audio('floorMusic','./assets/floorbgm.wav');
+        this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
     }
     create(){
         this.cameras.main.fadeIn(1000, 0, 0, 0);
