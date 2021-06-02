@@ -49,8 +49,8 @@ class Lobby extends Phaser.Scene{
             delay: 0,
             pan: 0
         } 
-        this.bgMusic = this.sound.add('elevatorMusic');
-        this.bgMusic.play(this.lobbyBGMConfig);
+        
+        //this.bgMusic.resume();
         //this.sound.play('elevatorMusic', lobbyBGMConfig);
         //this.bgMusic.play();
 
@@ -79,8 +79,6 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
-
-
         this.cameras.main.startFollow(this.player);
 
         this.createAnims();
@@ -89,8 +87,11 @@ class Lobby extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
         
+        this.bgMusic = this.sound.add('elevatorMusic');
+        this.bgMusic.play(this.lobbyBGMConfig);
     }
     createMap(){
+        
         const map = this.make.tilemap({key: 'lobby'});
         const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
         
@@ -221,9 +222,9 @@ class Lobby extends Phaser.Scene{
         }
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
-            //this.sound.stop();
-            //this.game.sound.stopAll();
             this.bgMusic.stop();
+            //this.game.sound.stopAll();
+            //this.bgMusic.pause();
             this.sound.play('notebookOpen', this.SFXConfig);
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
