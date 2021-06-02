@@ -56,17 +56,7 @@ class Lobby extends Phaser.Scene{
         console.log('Password: ' + this.password);
 
         this.createKeys();
-        const map = this.make.tilemap({key: 'lobby'});
-        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
-        
-
-        map.createLayer('Ground', tileset);
-        map.createLayer('extra', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        this.elevator = this.physics.add.sprite(game.config.width/2 + 144, 0 + 48, 'elevatorDoors', 0);
-        this.elevator.body.immovable = true;
-        this.elevator.body.offset.y = 0.5;
+        this.createMap();
 
         //starting to add the text (make sure to add character sprites below these lines)
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
@@ -75,15 +65,9 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
 
-        
-        this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
-        map.createLayer('overPlayer', tileset);
-
 
 
         this.cameras.main.startFollow(this.player);
-
-        this.physics.add.collider(this.player, walls);
 
         this.createAnims();
         this.playerisRight = false;
@@ -91,6 +75,25 @@ class Lobby extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
         
+    }
+    createMap(){
+        const map = this.make.tilemap({key: 'lobby'});
+        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
+        
+
+        map.createLayer('Ground', tileset);
+        map.createLayer('extra', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        const props = map.createLayer('props', tileset);
+        props.setCollisionByProperty({collides: true});
+        this.elevator = this.physics.add.sprite(game.config.width/2 + 144, 0 + 48, 'elevatorDoors', 0);
+        this.elevator.body.immovable = true;
+        this.elevator.body.offset.y = 0.5;
+        this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
+        map.createLayer('abovePlayer', tileset);
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props);
     }
     createAnims(){
         this.anims.create({
