@@ -14,7 +14,7 @@ class Lobby extends Phaser.Scene{
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
-        this.load.audio('elevatorMusic','./assets/elevatorBGMFarewell_blues.wav');
+        this.load.audio('elevatorMusic','./assets/Elevator_bgm.wav');
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
@@ -24,6 +24,7 @@ class Lobby extends Phaser.Scene{
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
+        this.load.audio('notebookOpen','./assets/Notebook_open.wav');
     }
     create(){
         this.cameras.main.fadeIn(1000, 0, 0, 0);
@@ -202,7 +203,18 @@ class Lobby extends Phaser.Scene{
             this.player.anims.stop();
         }
         this.collisions();
-        if(noteBookKey.isDown){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+            let SFXConfig = {
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0
+            } 
+            this.sound.play('notebookOpen', SFXConfig);
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }

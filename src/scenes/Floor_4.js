@@ -30,6 +30,7 @@ class Floor_4 extends Phaser.Scene{
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
+        this.load.audio('notebookOpen','./assets/Notebook_open.wav');
     }
     create(){
         this.findingTime = 10000;
@@ -186,7 +187,18 @@ class Floor_4 extends Phaser.Scene{
             this.player.anims.stop();
         }
         this.collisions();
-        if(noteBookKey.isDown){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+            let SFXConfig = {
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0
+            } 
+            this.sound.play('notebookOpen', SFXConfig);
             game.config.prevScene = 'Floor_4';
             this.scene.switch('Drawing');
         }
