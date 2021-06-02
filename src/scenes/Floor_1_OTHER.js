@@ -32,8 +32,23 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.load.spritesheet('playerIdleUP', 'assets/idleBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
+        this.load.audio('otherworldBGM', './assets/sounds/Otherworld2.wav');
+        this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
     }
     create(){
+        let otherworldBGMConfig = {
+            mute: false,
+            volume: 0.75,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
+            pan: 0
+        }
+        this.otherworld_bgm = this.sound.add('otherworldBGM', otherworldBGMConfig);
+        this.musicplaying = false;
+
         this.timeOut = false;
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
@@ -121,6 +136,10 @@ class Floor_1_OTHER extends Phaser.Scene{
     update(time, delta){
 
         if(this.findingTime > 0){
+            if(!(this.musicplaying)){
+                this.musicplaying = true;
+                this.otherworld_bgm.play();
+            }
             this.player.update();
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -169,7 +188,19 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.findingTime -= delta;
 
         this.collisions();
-        if(noteBookKey.isDown){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+            let SFXConfig = {
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0
+            }
+            this.elevator_bgm.stop();
+            this.musicplaying = false;
             game.config.prevScene = 'Floor_1_OTHER';
             this.scene.switch('Drawing');
         }
@@ -181,6 +212,8 @@ class Floor_1_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
+        this.musicplaying = false;
+        this.otherworld_bgm.stop();
         this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
         this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
