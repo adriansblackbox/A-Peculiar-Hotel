@@ -5,7 +5,7 @@ let config = {
     width: 640,
     height: 320,
     pixelArt: true,
-    scene: [Lobby, Menu, Elevator, Floor_2, Floor_1, Floor_3, Floor_4, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_0],
+    scene: [Floor_2, Menu, Elevator, Floor_1, Lobby, Floor_3, Floor_4, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_0],
 
     //3 is ballroom, 1 is square patrolling ghost, 2 is long corridor, 4 is following ghosts
     // variables for states in game

@@ -12,9 +12,9 @@ class Drawing extends Phaser.Scene{
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('brush', './assets/testBrush.png');
         this.load.image('pencil', './assets/BiggerPencil.png');
-        this.load.audio('notebookClose', './assets/Notebook_close.wav');
-        this.load.audio('notebookOpen', './assets/Notebook_open.wav');
-        this.load.audio('notebookErase', './assets/Erase3.wav');
+        this.load.audio('notebookClose', './assets/sounds/Notebook_close.wav');
+        this.load.audio('notebookOpen', './assets/sounds/Notebook_open.wav');
+        this.load.audio('notebookErase', './assets/sounds/Erase3.wav');
     }
     
     create ()

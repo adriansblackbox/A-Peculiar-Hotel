@@ -18,12 +18,12 @@ class Floor_2 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('obj_1', './assets/object_1.png');
-        this.load.image('obj_2', './assets/object_2.1.png');
-        this.load.image('obj_3', './assets/object_3.png');
-        this.load.image('obj_1Lit', './assets/object_1_Lit.png');
-        this.load.image('obj_2Lit', './assets/object_2.1_Lit.png');
-        this.load.image('obj_3Lit', './assets/object_3_Lit.png');
+        this.load.image('obj_1', './assets/floor_2_object_1.png');
+        this.load.image('obj_2', './assets/floor_2_object_1.png');
+        this.load.image('obj_3', './assets/floor_2_object_2.png');
+        this.load.image('obj_1Lit', './assets/floor_2_object_1_Lit.png');
+        this.load.image('obj_2Lit', './assets/floor_2_object_1_Lit.png');
+        this.load.image('obj_3Lit', './assets/floor_2_object_2_Lit.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('floor2','./assets/Floor_2.json' );
@@ -69,14 +69,11 @@ class Floor_2 extends Phaser.Scene{
         this.createKeys();
         this.createMap();
 
-
-        this.elevator = this.physics.add.sprite(game.config.width + 944, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        //this.createObjects();
         this.cameras.main.startFollow(this.player);
 
-        //this.createPrompts();
+        this.createPrompts();
         this.createAnims();
         this.playerisRight = false;
         this.playerisLeft = false;
@@ -100,6 +97,7 @@ class Floor_2 extends Phaser.Scene{
         map.createLayer('abovePlayer', tileset);
 
         this.elevator = this.physics.add.sprite(game.config.width + 944, 48, 'elevatorDoors', 0);
+        this.createObjects();
         this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
         this.physics.add.collider(this.player, walls);
         this.physics.add.collider(this.player, props);
@@ -137,11 +135,11 @@ class Floor_2 extends Phaser.Scene{
         
     }
     createObjects(){
-        this.obj_1 = this.physics.add.sprite(game.config.width - 522, 82, 'obj_1', 0);
+        this.obj_1 = this.physics.add.sprite(game.config.width - 592 + 32 + 32 + 32 + 32 + 32 + 32, 78, 'obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(game.config.width - 592, 122, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(game.config.width - 592, 78, 'obj_2', 0);
         this.obj_2.body.setImmovable();
-        this.obj_3 = this.physics.add.sprite(game.config.width - 472, 84, 'obj_3', 0);
+        this.obj_3 = this.physics.add.sprite(game.config.width - 592, 78 + 32 + 32 + 32 + 32 + 32 + 2, 'obj_3', 0);
         this.obj_3.body.setImmovable();
     }
     createAnims(){
@@ -284,12 +282,12 @@ class Floor_2 extends Phaser.Scene{
             this.scene.switch('Drawing');
         }
         if(!this.finishedLevel && !this.playerDeciding){
-            //this.objectInteraction();
+            this.objectInteraction();
         }else if(this.finishedLevel && !this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
         if(this.playerDeciding){
-            //this.confirmObject();
+            this.confirmObject();
         }
     }
     objectInteraction(){

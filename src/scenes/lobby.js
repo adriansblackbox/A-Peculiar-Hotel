@@ -82,8 +82,8 @@ class Lobby extends Phaser.Scene{
         
 
         map.createLayer('Ground', tileset);
-        map.createLayer('extra', tileset);
         const walls = map.createLayer('Walls', tileset);
+        map.createLayer('extra', tileset);
         walls.setCollisionByProperty({collides: true});
         const props = map.createLayer('props', tileset);
         props.setCollisionByProperty({collides: true});
