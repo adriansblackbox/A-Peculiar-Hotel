@@ -79,7 +79,7 @@ class Elevator extends Phaser.Scene{
         //this.startBtn.on('pointerover', function (event) {}, this);
         //this.startBtn.on('pointerout', function (event) {}, this);
         
-        this.randFloor = Phaser.Math.Between(0, this.floorList.length() - 1);
+        this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
         this.nextFloor = this.floorList[this.randFloor];
 
         if(this.floorList.length > 0){
