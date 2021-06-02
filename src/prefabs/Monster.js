@@ -1,6 +1,6 @@
 class Monster extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x,y,texture, speedP, levelP){
-        super(scene,x,y,texture, speedP, levelP);
+    constructor(scene,x,y,texture, frame, speedP, levelP){
+        super(scene,x,y,texture, frame, speedP, levelP);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -39,7 +39,9 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
 
     movement(pX, pY){
         if(this.level == 1){
+            this.startingY = game.config.height/6;
             //back and fourth movement based on starting position
+            /*
             if(this.y < (this.startingY + 100) && this.direction == false){
                 this.setVelocity(0,this.speed);
                 this.alpha = 1;
@@ -50,9 +52,22 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
             else if(this.y > this.startingY - 100 && this.direction == true){
                 this.setVelocity(0,-this.speed);
                 this.alpha -= .01;
+
                 if(this.y < this.startingY - 90){
                     this.direction = false;
                 }
+            }
+            */
+            if(this.y < (this.startingY + 225)){
+                this.setVelocity(0,this.speed);
+                if(this.alpha < 1 && this.y <= this.startingY + 125){
+                    this.alpha += 0.01;
+                }else if(this.y > this.startingY + 125){
+                    this.alpha -= 0.01;
+                }
+            }else{
+                this.y = this.startingY;
+                this.alpha = 0;
             }
         }
 

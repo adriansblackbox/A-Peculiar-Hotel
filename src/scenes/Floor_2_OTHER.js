@@ -65,20 +65,79 @@ class Floor_2_OTHER extends Phaser.Scene{
         walls.setCollisionByProperty({collides: true});
         map.createLayer('extra', tileset);
         this.createKeys();
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
-        this.monster = new Monster(this, game.config.width/2 + 115, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster2 = new Monster(this, game.config.width/2 + 275, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster3 = new Monster(this, game.config.width/2 + 435, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster4 = new Monster(this, game.config.width/2 + 595, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster5 = new Monster(this, game.config.width/2 + 755, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster6 = new Monster(this, game.config.width/2 + 915, game.config.height/4.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
 
-        this.monster7 = new Monster(this, game.config.width/2 + 115, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster8 = new Monster(this, game.config.width/2 + 275, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster9 = new Monster(this, game.config.width/2 + 435, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster10 = new Monster(this, game.config.width/2 + 595, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster11 = new Monster(this, game.config.width/2 + 755, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
-        this.monster12 = new Monster(this, game.config.width/2 + 915, game.config.height-30, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 1);
+        // section 1
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        this.monster = new Monster(this, game.config.width/2 + 115, game.config.height/6, 'monster', 0, 55, 1);
+        this.monster.alpha = 0;
+        this.monster2 = new Monster(this, game.config.width/2 + 115, game.config.height/6 + 32, 'monster',0,  55, 1);
+        this.monster2.alpha = 0;
+        this.monster3 = new Monster(this, game.config.width/2 + 115, game.config.height/6 + 64, 'monster', 0, 55, 1);
+        this.monster3.alpha = 0;
+        this.monster4 = new Monster(this, game.config.width/2 + 115, game.config.height/6 + 96, 'monster', 0, 55, 1);
+        this.monster4.alpha = 0;
+        this.monster5 = new Monster(this, game.config.width/2 + 115, game.config.height/6 + 96 + 32, 'monster',0,  55, 1);
+        this.monster5.alpha = 0;
+
+        // section 2
+        this.monster6 = new Monster(this, game.config.width/2 + 275, game.config.height/6, 'monster', 0, 55, 1);
+        this.monster6.alpha = 0;
+        this.monster7 = new Monster(this, game.config.width/2 + 275, game.config.height/6 + 32, 'monster', 0, 55, 1);
+        this.monster7.alpha = 0;
+        this.monster8 = new Monster(this, game.config.width/2 + 275, game.config.height/6 + 64, 'monster', 0, 55, 1);
+        this.monster8.alpha = 0;
+        this.monster9 = new Monster(this, game.config.width/2 + 275, game.config.height/6 + 96, 'monster', 0, 55, 1);
+        this.monster9.alpha = 0;
+        this.monster10 = new Monster(this, game.config.width/2 + 275, game.config.height/6 + 96 + 32, 'monster', 0, 55, 1);
+        this.monster10.alpha = 0;
+
+        // section 3
+        this.monster11 = new Monster(this, game.config.width/2 + 435, game.config.height/6, 'monster', 0, 55, 1);
+        this.monster11.alpha = 0;
+        this.monster12 = new Monster(this, game.config.width/2 + 435, game.config.height/6 + 32, 'monster', 0, 55, 1);
+        this.monster12.alpha = 0;
+        this.monster13 = new Monster(this, game.config.width/2 + 435, game.config.height/6 + 64, 'monster', 0, 55, 1);
+        this.monster13.alpha = 0;
+        this.monster14 = new Monster(this, game.config.width/2 + 435, game.config.height/6 + 96, 'monster', 0, 55, 1);
+        this.monster14.alpha = 0;
+        this.monster15 = new Monster(this, game.config.width/2 + 435, game.config.height/6 + 96 + 32, 'monster', 0, 55, 1);
+        this.monster15.alpha = 0;
+
+        // section 4
+        this.monster16 = new Monster(this, game.config.width/2 + 595, game.config.height/6, 'monster', 0, 55, 1);
+        this.monster16.alpha = 0;
+        this.monster17 = new Monster(this, game.config.width/2 + 595, game.config.height/6 + 32, 'monster', 0, 55, 1);
+        this.monster17.alpha = 0;
+        this.monster18 = new Monster(this, game.config.width/2 + 595, game.config.height/6 + 64, 'monster', 0, 55, 1);
+        this.monster18.alpha = 0;
+        this.monster19 = new Monster(this, game.config.width/2 + 595, game.config.height/6 + 96, 'monster', 0, 55, 1);
+        this.monster19.alpha = 0;
+        this.monster20 = new Monster(this, game.config.width/2 + 595, game.config.height/6 + 96 + 32, 'monster', 0, 55, 1);
+        this.monster20.alpha = 0;
+
+        // section 5
+        this.monster21 = new Monster(this, game.config.width/2 + 755, game.config.height/6, 'monster', 0, 55, 1);
+        this.monster21.alpha = 0;
+        this.monster22 = new Monster(this, game.config.width/2 + 755, game.config.height/6 + 32, 'monster', 0, 55, 1);
+        this.monster22.alpha = 0;
+        this.monster23 = new Monster(this, game.config.width/2 + 755, game.config.height/6 + 64, 'monster', 0, 55, 1);
+        this.monster23.alpha = 0;
+        this.monster24 = new Monster(this, game.config.width/2 + 755, game.config.height/6 + 96, 'monster', 0, 55, 1);
+        this.monster24.alpha = 0;
+        this.monster25 = new Monster(this, game.config.width/2 + 755, game.config.height/6 + 96 + 32, 'monster', 0, 55, 1);
+        this.monster25.alpha = 0;
+
+        // section 6
+        this.monster26 = new Monster(this, game.config.width/2 + 915, game.config.height/6, 'monster', 0, 55, 1);
+        this.monster26.alpha = 0;
+        this.monster27 = new Monster(this, game.config.width/2 + 915, game.config.height/6 + 32, 'monster', 0, 55, 1);
+        this.monster27.alpha = 0;
+        this.monster28 = new Monster(this, game.config.width/2 + 915, game.config.height/6 + 64, 'monster', 0, 55, 1);
+        this.monster28.alpha = 0;
+        this.monster29 = new Monster(this, game.config.width/2 + 915, game.config.height/6 + 96, 'monster', 0, 55, 1);
+        this.monster29.alpha = 0;
+        this.monster30 = new Monster(this, game.config.width/2 + 915, game.config.height/6 + 96 + 32, 'monster', 0, 55, 1);
+        this.monster30.alpha = 0;
 
         this.physics.add.collider(this.player, walls);
 
@@ -211,6 +270,24 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.monster10.update(this.player.x, this.player.y);
         this.monster11.update(this.player.x, this.player.y);
         this.monster12.update(this.player.x, this.player.y);
+        this.monster13.update(this.player.x, this.player.y);
+        this.monster14.update(this.player.x, this.player.y);
+        this.monster15.update(this.player.x, this.player.y);
+        this.monster16.update(this.player.x, this.player.y);
+        this.monster17.update(this.player.x, this.player.y);
+        this.monster18.update(this.player.x, this.player.y);
+        this.monster19.update(this.player.x, this.player.y);
+        this.monster20.update(this.player.x, this.player.y);
+        this.monster21.update(this.player.x, this.player.y);
+        this.monster22.update(this.player.x, this.player.y);
+        this.monster23.update(this.player.x, this.player.y);
+        this.monster24.update(this.player.x, this.player.y);
+        this.monster25.update(this.player.x, this.player.y);
+        this.monster26.update(this.player.x, this.player.y);
+        this.monster27.update(this.player.x, this.player.y);
+        this.monster28.update(this.player.x, this.player.y);
+        this.monster29.update(this.player.x, this.player.y);
+        this.monster30.update(this.player.x, this.player.y);
         this.findingTime -= delta;
 
         this.collisions();
