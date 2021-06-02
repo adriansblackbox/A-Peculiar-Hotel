@@ -28,12 +28,13 @@ class Elevator extends Phaser.Scene{
         this.load.bitmapFont('gothic', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.xml');
         this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
         this.load.audio('elevatorMusic', './assets/Elevator_bgm.wav');
+        this.load.audio('notebookOpen','./assets/Notebook_open.wav');
     }
 
     create(){
         let BGMConfig = {
             mute: false,
-            volume: 1,
+            volume: 0.75,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -173,7 +174,19 @@ class Elevator extends Phaser.Scene{
             })
         }
 
-        if(noteBookKey.isDown){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+            let SFXConfig = {
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0
+            } 
+            this.sound.play('notebookOpen',SFXConfig);
+
             game.config.prevScene = 'Elevator';
             this.scene.switch('Drawing');
         }
