@@ -14,12 +14,12 @@ class Drawing extends Phaser.Scene{
         this.load.image('pencil', './assets/BiggerPencil.png');
         this.load.audio('notebookClose', './assets/Notebook_close.wav');
         this.load.audio('notebookOpen', './assets/Notebook_open.wav');
-        this.load.audio('notebookErase', '.assets/Erase3.wav');
+        this.load.audio('notebookErase', './assets/Erase3.wav');
     }
     
     create ()
     {
-        let SFXConfig = {
+        this.SFXConfig = {
             mute: false,
             volume: 0.55,
             rate: 1,
@@ -55,13 +55,13 @@ class Drawing extends Phaser.Scene{
     }
     update(){
         if(eraseKey.isDown){
-            this.sound.play('notebookErase',SFXConfig);
+            this.sound.play('notebookErase',this.SFXConfig);
             this.rt.clear();
             //console.log(this.game.config.prevScene);
             //this.scene.switch(this.game.config.prevScene);
         }
         if(goBack.isDown){
-            this.sound.play('notebookClose',SFXConfig)
+            this.sound.play('notebookClose',this.SFXConfig)
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
