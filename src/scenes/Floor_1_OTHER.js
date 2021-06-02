@@ -200,6 +200,8 @@ class Floor_1_OTHER extends Phaser.Scene{
                 delay: 0,
                 pan: 0
             }
+            this.canvas = this.sys.canvas;
+            this.canvas.style.cursor = 'none';
             this.elevator_bgm.stop();
             this.musicplaying = false;
             game.config.prevScene = 'Floor_1_OTHER';

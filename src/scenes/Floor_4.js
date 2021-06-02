@@ -220,6 +220,8 @@ class Floor_4 extends Phaser.Scene{
             }
             this.regular_bgm.stop();
             this.musicplaying = false; 
+            this.canvas = this.sys.canvas;
+            this.canvas.style.cursor = 'none';
             this.sound.play('notebookOpen', SFXConfig);
             game.config.prevScene = 'Floor_4';
             this.scene.switch('Drawing');

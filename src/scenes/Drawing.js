@@ -62,6 +62,7 @@ class Drawing extends Phaser.Scene{
             //this.scene.switch(this.game.config.prevScene);
         }
         if(Phaser.Input.Keyboard.JustDown(goBack)){
+            this.canvas.style.cursor = 'default';
             this.sound.play('notebookClose', this.SFXConfig);
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);

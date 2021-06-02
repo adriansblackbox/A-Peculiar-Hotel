@@ -287,6 +287,8 @@ class Floor_2 extends Phaser.Scene{
                 delay: 0,
                 pan: 0
             }
+            this.canvas = this.sys.canvas;
+            this.canvas.style.cursor = 'none';
             this.regular_bgm.stop();
             this.musicplaying = false; 
             this.sound.play('notebookOpen', SFXConfig);
