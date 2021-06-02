@@ -27,9 +27,9 @@ class Elevator extends Phaser.Scene{
 
         this.load.bitmapFont('gothic', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.xml');
         this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
-        this.load.audio('elevatorMusic', './assets/Elevator_bgm.wav');
-        this.load.audio('elevatorOpen', './assets/Elevator_open.wav');
-        this.load.audio('notebookOpen','./assets/Notebook_open.wav');
+        this.load.audio('elevatorMusic', './assets/sounds/Elevator_bgm.wav');
+        this.load.audio('elevatorOpen', './assets/sounds/Elevator_open.wav');
+        this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
     }
 
     create(){
