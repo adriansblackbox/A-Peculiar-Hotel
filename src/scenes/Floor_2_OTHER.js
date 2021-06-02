@@ -59,6 +59,7 @@ class Floor_2_OTHER extends Phaser.Scene{
         }
         this.otherworld_bgm = this.sound.add('otherworldBGM', otherworldBGMConfig);
         this.musicplaying = false;
+        this.ghostHit = false;
 
         this.timeOut = false;
 
@@ -332,7 +333,46 @@ class Floor_2_OTHER extends Phaser.Scene{
         }
     }
     collisions(){
-        
+        this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster2, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster3, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster4, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster5, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster6, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster7, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster8, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster9, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster10, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster11, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster12, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster13, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster14, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster15, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster16, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster17, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster18, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster19, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster20, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster21, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster22, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster23, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster24, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster25, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster26, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster27, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster28, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster29, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster30, this.onGhostCollision, null, this);
+    }
+    onGhostCollision(){
+        if(!this.ghostHit){
+            this.ghostHit = true;
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }   
     }
 
     exitLevel(){
