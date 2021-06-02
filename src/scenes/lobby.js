@@ -32,7 +32,7 @@ class Lobby extends Phaser.Scene{
 
         let lobbyBGMConfig = {
             mute: false,
-            volume: 0.75,
+            volume: .5,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -66,8 +66,6 @@ class Lobby extends Phaser.Scene{
         this.text = this.add.text(game.config.width/2.5, game.config.height*1.2, "WASD to move", this.style);
         this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
         //end of text stuff
-
-
 
         this.cameras.main.startFollow(this.player);
 
