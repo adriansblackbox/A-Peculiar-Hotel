@@ -29,9 +29,9 @@ class Lobby extends Phaser.Scene{
     create(){
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        let lobbyBGMConfig = {
+        this.lobbyBGMConfig = {
             mute: false,
-            volume: 1,
+            volume: .5,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -39,7 +39,21 @@ class Lobby extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
-        this.sound.play('elevatorMusic', lobbyBGMConfig);
+        this.SFXConfig = {
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0
+        } 
+        this.bgMusic = this.sound.add('elevatorMusic');
+        this.bgMusic.play(this.lobbyBGMConfig);
+        //this.sound.play('elevatorMusic', lobbyBGMConfig);
+        //this.bgMusic.play();
+
         this.enteredElevator = false;
         this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
 
@@ -207,17 +221,10 @@ class Lobby extends Phaser.Scene{
         }
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
-            let SFXConfig = {
-                mute: false,
-                volume: 0.4,
-                rate: 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay: 0,
-                pan: 0
-            } 
-            this.sound.play('notebookOpen', SFXConfig);
+            //this.sound.stop();
+            //this.game.sound.stopAll();
+            this.bgMusic.stop();
+            this.sound.play('notebookOpen', this.SFXConfig);
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
