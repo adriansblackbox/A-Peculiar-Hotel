@@ -42,7 +42,9 @@ class Elevator extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
-        this.sound.play('elevatorMusic', BGMConfig);
+        this.elevator_bgm = this.sound.add('elevatorMusic', BGMConfig);
+        this.musicplaying = false;
+        
 
         this.elevatorTime = 5000;
 
@@ -79,7 +81,7 @@ class Elevator extends Phaser.Scene{
         //this.startBtn.on('pointerover', function (event) {}, this);
         //this.startBtn.on('pointerout', function (event) {}, this);
         
-        this.randFloor = Phaser.Math.Between(0, this.floorList.length() - 1);
+        this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
         this.nextFloor = this.floorList[this.randFloor];
 
         if(this.floorList.length > 0){
@@ -154,6 +156,10 @@ class Elevator extends Phaser.Scene{
        
     }
     update(time, delta){
+        if(!(this.musicplaying)){
+            this.musicplaying = true;
+            this.elevator_bgm.play();
+        }
         this.elevatorTime -= delta;
         this.elevatorScene.anims.play('elevatorScene', true);
         if(this.inputPassword.length > 4){
@@ -184,7 +190,9 @@ class Elevator extends Phaser.Scene{
                 loop: false,
                 delay: 0,
                 pan: 0
-            } 
+            }
+            this.elevator_bgm.stop();
+            this.musicplaying = false;
             this.sound.play('notebookOpen',SFXConfig);
 
             game.config.prevScene = 'Elevator';

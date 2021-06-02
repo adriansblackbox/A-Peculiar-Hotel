@@ -19,6 +19,7 @@ class Drawing extends Phaser.Scene{
     
     create ()
     {
+        this.sound.stopAll();
         this.SFXConfig = {
             mute: false,
             volume: 0.4,

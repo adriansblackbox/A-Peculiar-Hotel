@@ -14,7 +14,6 @@ class Lobby extends Phaser.Scene{
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('lobby','./assets/Lobby.json' );
-        this.load.audio('elevatorMusic','./assets/Elevator_bgm.wav');
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
@@ -25,13 +24,15 @@ class Lobby extends Phaser.Scene{
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
         this.load.audio('notebookOpen','./assets/Notebook_open.wav');
+        this.load.audio('elevatorOpen', './assets/Elevator_open.wav');
+        this.load.audio('floorMusic','./assets/floorbgm.wav');
     }
     create(){
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         let lobbyBGMConfig = {
             mute: false,
-            volume: 1,
+            volume: 0.75,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -39,7 +40,8 @@ class Lobby extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
-        this.sound.play('elevatorMusic', lobbyBGMConfig);
+        this.regular_bgm = this.sound.add('floorMusic', lobbyBGMConfig);
+        this.musicplaying = false;
         this.enteredElevator = false;
         this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
 
@@ -160,6 +162,10 @@ class Lobby extends Phaser.Scene{
     }
     update(){
         if(!this.enteredElevator){
+            if(!(this.musicplaying)){
+                this.musicplaying = true;
+                this.regular_bgm.play();
+            }
             this.player.update();
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -217,6 +223,8 @@ class Lobby extends Phaser.Scene{
                 delay: 0,
                 pan: 0
             } 
+            this.regular_bgm.stop();
+            this.musicplaying = false;
             this.sound.play('notebookOpen', SFXConfig);
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
@@ -230,6 +238,19 @@ class Lobby extends Phaser.Scene{
     }
     
     elveatorExit(){
+        let SFXConfig ={
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0 
+        }
+        this.regular_bgm.stop();
+        this.musicplaying = false;
+        this.sound.play('elevatorOpen',SFXConfig);
         this.enteredElevator = true;
         this.player.body.setVelocity(0, 0);
         this.elevator.anims.play('elevatorDoors', true);
