@@ -343,20 +343,20 @@ class Floor_2 extends Phaser.Scene{
         this.box.x = this.player.x ;
         this.box.y = this.player.y + 100;
         this.box.alpha = 1;
-        this.yesbtn.x = this.player.x + 35;
+        this.yesbtn.x = this.player.x + 30;
         this.yesbtn.y = this.player.y + 119;
         this.yesbtn.alpha = 1;
-        this.nobtn.x = this.player.x  + 86;
+        this.nobtn.x = this.player.x  + 82;
         this.nobtn.y = this.player.y + 119;
         this.nobtn.alpha = 1;
         this.foundText.setText("You found a ");
-        this.foundText.setX(this.player.x - 100);
+        this.foundText.setX(this.player.x - 94);
         this.foundText.setY(this.player.y + 80);
         this.itemText.setText(this.selectedItem);
-        this.itemText.setX(this.player.x - 15);
+        this.itemText.setX(this.player.x - 10);
         this.itemText.setY(this.player.y + 80);
-        this.confirmText.setText("Use this item?       Yes       No");
-        this.confirmText.setX(this.player.x - 100);
+        this.confirmText.setText("Use this item?    Yes       No");
+        this.confirmText.setX(this.player.x - 94);
         this.confirmText.setY(this.player.y + 110);
 
         this.yesbtn.on('pointerover', function (event) {this.yesbtn.setTexture('dialogue_button');}, this);
