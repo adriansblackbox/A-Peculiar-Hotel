@@ -17,7 +17,7 @@ class Elevator extends Phaser.Scene{
         this.load.image('button', './assets/');
         this.load.image('keypad', './assets/keypad.png');
         this.load.image('dogDialogue', './assets/catDialogue.png');
-        this.load.image('catDialogue', './assets/dogDialogue.png');
+        this.load.image('catDialogue', './assets/dogdialogue.png');
         this.load.spritesheet('elevatorScene', 'assets/elevatorWaiting.png', {frameWidth: 480, frameHeight: 360, startFrame: 0, endFrame: 11});
         this.load.scenePlugin({
             key: 'rexuiplugin',
