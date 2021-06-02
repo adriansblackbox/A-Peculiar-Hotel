@@ -32,7 +32,7 @@ class Floor_4_OTHER extends Phaser.Scene{
         this.load.spritesheet('playerIdleUP', 'assets/idleBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
-        this.load.audio('otherworldBGM', './assets/sounds/Otherworld2.wav');
+        this.load.audio('otherworldBGM', './assets/sounds/Otherworld_2.wav');
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
     }
     create(){
