@@ -35,6 +35,16 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.load.audio('otherworldBGM', './assets/sounds/Otherworld_2.wav');
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
         this.load.audio('otherworldExit', './assets/sounds/fromOtherworld2.wav');
+        this.load.image('symbol_0','./assets/symbol01.png' );
+        this.load.image('symbol_1','./assets/symbol02.png' );
+        this.load.image('symbol_2','./assets/symbol03.png' );
+        this.load.image('symbol_3','./assets/symbol04.png' );
+        this.load.image('symbol_4','./assets/symbol05.png' );
+        this.load.image('symbol_5','./assets/symbol06.png' );
+        this.load.image('symbol_6','./assets/symbol07.png' );
+        this.load.image('symbol_7','./assets/symbol08.png' );
+        this.load.image('symbol_8','./assets/symbol09.png' );
+        this.load.image('symbol_9','./assets/symbol10.png' );
     }
     create(){
         let otherworldBGMConfig = {
@@ -90,6 +100,16 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         //this.monster.anchor.setTo(.5);
         //this.monster.pivot.x = 100;
+        this.createSymbol();
+    }
+    createSymbol(){
+        this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
+        this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
+        this.symbol = this.add.sprite(this.player.x, this.player.y, this.symbolTexture, 0);
+
+        console.log(this.password);
+        console.log(this.passwordIndex)
+        console.log(this.symbolTexture);
     }
     createAnims(){
         this.anims.create({
