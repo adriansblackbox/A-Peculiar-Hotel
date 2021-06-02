@@ -30,9 +30,10 @@ class Floor_0 extends Phaser.Scene{
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
-        this.load.audio('notebookOpen','./assets/Notebook_open.wav');
-        this.load.audio('elevatorOpen', './assets/Elevator_open.wav');
-        this.load.audio('floorMusic','./assets/floorbgm.wav');
+        this.load.audio('notebookOpen','./assets/sounds.Notebook_open.wav');
+        this.load.audio('elevatorOpen', './assets/sounbs/Elevator_open.wav');
+        this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
+        this.load.audio('otherworldEnter', './assets/sounds/toOtherworld.wav');
     }
     create(){
         let floorBGMConfig = {
@@ -223,6 +224,19 @@ class Floor_0 extends Phaser.Scene{
             this.scene.switch('Drawing');
         }
         if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
+            this.regular_bgm.stop();
+            this.musicplaying = false; 
+            let SFXConfig ={
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0 
+            }
+            this.sound.play('otherworldExit', SFXConfig);
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
             this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)

@@ -33,6 +33,7 @@ class Floor_4 extends Phaser.Scene{
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
         this.load.audio('elevatorOpen', './assets/sounds/Elevator_open.wav');
         this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
+        this.load.audio('otherworldEnter', './assets/sounds/toOtherworld.wav');
     }
     create(){
         let floorBGMConfig = {
@@ -224,6 +225,19 @@ class Floor_4 extends Phaser.Scene{
             this.scene.switch('Drawing');
         }
         if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
+            this.regular_bgm.stop();
+            this.musicplaying = false;
+            let SFXConfig ={
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0 
+            }
+            this.sound.play('otherworldExit', SFXConfig);
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
             this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
