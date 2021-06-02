@@ -346,6 +346,8 @@ class Floor_2 extends Phaser.Scene{
         this.confirmText.setY(this.player.y + 110);
 
         if(keyYes.isDown && !this.finishedLevel && !this.spiritStart){
+            this.regular_bgm.stop();
+            this.musicplaying = false;
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
             this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
