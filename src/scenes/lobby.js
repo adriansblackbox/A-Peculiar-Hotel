@@ -49,7 +49,7 @@ class Lobby extends Phaser.Scene{
         this.password = [];
         this.passwordIndex = -1;
 
-        this.passwordElements = [0, 1, 2, 3, 4, 5];
+        this.passwordElements = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
         while(this.password.length < 4){
             let randIndex = Phaser.Math.Between(0, this.passwordElements.length - 1);
             this.password.push(this.passwordElements[randIndex]);
