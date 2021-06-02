@@ -34,6 +34,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.audio('otherworldBGM', './assets/sounds/Otherworld_2.wav');
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
+        this.load.audio('otherworldExit', './assets/sounds/fromOtherworld2.wav');
     }
     create(){
         let otherworldBGMConfig = {
@@ -214,7 +215,18 @@ class Floor_1_OTHER extends Phaser.Scene{
     exitLevel(){
         this.musicplaying = false;
         this.otherworld_bgm.stop();
-        this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+        let SFXConfig ={
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0 
+        }
+        this.sound.play('otherworldExit', SFXConfig);
+        this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
         this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('Floor_1', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true
