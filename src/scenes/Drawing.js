@@ -19,7 +19,16 @@ class Drawing extends Phaser.Scene{
     
     create ()
     {
-
+        this.SFXConfig = {
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0
+        } 
         this.canvas = this.sys.canvas;
         this.canvas.style.cursor = 'none';
         
@@ -44,24 +53,15 @@ class Drawing extends Phaser.Scene{
         goBack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(){
-        let SFXConfig = {
-            mute: false,
-            volume: 0.4,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: false,
-            delay: 0,
-            pan: 0
-        } 
+        
         if(Phaser.Input.Keyboard.JustDown(eraseKey)){
-            this.sound.play('notebookErase', SFXConfig);
+            this.sound.play('notebookErase', this.SFXConfig);
             this.rt.clear();
             //console.log(this.game.config.prevScene);
             //this.scene.switch(this.game.config.prevScene);
         }
         if(Phaser.Input.Keyboard.JustDown(goBack)){
-            this.sound.play('notebookClose', SFXConfig);
+            this.sound.play('notebookClose', this.SFXConfig);
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
