@@ -26,6 +26,7 @@ class Floor_2 extends Phaser.Scene{
         this.load.image('obj_3Lit', './assets/floor_2_object_2_Lit.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
+        this.load.image('dialogueBox', './assets/dialogueBox.png');
         this.load.tilemapTiledJSON('floor2','./assets/Floor_2.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -127,7 +128,9 @@ class Floor_2 extends Phaser.Scene{
         }
     }
     createPrompts(){
-        this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
+        this.box = this.add.sprite(0,0, 'dialogueBox', 0);
+        this.box.alpha = 0;
+        this.style = { font: "15px Arial", fill: "#000000", align: "center" };
         this.style1 = { font: "15px Arial", fill: "#ff0000", align: "center" };
         this.foundText = this.add.text(0,0, "", this.style);
         this.itemText = this.add.text(0,0, "", this.style1);
@@ -329,15 +332,18 @@ class Floor_2 extends Phaser.Scene{
         
     }
     confirmObject(){
+        this.box.x = this.player.x ;
+        this.box.y = this.player.y + 100;
+        this.box.alpha = 1;
         this.foundText.setText("You found a ");
         this.foundText.setX(this.player.x - 100);
-        this.foundText.setY(this.player.y + 100);
+        this.foundText.setY(this.player.y + 80);
         this.itemText.setText(this.selectedItem);
         this.itemText.setX(this.player.x - 15);
-        this.itemText.setY(this.player.y + 100);
-        this.confirmText.setText("Use this item? Yes(Space)  No(Esc) ");
-        this.confirmText.setX(this.player.x - 150);
-        this.confirmText.setY(this.player.y + 130);
+        this.itemText.setY(this.player.y + 80);
+        this.confirmText.setText("Use this item?       Yes       No");
+        this.confirmText.setX(this.player.x - 100);
+        this.confirmText.setY(this.player.y + 110);
 
         if(keyYes.isDown && !this.finishedLevel && !this.spiritStart){
             this.spiritStart = true;
@@ -349,6 +355,7 @@ class Floor_2 extends Phaser.Scene{
             });
         }else if(keyNo.isDown){
             this.playerDeciding = false;
+            this.box.alpha = 0;
             this.foundText.setText("");
             this.itemText.setText("");
             this.confirmText.setText("");
