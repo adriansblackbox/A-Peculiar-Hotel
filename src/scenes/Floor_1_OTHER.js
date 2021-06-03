@@ -64,33 +64,50 @@ class Floor_1_OTHER extends Phaser.Scene{
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
-        const map = this.make.tilemap({key: 'floor1OTHER'});
-        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
-
-        map.createLayer('Ground', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
-        
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        this.createMap();
+      
         this.monster = new Monster(this, 490, 450, 'monster', 200, 2);
 
         this.cameras.main.startFollow(this.player);
-
-        this.physics.add.collider(this.player, walls);
 
         this.createAnims();
         this.playerisRight = false;
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
-        this.createSymbol();
+        //this.createSymbol();
 
+    }
+    createMap(){
+        const map = this.make.tilemap({key: 'floor1OTHER'});
+        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        const props = map.createLayer('props', tileset);
+        walls.setCollisionByProperty({collides: true});
+        props.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);
+
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props);
     }
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
         this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
-        this.symbol = this.add.sprite(this.player.x, this.player.y, this.symbolTexture, 0);
+        console.log(this.playerX + " " + this.playerY)
+        if(this.playerX > 900 && this.playerY > 900)
+            this.symbol = this.add.sprite(371, 252, this.symbolTexture, 0);
+        if(this.playerX < 900 && this.playerY  > 900)
+            this.symbol = this.add.sprite(1015, 263, this.symbolTexture, 0);
+        if(this.playerX > 900 && this.playerY  < 900)
+            this.symbol = this.add.sprite(373, 1037, this.symbolTexture, 0);
+        if(this.playerX < 900 && this.playerY  < 900)
+            this.symbol = this.add.sprite(1010, 1054, this.symbolTexture, 0);
+    
+
 
         console.log(this.password);
         console.log(this.passwordIndex)

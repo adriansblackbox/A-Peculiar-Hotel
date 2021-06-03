@@ -343,32 +343,34 @@ class Floor_2 extends Phaser.Scene{
         
     }
     confirmObject(){
-        this.box.x = this.player.x ;
-        this.box.y = this.player.y + 100;
-        this.box.alpha = 1;
-        this.yesbtn.x = this.player.x + 30;
-        this.yesbtn.y = this.player.y + 119;
-        this.yesbtn.alpha = 1;
-        this.nobtn.x = this.player.x  + 82;
-        this.nobtn.y = this.player.y + 119;
-        this.nobtn.alpha = 1;
-        this.foundText.setText("You found a ");
-        this.foundText.setX(this.player.x - 94);
-        this.foundText.setY(this.player.y + 80);
-        this.itemText.setText(this.selectedItem);
-        this.itemText.setX(this.player.x - 10);
-        this.itemText.setY(this.player.y + 80);
-        this.confirmText.setText("Use this item?    Yes       No");
-        this.confirmText.setX(this.player.x - 94);
-        this.confirmText.setY(this.player.y + 110);
+        if(!this.yesSelected && !this.finishedLevel){
+            this.box.x = this.player.x ;
+            this.box.y = this.player.y + 100;
+            this.box.alpha = 1;
+            this.yesbtn.x = this.player.x + 30;
+            this.yesbtn.y = this.player.y + 119;
+            this.yesbtn.alpha = 1;
+            this.nobtn.x = this.player.x  + 82;
+            this.nobtn.y = this.player.y + 119;
+            this.nobtn.alpha = 1;
+            this.foundText.setText("You found a ");
+            this.foundText.setX(this.player.x - 94);
+            this.foundText.setY(this.player.y + 80);
+            this.itemText.setText(this.selectedItem);
+            this.itemText.setX(this.player.x - 10);
+            this.itemText.setY(this.player.y + 80);
+            this.confirmText.setText("Use this item?    Yes       No");
+            this.confirmText.setX(this.player.x - 94);
+            this.confirmText.setY(this.player.y + 110);
 
-        this.yesbtn.on('pointerover', function (event) {this.yesbtn.setTexture('dialogue_button');}, this);
-        this.yesbtn.on('pointerout', function (event) {this.yesbtn.setTexture('dialogue_button_empty')}, this);
-        this.nobtn.on('pointerover', function (event) {this.nobtn.setTexture('dialogue_button')}, this);
-        this.nobtn.on('pointerout', function (event) {this.nobtn.setTexture('dialogue_button_empty')}, this);
+            this.yesbtn.on('pointerover', function (event) {this.yesbtn.setTexture('dialogue_button');}, this);
+            this.yesbtn.on('pointerout', function (event) {this.yesbtn.setTexture('dialogue_button_empty')}, this);
+            this.nobtn.on('pointerover', function (event) {this.nobtn.setTexture('dialogue_button')}, this);
+            this.nobtn.on('pointerout', function (event) {this.nobtn.setTexture('dialogue_button_empty')}, this);
 
-        this.yesbtn.on('pointerdown', function (event) {this.yesSelected = true},this);
-        this.nobtn.on('pointerdown', function (event) {this.noSelected = true},this);
+            this.yesbtn.on('pointerdown', function (event) {this.yesSelected = true},this);
+            this.nobtn.on('pointerdown', function (event) {this.noSelected = true},this);
+        }
 
         if(this.yesSelected && !this.finishedLevel && !this.spiritStart){
             this.regular_bgm.stop();
@@ -387,6 +389,12 @@ class Floor_2 extends Phaser.Scene{
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.box.alpha = 0;
+            this.yesbtn.alpha = 0;
+            this.nobtn.alpha = 0;
+            this.foundText.setText("");
+            this.itemText.setText("");
+            this.confirmText.setText("");
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
                 playerX: this.player.x, playerY: this.player.y});

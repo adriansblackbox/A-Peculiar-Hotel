@@ -5,7 +5,7 @@ let config = {
     width: 640,
     height: 320,
     pixelArt: true,
-    scene: [Floor_2, Lobby, Elevator, Floor_1, Menu, Floor_3, Floor_4, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_0],
+    scene: [Floor_1, Lobby, Elevator, Floor_2, Menu, Floor_3, Floor_4, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Drawing, Floor_0],
 
     //3 is ballroom, 1 is square patrolling ghost, 2 is long corridor, 4 is following ghosts
     // variables for states in game
@@ -16,7 +16,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,    // Set to true for testing purposes only
+            debug: false,    // Set to true for testing purposes only
             gravity: {
                 x: 0,
                 y: 0
