@@ -184,7 +184,7 @@ class Floor_2_OTHER extends Phaser.Scene{
 
         this.timer = this.add.text(0,0, "", this.style);
 
-        //this.createSymbol();
+        this.createSymbol();
     }
     createMap(){
         const map = this.make.tilemap({key: 'floor2OTHER'});
