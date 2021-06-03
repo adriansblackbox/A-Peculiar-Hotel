@@ -104,11 +104,7 @@ class Floor_4_OTHER extends Phaser.Scene{
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
         this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
-        this.symbol = this.add.sprite(this.player.x, this.player.y, this.symbolTexture, 0);
-
-        console.log(this.password);
-        console.log(this.passwordIndex)
-        console.log(this.symbolTexture);
+        this.symbol = this.add.sprite(game.config.width - 336, 90, this.symbolTexture, 0);
     }
     createAnims(){
         this.anims.create({
