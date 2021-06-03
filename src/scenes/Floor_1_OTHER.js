@@ -233,6 +233,8 @@ class Floor_1_OTHER extends Phaser.Scene{
         }else if(!this.timeOut && this.findingTime <= 0){
             this.timeOut = true;
             this.player.anims.stop();
+            this.player.setVelocity(0,0);
+            this.monster.setVelocity(0,0);
             this.exitLevel();
         }
 
