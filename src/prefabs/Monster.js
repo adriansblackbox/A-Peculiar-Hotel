@@ -94,7 +94,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
             }
             if(this.whichCorner == 4){
                 this.setVelocity(0,-this.speed);
-                if(this.y < 450){
+                if(this.y < 460){
                     this.whichCorner = 1;
                 }
             }

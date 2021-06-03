@@ -19,7 +19,7 @@ class Floor_1_OTHER extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('monster','./assets/GhostSprite.png' );
+        this.load.image('monsterBig','./assets/ghost_party.png' );
         this.load.image('spirittiles', './assets/Spirit_Tiles.png');
         this.load.tilemapTiledJSON('floor1OTHER','./assets/Floor_1_OTHER.json' );
         this.load.image('player', './assets/Detective Doggert 001.png');
@@ -61,12 +61,14 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.musicplaying = false;
 
         this.timeOut = false;
+        this.ghostHit = false;
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
         this.createMap();
       
-        this.monster = new Monster(this, 490, 450, 'monster', 200, 2);
+        this.monster = new Monster(this, 490, 460, 'monsterBig',0, 200, 2);
+        this.monster.setSize(96,96)
 
         this.cameras.main.startFollow(this.player);
 
@@ -76,6 +78,8 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
         //this.createSymbol();
+
+        this.timer = this.add.text(0,0, "", this.style);
 
     }
     createMap(){
@@ -172,13 +176,22 @@ class Floor_1_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
+        this.timer.setX(this.player.x - 50);
+        this.timer.setY(this.player.y - 150);
+        this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
 
         if(this.findingTime > 0){
             if(!(this.musicplaying)){
                 this.musicplaying = true;
                 this.otherworld_bgm.play();
             }
-            this.player.update();
+            if(!this.ghostHit){
+                this.player.update();
+                this.monster.update(this.player.x, this.player.y);
+            }else{
+                this.player.setVelocity(0,0)
+                this.monster.setVelocity(0,0)
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -223,7 +236,8 @@ class Floor_1_OTHER extends Phaser.Scene{
             this.exitLevel();
         }
 
-        this.findingTime -= delta;
+        if(!this.ghostHit)
+            this.findingTime -= delta;
 
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
@@ -244,11 +258,20 @@ class Floor_1_OTHER extends Phaser.Scene{
             game.config.prevScene = 'Floor_1_OTHER';
             this.scene.switch('Drawing');
         }
-        this.monster.update(this.player.x, this.player.y);
 
     }
     collisions(){
-        
+        this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
+    }
+    onGhostCollision(){
+        if(!this.ghostHit){
+            this.ghostHit = true;
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }   
     }
 
     exitLevel(){
