@@ -67,7 +67,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.createKeys();
         this.createMap();
       
-        this.monster = new Monster(this, 490, 460, 'monsterBig',0, 200, 2);
+        this.monster = new Monster(this, 490, 460, 'monsterBig',0, 325, 2);
         this.monster.setSize(96,96)
 
         this.cameras.main.startFollow(this.player);
@@ -77,7 +77,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
-        this.createSymbol();
+        //this.createSymbol();
 
         this.timer = this.add.text(0,0, "", this.style);
 
@@ -101,7 +101,6 @@ class Floor_1_OTHER extends Phaser.Scene{
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
         this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
-        console.log(this.playerX + " " + this.playerY)
         if(this.playerX > 900 && this.playerY > 900)
             this.symbol = this.add.sprite(371, 252, this.symbolTexture, 0);
         if(this.playerX < 900 && this.playerY  > 900)
@@ -110,12 +109,6 @@ class Floor_1_OTHER extends Phaser.Scene{
             this.symbol = this.add.sprite(373, 1037, this.symbolTexture, 0);
         if(this.playerX < 900 && this.playerY  < 900)
             this.symbol = this.add.sprite(1010, 1054, this.symbolTexture, 0);
-    
-
-
-        console.log(this.password);
-        console.log(this.passwordIndex)
-        console.log(this.symbolTexture);
     }
     createAnims(){
         this.anims.create({

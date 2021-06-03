@@ -142,7 +142,7 @@ class Floor_1 extends Phaser.Scene{
     tieObjects(){
         this.selectedItem = "";
         this.objectArray = ["Dust Mite", "Small Mirror", "Dog Tag", "Cute Dress"];
-        this.objectTime = [10000, 15000, 25000, 20000]
+        this.objectTime = [25000, 30000, 50000, 40000]
 
         this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
         this.object_1_item = this.objectArray[this.randIndex];
