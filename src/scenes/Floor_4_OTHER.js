@@ -57,6 +57,9 @@ class Floor_4_OTHER extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
+
+        this.ghostHit = false;
+
         this.otherworld_bgm = this.sound.add('otherworldBGM', otherworldBGMConfig);
         this.musicplaying = false;
 
@@ -64,48 +67,39 @@ class Floor_4_OTHER extends Phaser.Scene{
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
+        this.createMap();
 
-        const map = this.make.tilemap({key: 'floor4OTHER'});
-        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
-
-        map.createLayer('Ground', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
-
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
-        this.monster = new Monster(this, game.config.width/2, game.config.height/2, 'monster', 50, 4);
-        this.monster2 = new Monster(this, game.config.width/1.5, game.config.height/2, 'monster', 50, 4);
-        this.monster3 = new Monster(this, game.config.width/1.3, game.config.height/2, 'monster', 50, 4);
-        this.monster4 = new Monster(this, game.config.width/1.7, game.config.height/2, 'monster', 50, 4);
-        this.monsterArr = [this.monster,this.monster2,this.monster3,this.monster4];
-       
-        /*
-        this.physics.add.collider(this.monster, this.monster3);
-        this.physics.add.collider(this.monster, this.monster4);
-        this.physics.add.collider(this.monster2, this.monster3);
-        this.physics.add.collider(this.monster2, this.monster4);
-        this.physics.add.collider(this.monster3, this.monster4);
-        */
-        /*
-        for(this.i = 0; this.i < this.monsterArr.length; this.i++){
-            for(this.j = this.i; this.j < this.monsterArr.length; this.j++){
-                if(this.i != this.j){
-                    this.physics.add.collider(this.monsterArr[this.i], this.monsterArr[this.j]);
-                }
-            }
-        }
-        */
-        this.physics.add.collider(this.player, walls);
+        this.monster = new Monster(this, game.config.width/2, game.config.height/2, 'monster', 0, 50, 4);
+        this.monster.body.immovable = true;
+        
 
         this.createAnims();
         this.playerisRight = false;
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
-        this.createSymbol();
+        //this.createSymbol();
+        
+        this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
+        this.timer = this.add.text(0,0, "", this.style);
+    }
+    createMap(){
+        const map = this.make.tilemap({key: 'floor4OTHER'});
+        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        const props = map.createLayer('props', tileset);
+        props.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);        
+
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props);
     }
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
@@ -176,12 +170,18 @@ class Floor_4_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
+
         if(!(this.musicplaying)){
             this.musicplaying = true;
             this.otherworld_bgm.play();
         }
         if(this.findingTime > 0){
-            this.player.update();
+            this.timer.setX(this.player.x - 50);
+            this.timer.setY(this.player.y - 150);
+            this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
+            if(!this.ghostHit){
+                this.player.update();
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -226,21 +226,15 @@ class Floor_4_OTHER extends Phaser.Scene{
             this.exitLevel();
         }
 
-        this.findingTime -= delta;
+        if(!this.ghostHit)
+            this.findingTime -= delta;
 
-        if(this.player.direction != 'IDLE' && this.timeOut == false)
+        if(this.player.direction != 'IDLE' && this.timeOut == false && !this.ghostHit)
         {
             this.monster.update(this.player.x, this.player.y);
-            this.monster2.update(this.player.x, this.player.y);
-            this.monster3.update(this.player.x, this.player.y);
-            this.monster4.update(this.player.x, this.player.y);
         }
         else{
             this.monster.setVelocity(0,0);
-            this.monster2.setVelocity(0,0);
-            this.monster3.setVelocity(0,0);
-            this.monster4.setVelocity(0,0);
-
         }
 
         this.collisions();
@@ -264,6 +258,17 @@ class Floor_4_OTHER extends Phaser.Scene{
         }
     }
     collisions(){
+        this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
+    }
+    onGhostCollision(){
+        if(!this.ghostHit){
+            this.ghostHit = true;
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }   
     }
 
     exitLevel(){

@@ -79,6 +79,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.playerisDown = false;
         //this.createSymbol();
 
+        this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
         this.timer = this.add.text(0,0, "", this.style);
 
     }
@@ -169,11 +170,11 @@ class Floor_1_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
     update(time, delta){
-        this.timer.setX(this.player.x - 50);
-        this.timer.setY(this.player.y - 150);
-        this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
 
         if(this.findingTime > 0){
+            this.timer.setX(this.player.x - 50);
+            this.timer.setY(this.player.y - 150);
+            this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
             if(!(this.musicplaying)){
                 this.musicplaying = true;
                 this.otherworld_bgm.play();
