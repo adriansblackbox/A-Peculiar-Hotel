@@ -232,7 +232,11 @@ class Floor_2 extends Phaser.Scene{
                 this.musicplaying = true;
                 this.regular_bgm.play();
             }
-            this.player.update();
+            if(!this.playerDeciding)
+                this.player.update();
+            else if (this.finishedLevel){
+                this.player.update();
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -344,6 +348,7 @@ class Floor_2 extends Phaser.Scene{
     }
     confirmObject(){
         if(!this.yesSelected && !this.finishedLevel){
+            this.player.anims.pause();
             this.box.x = this.player.x ;
             this.box.y = this.player.y + 100;
             this.box.alpha = 1;

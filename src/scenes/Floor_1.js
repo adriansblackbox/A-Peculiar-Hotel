@@ -68,7 +68,7 @@ class Floor_1 extends Phaser.Scene{
         this.findingTime = 10000;
         this.enteredElevator = false;
         this.spiritStart = false;
-
+        this.playerDeciding = false;
         if(!this.finishedLevel)
             this.cameras.main.fadeIn(1000, 0, 0, 0);
         else
@@ -240,12 +240,17 @@ class Floor_1 extends Phaser.Scene{
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
+
         if(!this.elevatorEntered){
             if(!(this.musicplaying)){
                 this.musicplaying = true;
                 this.regular_bgm.play();
             }
-            this.player.update();
+            if(!this.playerDeciding)
+                this.player.update();
+            else if (this.finishedLevel){
+                this.player.update();
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -392,6 +397,7 @@ class Floor_1 extends Phaser.Scene{
     }
     confirmObject(){
         if(!this.yesSelected && !this.finishedLevel){
+            this.player.anims.pause();
             this.box.x = this.player.x ;
             this.box.y = this.player.y + 100;
             this.box.alpha = 1;

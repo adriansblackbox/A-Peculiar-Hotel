@@ -166,7 +166,11 @@ class Floor_3 extends Phaser.Scene{
                 this.musicplaying = true;
                 this.regular_bgm.play();
             }
-            this.player.update();
+            if(!this.playerDeciding)
+                this.player.update();
+            else if (this.finishedLevel){
+                this.player.update();
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;

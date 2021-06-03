@@ -18,6 +18,18 @@ class Floor_4 extends Phaser.Scene{
     
 
     preload(){
+        this.load.image('obj_1', './assets/floor_1_obj_1.png');
+        this.load.image('obj_2', './assets/floor_2_object_2.png');
+        this.load.image('obj_3', './assets/floor_1_obj_3.png');
+        this.load.image('obj_4', './assets/floor_1_obj_4.png');
+        this.load.image('obj_1Lit', './assets/floor_1_obj_1_Lit.png');
+        this.load.image('obj_2Lit', './assets/floor_2_object_2_Lit.png');
+        this.load.image('obj_3Lit', './assets/floor_1_obj_3_Lit.png');
+        this.load.image('obj_4Lit', './assets/floor_1_obj_4_Lit.png');
+        this.load.image('dialogueBox', './assets/dialogueBox.png');
+        this.load.image('dialogue_button', './assets/dialogue_button.png');
+        this.load.image('dialogue_button_empty', './assets/dialogue_button_empty.png');
+
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.tilemapTiledJSON('floor4','./assets/Floor_4.json' );
@@ -46,6 +58,8 @@ class Floor_4 extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
+        this.tieObjects();
+
         this.regular_bgm = this.sound.add('floorMusic', floorBGMConfig);
         this.musicplaying = false;
         this.findingTime = 10000;
@@ -69,8 +83,68 @@ class Floor_4 extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
+        this.createPrompts();
+
         if(!this.finishedLevel){
             this.elevator.anims.play('elevatorDoorsClose', true);
+        }
+    }
+    createPrompts(){
+        this.yesSelected = false;
+        this.noSelected = false;
+        this.box = this.add.sprite(0,0, 'dialogueBox', 0);
+        this.box.alpha = 0;
+        this.yesbtn = this.add.sprite(0, 0, 'dialogue_button_empty').setInteractive();
+        this.yesbtn.alpha = 0;
+        this.nobtn = this.add.sprite(0, 0, 'dialogue_button_empty').setInteractive();
+        this.nobtn.alpha = 0;
+        this.style = { font: "15px Arial", fill: "#000000", align: "center" };
+        this.style1 = { font: "15px Arial", fill: "#ff0000", align: "center" };
+        this.foundText = this.add.text(0,0, "", this.style);
+        this.itemText = this.add.text(0,0, "", this.style1);
+        this.confirmText = this.add.text(0,0, "", this.style);
+        
+    }
+    createObjects(){
+        //good
+        this.obj_1 = this.physics.add.sprite(496, 880, 'obj_1', 0);
+        this.obj_1.body.setImmovable();
+        this.obj_2 = this.physics.add.sprite(48, 1073, 'obj_2', 0);
+        this.obj_2.body.setImmovable();
+        this.obj_3 = this.physics.add.sprite(335, 1008,'obj_3', 0);
+        this.obj_3.body.setImmovable();
+        //good
+        this.obj_4 = this.physics.add.sprite(64, 880, 'obj_4', 0);
+        this.obj_4.body.setImmovable();
+    }
+    tieObjects(){
+        this.selectedItem = "";
+        this.objectArray = ["Rusted Neclace", "Hair Brush", "Pair", "Band-Aid"];
+        this.objectTime = [50000, 40000, 25000, 30000]
+
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_1_item = this.objectArray[this.randIndex];
+        this.object_1_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
+        }
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_2_item = this.objectArray[this.randIndex];
+        this.object_2_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
+        }
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_3_item = this.objectArray[this.randIndex];
+        this.object_3_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
+        }
+        this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
+        this.object_4_item = this.objectArray[this.randIndex];
+        this.object_4_time = this.objectTime[this.randIndex];
+        if(this.objectArray.length > 0){
+            this.objectArray.splice(this.randIndex, 1);
         }
     }
     createMap(){
@@ -86,6 +160,7 @@ class Floor_4 extends Phaser.Scene{
         map.createLayer('abovePlayer', tileset);
 
         this.elevator = this.physics.add.sprite(game.config.width - 336, 560, 'elevatorDoors', 0);
+        this.createObjects();
         this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
         this.physics.add.collider(this.player, walls);
         this.physics.add.collider(this.player, props);
@@ -164,7 +239,11 @@ class Floor_4 extends Phaser.Scene{
                 this.musicplaying = true;
                 this.regular_bgm.play();
             }
-            this.player.update();
+            if(!this.playerDeciding)
+                this.player.update();
+            else if (this.finishedLevel){
+                this.player.update();
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -226,7 +305,96 @@ class Floor_4 extends Phaser.Scene{
             game.config.prevScene = 'Floor_4';
             this.scene.switch('Drawing');
         }
-        if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
+        if(!this.finishedLevel && !this.playerDeciding){
+            this.objectInteraction();
+        }else if(this.finishedLevel && !this.enteredElevator){
+            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+        }
+        if(this.playerDeciding){
+            this.confirmObject();
+        }
+    }
+    objectInteraction(){
+        if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
+            this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
+                this.obj_1.setTexture('obj_1Lit', 0);
+                if(interactKey.isDown){
+                    this.findingTime = this.object_1_time;
+                    this.selectedItem = this.object_1_item;
+                    this.playerDeciding = true;
+                }
+        }else{
+            this.obj_1.setTexture('obj_1', 0);
+        }
+
+        if(this.player.x <= this.obj_2.x + 30 && this.player.x >= this.obj_2.x - 30 && 
+            this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
+                this.obj_2.setTexture('obj_2Lit', 0);
+                if(interactKey.isDown){
+                    this.findingTime = this.object_2_time;
+                    this.selectedItem = this.object_2_item;
+                    this.playerDeciding = true;
+                }
+        }else{
+            this.obj_2.setTexture('obj_2', 0);
+        }
+
+        if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
+            this.player.y <= this.obj_3.y + 60 && this.player.y >= this.obj_3.y - 60){
+                this.obj_3.setTexture('obj_3Lit', 0);
+                if(interactKey.isDown){
+                    this.findingTime = this.object_3_time;
+                    this.selectedItem = this.object_3_item;
+                    this.playerDeciding = true;
+                }
+        }else{
+            this.obj_3.setTexture('obj_3', 0);
+        }
+
+        if(this.player.x <= this.obj_4.x + 30 && this.player.x >= this.obj_4.x - 30 && 
+            this.player.y <= this.obj_4.y + 60 && this.player.y >= this.obj_4.y - 60){
+                this.obj_4.setTexture('obj_4Lit', 0);
+                if(interactKey.isDown){
+                    this.findingTime = this.object_4_time;
+                    this.selectedItem = this.object_4_item;
+                    this.playerDeciding = true;
+                }
+        }else{
+            this.obj_4.setTexture('obj_4', 0);
+        }
+    }
+    confirmObject(){
+        if(!this.yesSelected && !this.finishedLevel){
+            this.player.anims.pause();
+            this.box.x = this.player.x ;
+            this.box.y = this.player.y + 100;
+            this.box.alpha = 1;
+            this.yesbtn.x = this.player.x + 30;
+            this.yesbtn.y = this.player.y + 119;
+            this.yesbtn.alpha = 1;
+            this.nobtn.x = this.player.x  + 82;
+            this.nobtn.y = this.player.y + 119;
+            this.nobtn.alpha = 1;
+            this.foundText.setText("You found a ");
+            this.foundText.setX(this.player.x - 94);
+            this.foundText.setY(this.player.y + 80);
+            this.itemText.setText(this.selectedItem);
+            this.itemText.setX(this.player.x - 10);
+            this.itemText.setY(this.player.y + 80);
+            this.confirmText.setText("Use this item?    Yes       No");
+            this.confirmText.setX(this.player.x - 94);
+            this.confirmText.setY(this.player.y + 110);
+
+            this.yesbtn.on('pointerover', function (event) {this.yesbtn.setTexture('dialogue_button');}, this);
+            this.yesbtn.on('pointerout', function (event) {this.yesbtn.setTexture('dialogue_button_empty')}, this);
+            this.nobtn.on('pointerover', function (event) {this.nobtn.setTexture('dialogue_button')}, this);
+            this.nobtn.on('pointerout', function (event) {this.nobtn.setTexture('dialogue_button_empty')}, this);
+
+            this.yesbtn.on('pointerdown', function (event) {this.yesSelected = true},this);
+            this.nobtn.on('pointerdown', function (event) {this.noSelected = true},this);
+        }
+
+        if(this.yesSelected && !this.finishedLevel && !this.spiritStart){
             this.regular_bgm.stop();
             this.musicplaying = false;
             let SFXConfig ={
@@ -242,16 +410,33 @@ class Floor_4 extends Phaser.Scene{
             this.sound.play('otherworldEnter', SFXConfig);
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
-            this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.box.alpha = 0;
+            this.yesbtn.alpha = 0;
+            this.nobtn.alpha = 0;
+            this.foundText.setText("");
+            this.itemText.setText("");
+            this.confirmText.setText("");
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start('Floor_4_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
                 playerX: this.player.x, playerY: this.player.y});
             });
-        }else if(this.finishedLevel && !this.enteredElevator){
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+        }else if(this.noSelected){
+            this.noSelected = false;
+            this.playerDeciding = false;
+            this.box.alpha = 0;
+            this.yesbtn.alpha = 0;
+            this.nobtn.alpha = 0;
+            this.foundText.setText("");
+            this.itemText.setText("");
+            this.confirmText.setText("");
         }
     }
     collisions(){
+        this.physics.add.collider(this.player, this.obj_1);
+        this.physics.add.collider(this.player, this.obj_2);
+        this.physics.add.collider(this.player, this.obj_3);
+        this.physics.add.collider(this.player, this.obj_4);
     }
 
     elveatorExit(){
