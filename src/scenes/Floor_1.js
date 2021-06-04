@@ -21,14 +21,14 @@ class Floor_1 extends Phaser.Scene{
         this.load.image('monster','./assets/GhostSprite.png' );
         this.load.image('player', './assets/Detective Doggert 001.png');
 
-        this.load.image('obj_1', './assets/floor_1_obj_1.png');
-        this.load.image('obj_2', './assets/floor_1_obj_2.png');
-        this.load.image('obj_3', './assets/floor_1_obj_3.png');
-        this.load.image('obj_4', './assets/floor_1_obj_4.png');
-        this.load.image('obj_1Lit', './assets/floor_1_obj_1_Lit.png');
-        this.load.image('obj_2Lit', './assets/floor_1_obj_2_Lit.png');
-        this.load.image('obj_3Lit', './assets/floor_1_obj_3_Lit.png');
-        this.load.image('obj_4Lit', './assets/floor_1_obj_4_Lit.png');
+        this.load.image('floor_1_obj_1', './assets/floor_1_obj_1.png');
+        this.load.image('floor_1_obj_2', './assets/floor_1_obj_2.png');
+        this.load.image('floor_1_obj_3', './assets/floor_1_obj_3.png');
+        this.load.image('floor_1_obj_4', './assets/floor_1_obj_4.png');
+        this.load.image('floor_1_obj_1Lit', './assets/floor_1_obj_1_Lit.png');
+        this.load.image('floor_1_obj_2Lit', './assets/floor_1_obj_2_Lit.png');
+        this.load.image('floor_1_obj_3Lit', './assets/floor_1_obj_3_Lit.png');
+        this.load.image('floor_1_obj_4Lit', './assets/floor_1_obj_4_Lit.png');
         this.load.image('dialogueBox', './assets/dialogueBox.png');
         this.load.image('dialogue_button', './assets/dialogue_button.png');
         this.load.image('dialogue_button_empty', './assets/dialogue_button_empty.png');
@@ -112,13 +112,13 @@ class Floor_1 extends Phaser.Scene{
         
     }
     createObjects(){
-        this.obj_1 = this.physics.add.sprite(game.config.width - 272, 176, 'obj_1', 0);
+        this.obj_1 = this.physics.add.sprite(game.config.width - 272, 176, 'floor_1_obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(game.config.width + 464, 177, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(game.config.width + 464, 177, 'floor_1_obj_2', 0);
         this.obj_2.body.setImmovable();
-        this.obj_3 = this.physics.add.sprite(game.config.width - 368, 1072, 'obj_3', 0);
+        this.obj_3 = this.physics.add.sprite(game.config.width - 368, 1072, 'floor_1_obj_3', 0);
         this.obj_3.body.setImmovable();
-        this.obj_4 = this.physics.add.sprite(game.config.width + 352, 976, 'obj_4', 0);
+        this.obj_4 = this.physics.add.sprite(game.config.width + 352, 976, 'floor_1_obj_4', 0);
         this.obj_4.body.setImmovable();
     }
     createMap(){
@@ -250,6 +250,9 @@ class Floor_1 extends Phaser.Scene{
                 this.player.update();
             else if (this.finishedLevel){
                 this.player.update();
+            }else{
+                this.player.setVelocity(0,0)
+                this.player.anims.pause();
             }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -348,50 +351,50 @@ class Floor_1 extends Phaser.Scene{
     objectInteraction(){
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
             this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
-                this.obj_1.setTexture('obj_1Lit', 0);
+                this.obj_1.setTexture('floor_1_obj_1Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_1_time;
                     this.selectedItem = this.object_1_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_1.setTexture('obj_1', 0);
+            this.obj_1.setTexture('floor_1_obj_1', 0);
         }
 
         if(this.player.x <= this.obj_2.x + 30 && this.player.x >= this.obj_2.x - 30 && 
             this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
-                this.obj_2.setTexture('obj_2Lit', 0);
+                this.obj_2.setTexture('floor_1_obj_2Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_2_time;
                     this.selectedItem = this.object_2_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_2.setTexture('obj_2', 0);
+            this.obj_2.setTexture('floor_1_obj_2', 0);
         }
 
         if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
             this.player.y <= this.obj_3.y + 60 && this.player.y >= this.obj_3.y - 60){
-                this.obj_3.setTexture('obj_3Lit', 0);
+                this.obj_3.setTexture('floor_1_obj_3Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_3_time;
                     this.selectedItem = this.object_3_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_3.setTexture('obj_3', 0);
+            this.obj_3.setTexture('floor_1_obj_3', 0);
         }
 
         if(this.player.x <= this.obj_4.x + 30 && this.player.x >= this.obj_4.x - 30 && 
             this.player.y <= this.obj_4.y + 60 && this.player.y >= this.obj_4.y - 60){
-                this.obj_4.setTexture('obj_4Lit', 0);
+                this.obj_4.setTexture('floor_1_obj_4Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_4_time;
                     this.selectedItem = this.object_4_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_4.setTexture('obj_4', 0);
+            this.obj_4.setTexture('floor_1_obj_4', 0);
         }
         
     }

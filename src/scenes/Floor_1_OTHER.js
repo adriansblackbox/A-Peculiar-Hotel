@@ -77,7 +77,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
-        //this.createSymbol();
+        this.createSymbol();
 
         this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
         this.timer = this.add.text(0,0, "", this.style);
@@ -249,7 +249,7 @@ class Floor_1_OTHER extends Phaser.Scene{
             }
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            this.elevator_bgm.stop();
+            //this.elevator_bgm.stop();
             this.musicplaying = false;
             game.config.prevScene = 'Floor_1_OTHER';
             this.scene.switch('Drawing');

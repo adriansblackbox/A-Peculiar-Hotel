@@ -63,33 +63,24 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.timeOut = false;
         this.speedLow = 50;
         this.speedHigh = 100;
-        const map = this.make.tilemap({key: 'floor3OTHER'});
-        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
 
-        map.createLayer('Ground', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
-
+        this.createMap();
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
-        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster4 = new Monster(this, game.config.width/1.5, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster5 = new Monster(this, game.config.width, game.config.height*1.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster6 = new Monster(this, game.config.width/1.5, game.config.height*1.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster7 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster8 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster9 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        map.createLayer('abovePlayer', tileset);
 
-        this.physics.add.collider(this.player, walls);
+        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster4 = new Monster(this, game.config.width/1.5, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster5 = new Monster(this, game.config.width, game.config.height*1.5, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster6 = new Monster(this, game.config.width/1.5, game.config.height*1.5, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster7 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster8 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster9 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.cameras.main.startFollow(this.player);
 
         this.createAnims();
@@ -98,18 +89,32 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
-        //this.monster.anchor.setTo(.5);
-        //this.monster.pivot.x = 100;
         this.createSymbol();
+
+        this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
+
+        this.timer = this.add.text(0,0, "", this.style);
+    }
+    createMap(){
+        const map = this.make.tilemap({key: 'floor3OTHER'});
+        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        const props = map.createLayer('props', tileset);
+        props.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);        
+
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props);
     }
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
         this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
-        this.symbol = this.add.sprite(this.player.x, this.player.y, this.symbolTexture, 0);
-
-        console.log(this.password);
-        console.log(this.passwordIndex)
-        console.log(this.symbolTexture);
+        this.symbol = this.add.sprite(game.config.width - 272, 80, this.symbolTexture, 0);
     }
     createAnims(){
         this.anims.create({
@@ -176,7 +181,15 @@ class Floor_3_OTHER extends Phaser.Scene{
             this.otherworld_bgm.play();
         }
         if(this.findingTime > 0){
-            this.player.update();
+            this.timer.setX(this.player.x - 50);
+            this.timer.setY(this.player.y - 150);
+            this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
+            if(!this.ghostHit){
+                this.player.update();
+            }else{
+                this.player.anims.stop();
+                this.player.setVelocity(0,0);
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -250,14 +263,36 @@ class Floor_3_OTHER extends Phaser.Scene{
             }
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            this.elevator_bgm.stop();
+            //this.elevator_bgm.stop();
             this.musicplaying = false;
             game.config.prevScene = 'Floor_3_OTHER';
             this.scene.switch('Drawing');
         }
     }
     collisions(){
-        
+        this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster2, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster3, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster4, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster5, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster6, this.onGhostCollision, null, this);
+
+        this.physics.world.collide(this.player, this.monster7, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster8, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster9, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster10, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster11, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster12, this.onGhostCollision, null, this);
+    }
+    onGhostCollision(){
+        if(!this.ghostHit){
+            this.ghostHit = true;
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }   
     }
 
     exitLevel(){

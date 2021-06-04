@@ -15,7 +15,7 @@ class Elevator extends Phaser.Scene{
 
     preload(){
         this.load.image('button', './assets/');
-        this.load.image('keypad', './assets/keypad.png');
+        this.load.image('keypad', './assets/keypadBase.png');
         this.load.image('dogDialogue', './assets/catDialogue.png');
         this.load.image('catDialogue', './assets/dogdialogue.png');
         this.load.spritesheet('elevatorScene', 'assets/elevatorWaiting.png', {frameWidth: 480, frameHeight: 360, startFrame: 0, endFrame: 11});
@@ -43,6 +43,11 @@ class Elevator extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
+        //TESTING PASSSWORD!!!///////////
+        this.floorList = []
+         //TESTING PASSSWORD!!!///////////
+
+
         this.elevator_bgm = this.sound.add('elevatorMusic', BGMConfig);
         this.musicplaying = false;
         
@@ -101,23 +106,27 @@ class Elevator extends Phaser.Scene{
             //},this);
         }else{
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
-            this.button1 = this.physics.add.sprite(game.config.width/2 - 60, game.config.height/2 - 30).setInteractive();
-            this.button1.setSize(60, 60);
-            this.button2 = this.physics.add.sprite(game.config.width/2, game.config.height/2 - 30).setInteractive();
-            this.button2.setSize(60, 60);
-            this.button3 = this.physics.add.sprite(game.config.width/2 + 60, game.config.height/2 - 30).setInteractive();
-            this.button3.setSize(60, 60);
-            this.button4 = this.physics.add.sprite(game.config.width/2 - 60, game.config.height/2 + 30).setInteractive();
-            this.button4.setSize(60, 60);
-            this.button5 = this.physics.add.sprite(game.config.width/2, game.config.height/2 + 30).setInteractive();
-            this.button5.setSize(60, 60);
-            this.button6 = this.physics.add.sprite(game.config.width/2 + 60, game.config.height/2 + 30).setInteractive();
-            this.button6.setSize(60, 60);
+            this.button1 = this.physics.add.sprite(256, 78).setInteractive();
+            this.button1.setSize(30, 30);
+            this.button2 = this.physics.add.sprite(384, 78).setInteractive();
+            this.button2.setSize(30, 30);
+            this.button3 = this.physics.add.sprite(256, 120).setInteractive();
+            this.button3.setSize(30, 30);
+            this.button4 = this.physics.add.sprite(384, 120).setInteractive();
+            this.button4.setSize(30, 30);
+            this.button5 = this.physics.add.sprite(256, 162).setInteractive();
+            this.button5.setSize(30, 30);
+            this.button6 = this.physics.add.sprite(384, 162).setInteractive();
+            this.button6.setSize(30, 30);
+            this.button7 = this.physics.add.sprite(256, 204).setInteractive();
+            this.button7.setSize(30, 30);
+            this.button8 = this.physics.add.sprite(384, 204).setInteractive();
+            this.button8.setSize(30, 30);
+            this.button9 = this.physics.add.sprite(256, 246).setInteractive();
+            this.button9.setSize(30, 30);
+            this.button10 = this.physics.add.sprite(384, 246).setInteractive();
+            this.button10.setSize(30, 30);
 
-            this.deleteButton = this.physics.add.sprite(game.config.width/2 + 120, game.config.height/2 + 30).setInteractive();
-            this.deleteButton.setSize(60, 60);
-            this.confirmButton = this.physics.add.sprite(game.config.width/2 + 120, game.config.height/2 - 30).setInteractive();
-            this.confirmButton.setSize(60, 60);
 
             this.button1.on('pointerdown', function (event) {
                 this.inputPassword.push(0);
@@ -137,22 +146,7 @@ class Elevator extends Phaser.Scene{
             this.button6.on('pointerdown', function (event) {
                 this.inputPassword.push(5);
             },this);
-            this.deleteButton.on('pointerdown', function (event) {
-                if(this.inputPassword.length > 0)
-                    this.inputPassword.pop();
-            },this);
-            this.confirmButton.on('pointerdown', function (event) {
-                console.log(this.inputPassword);
-                console.log(this.password);
-                if(this.inputPassword.length == 4){
-                    const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-                    if(equals(this.inputPassword, this.password)){
-                        this.scene.start('Floor_0');
-                    }else{
-                        this.scene.start('Lobby');
-                    }
-                }
-            },this);
+
         }
        
     }
@@ -173,6 +167,8 @@ class Elevator extends Phaser.Scene{
             }
         }
 
+        //TESTING LEVEL ELEVATOR TRANSITION
+        /*
         if(this.elevatorTime <= 0 && !this.fadingOut){
             this.fadingOut = true;
             let SFXConfig ={
@@ -194,6 +190,7 @@ class Elevator extends Phaser.Scene{
                 this.scene.start(this.nextFloor, {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: false, playerX: 0, playerY: 0});
             })
         }
+        */
 
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
             let SFXConfig = {

@@ -18,14 +18,14 @@ class Floor_4 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('obj_1', './assets/floor_1_obj_1.png');
-        this.load.image('obj_2', './assets/floor_2_object_2.png');
-        this.load.image('obj_3', './assets/floor_1_obj_3.png');
-        this.load.image('obj_4', './assets/floor_1_obj_4.png');
-        this.load.image('obj_1Lit', './assets/floor_1_obj_1_Lit.png');
-        this.load.image('obj_2Lit', './assets/floor_2_object_2_Lit.png');
-        this.load.image('obj_3Lit', './assets/floor_1_obj_3_Lit.png');
-        this.load.image('obj_4Lit', './assets/floor_1_obj_4_Lit.png');
+        this.load.image('floor_4_obj_1', './assets/floor_1_obj_1.png');
+        this.load.image('floor_4_obj_2', './assets/floor_2_object_2.png');
+        this.load.image('floor_4_obj_3', './assets/floor_1_obj_3.png');
+        this.load.image('floor_4_obj_4', './assets/floor_1_obj_4.png');
+        this.load.image('floor_4_obj_1Lit', './assets/floor_1_obj_1_Lit.png');
+        this.load.image('floor_4_obj_2Lit', './assets/floor_2_object_2_Lit.png');
+        this.load.image('floor_4_obj_3Lit', './assets/floor_1_obj_3_Lit.png');
+        this.load.image('floor_4_obj_4Lit', './assets/floor_1_obj_4_Lit.png');
         this.load.image('dialogueBox', './assets/dialogueBox.png');
         this.load.image('dialogue_button', './assets/dialogue_button.png');
         this.load.image('dialogue_button_empty', './assets/dialogue_button_empty.png');
@@ -107,19 +107,19 @@ class Floor_4 extends Phaser.Scene{
     }
     createObjects(){
         //good
-        this.obj_1 = this.physics.add.sprite(496, 880, 'obj_1', 0);
+        this.obj_1 = this.physics.add.sprite(496, 880, 'floor_4_obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(48, 1073, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(48, 1073, 'floor_4_obj_2', 0);
         this.obj_2.body.setImmovable();
-        this.obj_3 = this.physics.add.sprite(335, 1008,'obj_3', 0);
+        this.obj_3 = this.physics.add.sprite(335, 1008,'floor_4_obj_3', 0);
         this.obj_3.body.setImmovable();
         //good
-        this.obj_4 = this.physics.add.sprite(64, 880, 'obj_4', 0);
+        this.obj_4 = this.physics.add.sprite(64, 880, 'floor_4_obj_4', 0);
         this.obj_4.body.setImmovable();
     }
     tieObjects(){
         this.selectedItem = "";
-        this.objectArray = ["Rusted Neclace", "Hair Brush", "Pair", "Band-Aid"];
+        this.objectArray = ["Rusted Neclace", "Hair Brush", "Pare", "Band-Aid"];
         this.objectTime = [50000, 40000, 25000, 30000]
 
         this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
@@ -243,6 +243,9 @@ class Floor_4 extends Phaser.Scene{
                 this.player.update();
             else if (this.finishedLevel){
                 this.player.update();
+            }else{
+                this.player.setVelocity(0,0)
+                this.player.anims.pause(); 
             }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -317,50 +320,50 @@ class Floor_4 extends Phaser.Scene{
     objectInteraction(){
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
             this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
-                this.obj_1.setTexture('obj_1Lit', 0);
+                this.obj_1.setTexture('floor_4_obj_1Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_1_time;
                     this.selectedItem = this.object_1_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_1.setTexture('obj_1', 0);
+            this.obj_1.setTexture('floor_4_obj_1', 0);
         }
 
         if(this.player.x <= this.obj_2.x + 30 && this.player.x >= this.obj_2.x - 30 && 
             this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
-                this.obj_2.setTexture('obj_2Lit', 0);
+                this.obj_2.setTexture('floor_4_obj_2Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_2_time;
                     this.selectedItem = this.object_2_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_2.setTexture('obj_2', 0);
+            this.obj_2.setTexture('floor_4_obj_2', 0);
         }
 
         if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
             this.player.y <= this.obj_3.y + 60 && this.player.y >= this.obj_3.y - 60){
-                this.obj_3.setTexture('obj_3Lit', 0);
+                this.obj_3.setTexture('floor_4_obj_3Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_3_time;
                     this.selectedItem = this.object_3_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_3.setTexture('obj_3', 0);
+            this.obj_3.setTexture('floor_4_obj_3', 0);
         }
 
         if(this.player.x <= this.obj_4.x + 30 && this.player.x >= this.obj_4.x - 30 && 
             this.player.y <= this.obj_4.y + 60 && this.player.y >= this.obj_4.y - 60){
-                this.obj_4.setTexture('obj_4Lit', 0);
+                this.obj_4.setTexture('floor_4_obj_4Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_4_time;
                     this.selectedItem = this.object_4_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_4.setTexture('obj_4', 0);
+            this.obj_4.setTexture('floor_4_obj_4', 0);
         }
     }
     confirmObject(){
