@@ -30,6 +30,39 @@ class Elevator extends Phaser.Scene{
         this.load.audio('elevatorMusic', './assets/sounds/Elevator_bgm.wav');
         this.load.audio('elevatorOpen', './assets/sounds/Elevator_open.wav');
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
+
+        this.load.image('button1_hover', './assets/hoverButt01.png');
+        this.load.image('button2_hover', './assets/hoverButt02.png');
+        this.load.image('button3_hover', './assets/hoverButt03.png');
+        this.load.image('button4_hover', './assets/hoverButt04.png');
+        this.load.image('button5_hover', './assets/hoverButt05.png');
+        this.load.image('button6_hover', './assets/hoverButt06.png');
+        this.load.image('button7_hover', './assets/hoverButt07.png');
+        this.load.image('button8_hover', './assets/hoverButt08.png');
+        this.load.image('button9_hover', './assets/hoverButt09.png');
+        this.load.image('button10_hover', './assets/hoverButt10.png');
+
+        this.load.image('button1_good', './assets/correctButt01.png');
+        this.load.image('button2_good', './assets/correctButt02.png');
+        this.load.image('button3_good', './assets/correctButt03.png');
+        this.load.image('button4_good', './assets/correctButt04.png');
+        this.load.image('button5_good', './assets/correctButt05.png');
+        this.load.image('button6_good', './assets/correctButt06.png');
+        this.load.image('button7_good', './assets/correctButt07.png');
+        this.load.image('button8_good', './assets/correctButt08.png');
+        this.load.image('button9_good', './assets/correctButt09.png');
+        this.load.image('button10_good', './assets/correctButt10.png');
+
+        this.load.image('button1_bad', './assets/badButt01.png');
+        this.load.image('button2_bad', './assets/badButt02.png');
+        this.load.image('button3_bad', './assets/badButt03.png');
+        this.load.image('button4_bad', './assets/badButt04.png');
+        this.load.image('button5_bad', './assets/badButt05.png');
+        this.load.image('button6_bad', './assets/badButt06.png');
+        this.load.image('button7_bad', './assets/badButt07.png');
+        this.load.image('button8_bad', './assets/badButt08.png');
+        this.load.image('button9_bad', './assets/badButt09.png');
+        this.load.image('button10_bad', './assets/badButt10.png');
     }
 
     create(){
@@ -43,9 +76,21 @@ class Elevator extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
-        //TESTING PASSSWORD!!!///////////
-        this.floorList = []
-         //TESTING PASSSWORD!!!///////////
+
+        this.index = -1;
+        this.failedPassword = false;
+        this.correctPassword = false;
+
+        this.button1_clicked = false;
+        this.button2_clicked = false;
+        this.button3_clicked = false;
+        this.button4_clicked = false;
+        this.button5_clicked = false;
+        this.button6_clicked = false;
+        this.button7_clicked = false;
+        this.button8_clicked = false;
+        this.button9_clicked = false;
+        this.button10_clicked = false;
 
 
         this.elevator_bgm = this.sound.add('elevatorMusic', BGMConfig);
@@ -71,7 +116,6 @@ class Elevator extends Phaser.Scene{
 
 
         console.log(this.password);
-        this.nextFloorPressed = false;
 
         if(this.passwordIndex < 4)
             this.passwordIndex++;
@@ -83,9 +127,6 @@ class Elevator extends Phaser.Scene{
        this.inputPassword = [];
        this.confirmPassword = false;
         
-
-        //this.startBtn.on('pointerover', function (event) {}, this);
-        //this.startBtn.on('pointerout', function (event) {}, this);
         
         this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
         this.nextFloor = this.floorList[this.randFloor];
@@ -99,11 +140,7 @@ class Elevator extends Phaser.Scene{
         console.log(this.floorList);
 
         if(this.nextFloor != null){
-            //this.startBtn = this.add.sprite(game.config.width/2, game.config.height/2, 'button').setInteractive();
 
-            //this.startBtn.on('pointerdown', function (event) {
-                this.nextFloorPressed = true;
-            //},this);
         }else{
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
             this.button1 = this.physics.add.sprite(256, 78).setInteractive();
@@ -127,25 +164,313 @@ class Elevator extends Phaser.Scene{
             this.button10 = this.physics.add.sprite(384, 246).setInteractive();
             this.button10.setSize(30, 30);
 
+            this.button1_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button1_hover');
+            this.button1_hover.alpha = 0;
+            this.button2_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button2_hover');
+            this.button2_hover.alpha = 0;
+            this.button3_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button3_hover');
+            this.button3_hover.alpha = 0;
+            this.button4_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button4_hover');
+            this.button4_hover.alpha = 0;
+            this.button5_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button5_hover');
+            this.button5_hover.alpha = 0;
+            this.button6_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button6_hover');
+            this.button6_hover.alpha = 0;
+            this.button7_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button7_hover');
+            this.button7_hover.alpha = 0;
+            this.button8_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button8_hover');
+            this.button8_hover.alpha = 0;
+            this.button9_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button9_hover');
+            this.button9_hover.alpha = 0;
+            this.button10_hover = this.add.sprite(game.config.width/2, game.config.height/2, 'button10_hover');
+            this.button10_hover.alpha = 0;
+
+            this.button1_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button1_good');
+            this.button1_good.alpha = 0;
+            this.button2_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button2_good');
+            this.button2_good.alpha = 0;
+            this.button3_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button3_good');
+            this.button3_good.alpha = 0;
+            this.button4_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button4_good');
+            this.button4_good.alpha = 0;
+            this.button5_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button5_good');
+            this.button5_good.alpha = 0;
+            this.button6_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button6_good');
+            this.button6_good.alpha = 0;
+            this.button7_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button7_good');
+            this.button7_good.alpha = 0;
+            this.button8_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button8_good');
+            this.button8_good.alpha = 0;
+            this.button9_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button9_good');
+            this.button9_good.alpha = 0;
+            this.button10_good = this.add.sprite(game.config.width/2, game.config.height/2, 'button10_good');
+            this.button10_good.alpha = 0;
+
+            this.button1_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button1_bad');
+            this.button1_bad.alpha = 0;
+            this.button2_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button2_bad');
+            this.button2_bad.alpha = 0;
+            this.button3_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button3_bad');
+            this.button3_bad.alpha = 0;
+            this.button4_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button4_bad');
+            this.button4_bad.alpha = 0;
+            this.button5_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button5_bad');
+            this.button5_bad.alpha = 0;
+            this.button6_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button6_bad');
+            this.button6_bad.alpha = 0;
+            this.button7_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button7_bad');
+            this.button7_bad.alpha = 0;
+            this.button8_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button8_bad');
+            this.button8_bad.alpha = 0;
+            this.button9_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button9_bad');
+            this.button9_bad.alpha = 0;
+            this.button10_bad = this.add.sprite(game.config.width/2, game.config.height/2, 'button10_bad');
+            this.button10_bad.alpha = 0;
+
+            this.button1.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button1_hover.alpha = 1;
+            }, this);
+            this.button2.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button2_hover.alpha = 1;
+            }, this);
+            this.button3.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button3_hover.alpha = 1;
+            }, this);
+            this.button4.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button4_hover.alpha = 1;
+            }, this);
+            this.button5.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button5_hover.alpha = 1;
+            }, this);
+            this.button6.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button6_hover.alpha = 1;
+            }, this);
+            this.button7.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button7_hover.alpha = 1;
+            }, this);
+            this.button8.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button8_hover.alpha = 1;
+            }, this);
+            this.button9.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button9_hover.alpha = 1;
+            }, this);
+            this.button10.on('pointerover', function (event) {
+                if(!this.failedPassword && !this.correctPassword)
+                this.button10_hover.alpha = 1;
+            }, this);
+
+            this.button1.on('pointerout', function (event) {
+                this.button1_hover.alpha = 0;
+            }, this);
+            this.button2.on('pointerout', function (event) {
+                this.button2_hover.alpha = 0;
+            }, this);
+            this.button3.on('pointerout', function (event) {
+                this.button3_hover.alpha = 0;
+            }, this);
+            this.button4.on('pointerout', function (event) {
+                this.button4_hover.alpha = 0;
+            }, this);
+            this.button5.on('pointerout', function (event) {
+                this.button5_hover.alpha = 0;
+            }, this);
+            this.button6.on('pointerout', function (event) {
+                this.button6_hover.alpha = 0;
+            }, this);
+            this.button7.on('pointerout', function (event) {
+                this.button7_hover.alpha = 0;
+            }, this);
+            this.button8.on('pointerout', function (event) {
+                this.button8_hover.alpha = 0;
+            }, this);
+            this.button9.on('pointerout', function (event) {
+                this.button9_hover.alpha = 0;
+            }, this);
+            this.button10.on('pointerout', function (event) {
+                this.button10_hover.alpha = 0;
+            }, this);
+
 
             this.button1.on('pointerdown', function (event) {
-                this.inputPassword.push(0);
+                if(!this.failedPassword){
+                    if(!this.button1_clicked)
+                        this.inputPassword.push(0);
+                    this.button1_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button1_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button1_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
             },this);
             this.button2.on('pointerdown', function (event) {
-                this.inputPassword.push(1);
+                if(!this.failedPassword){
+                    if(!this.button2_clicked)
+                        this.inputPassword.push(1);
+                    this.button2_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button2_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button2_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
             },this);
             this.button3.on('pointerdown', function (event) {
-                this.inputPassword.push(2);
+                if(!this.failedPassword){
+                    if(!this.button3_clicked)
+                        this.inputPassword.push(2);
+                    this.button3_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button3_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button3_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
             },this);
             this.button4.on('pointerdown', function (event) {
-                this.inputPassword.push(3);
+                if(!this.failedPassword){
+                    if(!this.button4_clicked)
+                        this.inputPassword.push(3);
+                    this.button4_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button4_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button4_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
             },this);
             this.button5.on('pointerdown', function (event) {
-                this.inputPassword.push(4);
+                if(!this.failedPassword){
+                    if(!this.button5_clicked)
+                        this.inputPassword.push(4);
+                    this.button5_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button5_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button5_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
             },this);
             this.button6.on('pointerdown', function (event) {
-                this.inputPassword.push(5);
+                if(!this.failedPassword){
+                    if(!this.button6_clicked)
+                        this.inputPassword.push(5);
+                    this.button6_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button6_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button6_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
             },this);
+            this.button7.on('pointerdown', function (event) {
+                if(!this.failedPassword){
+                    if(!this.button7_clicked)
+                        this.inputPassword.push(6);
+                    this.button7_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button7_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button7_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
+            },this);
+            this.button8.on('pointerdown', function (event) {
+                if(!this.failedPassword){
+                    if(!this.button8_clicked)
+                        this.inputPassword.push(7);
+                    this.button8_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button8_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button9_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
+            },this);
+            this.button9.on('pointerdown', function (event) {
+                if(!this.failedPassword){
+                    if(!this.button9_clicked)
+                        this.inputPassword.push(8);
+                    this.button9_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button9_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button10_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
+            },this);
+            this.button10.on('pointerdown', function (event) {
+                if(!this.failedPassword){
+                    if(!this.button10_clicked)
+                        this.inputPassword.push(9);
+                    this.button10_clicked = true;
+                    this.index++;
+                    if(this.inputPassword[this.index] == this.password[this.index]){
+                        if(!this.correctPassword)
+                        this.button10_good.alpha = 1;
+                    }else{
+                        if(!this.correctPassword){
+                            this.button10_bad.alpha = 1;
+                            this.failedPassword = true;
+                        }
+                    }
+                }
+            },this);
+
 
         }
        
@@ -161,10 +486,9 @@ class Elevator extends Phaser.Scene{
             this.inputPassword.pop();
         }
 
-        if(this.confirmPassword){
-            if(this.inputPassword == this.password){
-                this.scene.start('Lobby');
-            }
+
+        if(this.inputPassword.length == 4){
+            this.correctPassword = true;
         }
 
         //TESTING LEVEL ELEVATOR TRANSITION
