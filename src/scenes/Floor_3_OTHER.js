@@ -69,18 +69,18 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
 
-        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster4 = new Monster(this, game.config.width/1.5, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster5 = new Monster(this, game.config.width, game.config.height*1.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster6 = new Monster(this, game.config.width/1.5, game.config.height*1.5, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster7 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster8 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster9 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster4 = new Monster(this, game.config.width/1.5, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster5 = new Monster(this, game.config.width, game.config.height*1.5, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster6 = new Monster(this, game.config.width/1.5, game.config.height*1.5, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster7 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster8 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster9 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.cameras.main.startFollow(this.player);
 
         this.createAnims();

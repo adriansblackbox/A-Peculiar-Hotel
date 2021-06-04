@@ -407,7 +407,7 @@ class Floor_3 extends Phaser.Scene{
             this.itemText.setText("");
             this.confirmText.setText("");
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('Floor_2_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                this.scene.start('Floor_3_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
                 playerX: this.player.x, playerY: this.player.y});
             });
         }else if(this.noSelected){
