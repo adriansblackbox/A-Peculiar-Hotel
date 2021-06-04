@@ -238,6 +238,7 @@ class Floor_2 extends Phaser.Scene{
                 this.player.update();
             }else{
                 this.player.setVelocity(0,0)
+                this.player.anims.pause();
             }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);

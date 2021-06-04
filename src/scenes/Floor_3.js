@@ -91,8 +91,8 @@ class Floor_3 extends Phaser.Scene{
     }
     tieObjects(){
         this.selectedItem = "";
-        this.objectArray = ["Family Ring", "Pen", "Tattered Jacket"];
-        this.objectTime = [25000, 20000, 18000]
+        this.objectArray = ["Polished Plate", "Dancing Shoes", "Dirty Napkin"];
+        this.objectTime = [18000, 25000, 20000]
 
         this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
         this.object_1_item = this.objectArray[this.randIndex];
@@ -130,11 +130,12 @@ class Floor_3 extends Phaser.Scene{
         
     }
     createObjects(){
-        this.obj_1 = this.physics.add.sprite(game.config.width - 592 + 32 + 32 + 32 + 32 + 32 + 32, 78, 'obj_1', 0);
+        this.obj_1 = this.physics.add.sprite(239, 753, 'obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(game.config.width - 592, 78, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(465, 778, 'obj_2', 0);
         this.obj_2.body.setImmovable();
-        this.obj_3 = this.physics.add.sprite(game.config.width - 592, 78 + 32 + 32 + 32 + 32 + 32 + 2, 'obj_3', 0);
+        this.obj_3 = this.physics.add.sprite(599, 784, 'obj_3', 0);
+        this.obj_3.flipX = true;
         this.obj_3.body.setImmovable();
     }
     createMap(){
@@ -236,6 +237,7 @@ class Floor_3 extends Phaser.Scene{
                 this.player.update();
             }else{
                 this.player.setVelocity(0,0)
+                this.player.anims.pause();
             }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
@@ -308,10 +310,13 @@ class Floor_3 extends Phaser.Scene{
         }
     }
     collisions(){
+        this.physics.add.collider(this.player, this.obj_1);
+        this.physics.add.collider(this.player, this.obj_2);
+        this.physics.add.collider(this.player, this.obj_3);
     }
     objectInteraction(){
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
-            this.player.y <= this.obj_1.y + 30 && this.player.y >= this.obj_1.y - 30){
+            this.player.y <= this.obj_1.y + 40 && this.player.y >= this.obj_1.y - 40){
                 this.obj_1.setTexture('obj_1Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_1_time;
