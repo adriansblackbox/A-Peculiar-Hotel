@@ -5,6 +5,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this);
 
         this.body.setSize(20, 15, true);
+        this.body.immovable = true;
         //this.body.offset.x = 0;
         this.body.offset.y = 17.5;
 

@@ -89,9 +89,11 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
-        //this.monster.anchor.setTo(.5);
-        //this.monster.pivot.x = 100;
-        //this.createSymbol();
+        this.createSymbol();
+
+        this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
+
+        this.timer = this.add.text(0,0, "", this.style);
     }
     createMap(){
         const map = this.make.tilemap({key: 'floor3OTHER'});
@@ -112,11 +114,7 @@ class Floor_3_OTHER extends Phaser.Scene{
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
         this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
-        this.symbol = this.add.sprite(this.player.x, this.player.y, this.symbolTexture, 0);
-
-        console.log(this.password);
-        console.log(this.passwordIndex)
-        console.log(this.symbolTexture);
+        this.symbol = this.add.sprite(game.config.width - 272, 80, this.symbolTexture, 0);
     }
     createAnims(){
         this.anims.create({
@@ -183,7 +181,15 @@ class Floor_3_OTHER extends Phaser.Scene{
             this.otherworld_bgm.play();
         }
         if(this.findingTime > 0){
-            this.player.update();
+            this.timer.setX(this.player.x - 50);
+            this.timer.setY(this.player.y - 150);
+            this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
+            if(!this.ghostHit){
+                this.player.update();
+            }else{
+                this.player.anims.stop();
+                this.player.setVelocity(0,0);
+            }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
