@@ -63,18 +63,12 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.timeOut = false;
         this.speedLow = 50;
         this.speedHigh = 100;
-        const map = this.make.tilemap({key: 'floor3OTHER'});
-        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
 
-        map.createLayer('Ground', tileset);
-        const walls = map.createLayer('Walls', tileset);
-        walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
-
+        this.createMap();
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
-        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+
         this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
@@ -87,9 +81,6 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster', Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        map.createLayer('abovePlayer', tileset);
-
-        this.physics.add.collider(this.player, walls);
         this.cameras.main.startFollow(this.player);
 
         this.createAnims();
@@ -100,7 +91,23 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         //this.monster.anchor.setTo(.5);
         //this.monster.pivot.x = 100;
-        this.createSymbol();
+        //this.createSymbol();
+    }
+    createMap(){
+        const map = this.make.tilemap({key: 'floor3OTHER'});
+        const tileset = map.addTilesetImage('Spirit_Tiles', 'spirittiles');
+
+        map.createLayer('Ground', tileset);
+        const walls = map.createLayer('Walls', tileset);
+        walls.setCollisionByProperty({collides: true});
+        const props = map.createLayer('props', tileset);
+        props.setCollisionByProperty({collides: true});
+        map.createLayer('extra', tileset);        
+
+        this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props);
     }
     createSymbol(){
         this.symbolArray = ['symbol_0', 'symbol_1', 'symbol_2', 'symbol_3', 'symbol_4', 'symbol_5', 'symbol_6', 'symbol_7', 'symbol_8', 'symbol_9'];
