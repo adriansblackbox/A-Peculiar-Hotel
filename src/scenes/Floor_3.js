@@ -18,12 +18,12 @@ class Floor_3 extends Phaser.Scene{
     
 
     preload(){
-        this.load.image('obj_1', './assets/floor_3_obj_1.png');
-        this.load.image('obj_2', './assets/floor_3_obj_2.png');
-        this.load.image('obj_3', './assets/floor_3_obj_3.png');
-        this.load.image('obj_1Lit', './assets/floor_3_obj_1_Lit.png');
-        this.load.image('obj_2Lit', './assets/floor_3_obj_2_Lit.png');
-        this.load.image('obj_3Lit', './assets/floor_3_obj_3_Lit.png');
+        this.load.image('floor_3_obj_1', './assets/floor_3_obj_1.png');
+        this.load.image('floor_3_obj_2', './assets/floor_3_obj_2.png');
+        this.load.image('floor_3_obj_3', './assets/floor_3_obj_3.png');
+        this.load.image('floor_3_obj_1Lit', './assets/floor_3_obj_1_Lit.png');
+        this.load.image('floor_3_obj_2Lit', './assets/floor_3_obj_2_Lit.png');
+        this.load.image('floor_3_obj_3Lit', './assets/floor_3_obj_3_Lit.png');
         this.load.image('dialogueBox', './assets/dialogueBox.png');
         this.load.image('dialogue_button', './assets/dialogue_button.png');
         this.load.image('dialogue_button_empty', './assets/dialogue_button_empty.png');
@@ -130,11 +130,11 @@ class Floor_3 extends Phaser.Scene{
         
     }
     createObjects(){
-        this.obj_1 = this.physics.add.sprite(239, 753, 'obj_1', 0);
+        this.obj_1 = this.physics.add.sprite(239, 753, 'floor_3_obj_1', 0);
         this.obj_1.body.setImmovable();
-        this.obj_2 = this.physics.add.sprite(465, 778, 'obj_2', 0);
+        this.obj_2 = this.physics.add.sprite(465, 778, 'floor_3_obj_2', 0);
         this.obj_2.body.setImmovable();
-        this.obj_3 = this.physics.add.sprite(599, 784, 'obj_3', 0);
+        this.obj_3 = this.physics.add.sprite(599, 784, 'floor_3_obj_3', 0);
         this.obj_3.flipX = true;
         this.obj_3.body.setImmovable();
     }
@@ -317,38 +317,38 @@ class Floor_3 extends Phaser.Scene{
     objectInteraction(){
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
             this.player.y <= this.obj_1.y + 40 && this.player.y >= this.obj_1.y - 40){
-                this.obj_1.setTexture('obj_1Lit', 0);
+                this.obj_1.setTexture('floor_3_obj_1Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_1_time;
                     this.selectedItem = this.object_1_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_1.setTexture('obj_1', 0);
+            this.obj_1.setTexture('floor_3_obj_1', 0);
         }
 
         if(this.player.x <= this.obj_2.x + 30 && this.player.x >= this.obj_2.x - 30 && 
             this.player.y <= this.obj_2.y + 30 && this.player.y >= this.obj_2.y - 30){
-                this.obj_2.setTexture('obj_2Lit', 0);
+                this.obj_2.setTexture('floor_3_obj_2Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_2_time;
                     this.selectedItem = this.object_2_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_2.setTexture('obj_2', 0);
+            this.obj_2.setTexture('floor_3_obj_2', 0);
         }
 
         if(this.player.x <= this.obj_3.x + 30 && this.player.x >= this.obj_3.x - 30 && 
             this.player.y <= this.obj_3.y + 60 && this.player.y >= this.obj_3.y - 60){
-                this.obj_3.setTexture('obj_3Lit', 0);
+                this.obj_3.setTexture('floor_3_obj_3Lit', 0);
                 if(interactKey.isDown){
                     this.findingTime = this.object_3_time;
                     this.selectedItem = this.object_3_item;
                     this.playerDeciding = true;
                 }
         }else{
-            this.obj_3.setTexture('obj_3', 0);
+            this.obj_3.setTexture('floor_3_obj_3', 0);
         }
         
     }
