@@ -270,7 +270,29 @@ class Floor_3_OTHER extends Phaser.Scene{
         }
     }
     collisions(){
-        
+        this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster2, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster3, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster4, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster5, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster6, this.onGhostCollision, null, this);
+
+        this.physics.world.collide(this.player, this.monster7, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster8, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster9, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster10, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster11, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.monster12, this.onGhostCollision, null, this);
+    }
+    onGhostCollision(){
+        if(!this.ghostHit){
+            this.ghostHit = true;
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.player.body.setVelocity(0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }   
     }
 
     exitLevel(){
