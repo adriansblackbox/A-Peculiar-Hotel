@@ -119,7 +119,7 @@ class Floor_4 extends Phaser.Scene{
     }
     tieObjects(){
         this.selectedItem = "";
-        this.objectArray = ["Rusted Neclace", "Hair Brush", "Pair", "Band-Aid"];
+        this.objectArray = ["Rusted Neclace", "Hair Brush", "Pare", "Band-Aid"];
         this.objectTime = [50000, 40000, 25000, 30000]
 
         this.randIndex = Phaser.Math.Between(0, this.objectArray.length - 1);
@@ -245,7 +245,7 @@ class Floor_4 extends Phaser.Scene{
                 this.player.update();
             }else{
                 this.player.setVelocity(0,0)
-                this.player.anims.pause();
+                this.player.anims.pause(); 
             }
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
