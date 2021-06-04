@@ -503,7 +503,7 @@ class Elevator extends Phaser.Scene{
         }
 
         //TESTING LEVEL ELEVATOR TRANSITION
-        /*
+        
         if(this.elevatorTime <= 0 && !this.fadingOut){
             this.fadingOut = true;
             let SFXConfig ={
@@ -525,7 +525,7 @@ class Elevator extends Phaser.Scene{
                 this.scene.start(this.nextFloor, {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: false, playerX: 0, playerY: 0});
             })
         }
-        */
+        
 
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
             let SFXConfig = {
