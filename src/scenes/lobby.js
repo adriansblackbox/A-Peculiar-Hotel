@@ -61,10 +61,12 @@ class Lobby extends Phaser.Scene{
         this.createMap();
 
         //starting to add the text (make sure to add character sprites below these lines)
-        this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
+        this.style = { font: "10px Arial", fill: "#ffff00", align: "center" };
 
-        this.text = this.add.text(game.config.width/2.5, game.config.height*1.2, "WASD to move", this.style);
-        this.text = this.add.text(game.config.width/2.9, game.config.height, "R-Key to open notebook", this.style);
+        this.text = this.add.text(game.config.width/2.4, game.config.height*1.2, "WASD to move", this.style);
+        this.text = this.add.text(game.config.width/2.55, game.config.height, "R-Key to open notebook", this.style);
+        this.text = this.add.text(game.config.width/2.88, game.config.height * 1.1, "E-Key to interact with glowing objects", this.style);
+
         //end of text stuff
 
         this.cameras.main.startFollow(this.player);
