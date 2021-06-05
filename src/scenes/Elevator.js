@@ -1,7 +1,12 @@
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
-var dialogue1 = "this is the first dialogue with cat";
+
+
+// IMPORTANT NOTE: 3 lines = 1 page
+
+//Cat Dialogue: hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...
+var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nUhmmmm... Thank you?\n\n\n";
 
 class Elevator extends Phaser.Scene{
 
@@ -100,7 +105,7 @@ class Elevator extends Phaser.Scene{
         this.musicplaying = false;
 
 
-        this.elevatorTime = 5000;
+        this.elevatorTime = 50000;
 
         this.anims.create({
             key: 'elevatorScene',
@@ -559,7 +564,9 @@ class Elevator extends Phaser.Scene{
         if(!this.dialogueFinished1 && !this.dialogueInProgress){
             this.dialogueInProgress = true;
             this.firstConversation.start(dialogue1, 100);
+            
         }
+        console.log(this.firstConversation.pageIndex)
     }
 
 }
