@@ -1,7 +1,12 @@
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
-var dialogue1 = "this is the first dialogue with cat";
+
+
+// IMPORTANT NOTE: 3 lines = 1 page
+
+//Cat Dialogue: hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...
+var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nUhmmmm... Thank you?\n\n\n";
 
 class Elevator extends Phaser.Scene{
 
@@ -81,6 +86,9 @@ class Elevator extends Phaser.Scene{
         this.index = -1;
         this.failedPassword = false;
         this.correctPassword = false;
+        this.resetGame = true;
+        this.dialogueInProgress = false;
+        this.conversationDone = false;
 
         this.button1_clicked = false;
         this.button2_clicked = false;
@@ -98,7 +106,7 @@ class Elevator extends Phaser.Scene{
         this.musicplaying = false;
 
 
-        this.elevatorTime = 5000;
+        this.elevatorTime = 50000;
 
         this.anims.create({
             key: 'elevatorScene',
@@ -119,9 +127,6 @@ class Elevator extends Phaser.Scene{
         this.dialogueFinished3 = false;
         this.dialogueFinished4 = false;
 
-        if(!this.dialogueFinished1){
-            createTextBox(this, 100, 100, {wrapWidth: 500,}).start(dialogue1, 100);
-        }
         if(this.dialogueFinished1 && !this.dialogueFinished2){
 
         }
@@ -484,7 +489,12 @@ class Elevator extends Phaser.Scene{
 
 
         }
+
+        this.createTextBoxes();
        
+    }
+    createTextBoxes(){
+        this.firstConversation = createTextBox(this, 100, 100, {wrapWidth: 500,});
     }
     update(time, delta){
         if(!(this.musicplaying) && !this.fadingOut){
@@ -503,8 +513,8 @@ class Elevator extends Phaser.Scene{
         }
 
         //TESTING LEVEL ELEVATOR TRANSITION
-        /*
-        if(this.elevatorTime <= 0 && !this.fadingOut){
+        
+        if(this.conversationDone && !this.fadingOut){
             this.fadingOut = true;
             let SFXConfig ={
                 mute: false,
@@ -525,7 +535,7 @@ class Elevator extends Phaser.Scene{
                 this.scene.start(this.nextFloor, {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: false, playerX: 0, playerY: 0});
             })
         }
-        */
+        
 
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
             let SFXConfig = {
@@ -545,7 +555,23 @@ class Elevator extends Phaser.Scene{
             game.config.prevScene = 'Elevator';
             this.scene.switch('Drawing');
         }
+        if(this.failedPassword && this.resetGame){
+            this.resetGame = false;
+            this.cameras.main.fadeOut(1500, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }
+        if(!this.dialogueFinished1 && !this.dialogueInProgress){
+            this.dialogueInProgress = true;
+            this.firstConversation.start(dialogue1, 100);
+            
+        }
+        if(this.firstConversation.pageIndex == 2){
+            this.conversationDone = true;
+        }
     }
+
 }
 
 const GetValue = Phaser.Utils.Objects.GetValue;
@@ -557,10 +583,10 @@ var createTextBox = function (scene, x, y, config) {
             x: x,
             y: y,
 
-            background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
-                .setStrokeStyle(2, COLOR_LIGHT),
+            //background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
+                //.setStrokeStyle(2, COLOR_LIGHT),
 
-            icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+            //icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
 
             text: scene.add.bitmapText(0, 0, 'gothic').setFontSize(20).setMaxWidth(wrapWidth),
 
