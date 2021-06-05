@@ -41,7 +41,9 @@ class Lobby extends Phaser.Scene{
             pan: 0
         }
         this.regular_bgm = this.sound.add('floorMusic', lobbyBGMConfig);
-        this.musicplaying = false;
+        this.musicplaying = this.regular_bgm.isPlaying;
+        //this.musicpaused = this.regular_bgm.isPaused;
+
         this.enteredElevator = false;
         this.floorList = ['Floor_1', 'Floor_2', 'Floor_3', 'Floor_4'];
 
@@ -159,9 +161,34 @@ class Lobby extends Phaser.Scene{
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        testKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+        statusKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
     }
     update(){
+        if(Phaser.Input.Keyboard.JustDown(statusKey)){
+            console.log("===============================");
+            console.log("Music playing status is: ");
+            console.log(this.regular_bgm.isPlaying);
+            console.log("Music paused status is: ");
+            console.log(this.regular_bgm.isPaused);
+            console.log("is Scene asleep?");
+            console.log(this.scene.isSleeping());
+            console.log("is Scene paused?");
+            console.log(this.scene.isPaused());
+            console.log("is Scene active?");
+            console.log(this.scene.isActive());
+            console.log("is Scene visible?");
+            console.log(this.scene.isVisible());
+            console.log("===============================");
+        }
         if(!this.enteredElevator){
+            if(Phaser.Input.Keyboard.JustDown(testKey)){
+                if(this.regular_bgm.isPaused){
+                    this.regular_bgm.resume();
+                }else{
+                    this.regular_bgm.pause();
+                }
+            }
             if(!(this.musicplaying)){
                 this.musicplaying = true;
                 this.regular_bgm.play();
@@ -223,8 +250,7 @@ class Lobby extends Phaser.Scene{
                 delay: 0,
                 pan: 0
             } 
-            this.regular_bgm.stop();
-            this.musicplaying = false;
+            this.regular_bgm.pause();
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
             this.sound.play('notebookOpen', SFXConfig);
