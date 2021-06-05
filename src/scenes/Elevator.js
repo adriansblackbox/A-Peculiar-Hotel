@@ -88,6 +88,7 @@ class Elevator extends Phaser.Scene{
         this.correctPassword = false;
         this.resetGame = true;
         this.dialogueInProgress = false;
+        this.conversationDone = false;
 
         this.button1_clicked = false;
         this.button2_clicked = false;
@@ -513,7 +514,7 @@ class Elevator extends Phaser.Scene{
 
         //TESTING LEVEL ELEVATOR TRANSITION
         
-        if(this.elevatorTime <= 0 && !this.fadingOut){
+        if(this.conversationDone && !this.fadingOut){
             this.fadingOut = true;
             let SFXConfig ={
                 mute: false,
@@ -566,7 +567,9 @@ class Elevator extends Phaser.Scene{
             this.firstConversation.start(dialogue1, 100);
             
         }
-        console.log(this.firstConversation.pageIndex)
+        if(this.firstConversation.pageIndex == 2){
+            this.conversationDone = true;
+        }
     }
 
 }
