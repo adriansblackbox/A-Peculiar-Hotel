@@ -495,7 +495,7 @@ class Elevator extends Phaser.Scene{
        
     }
     createTextBoxes(){
-        this.firstConversation = createTextBox(this, 100, 100, {wrapWidth: 500,});
+        this.firstConversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
     }
     update(time, delta){
         if(!(this.musicplaying) && !this.fadingOut){
@@ -590,7 +590,6 @@ class Elevator extends Phaser.Scene{
             this.dialogue_1_InProgress = true;
             this.firstConversation.start(dialogue1, 100);
         }
-        console.log(this.firstConversation.pageIndex)
         if(this.dialogue_1_InProgress){
             if(this.firstConversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
@@ -636,10 +635,9 @@ var createTextBox = function (scene, x, y, config) {
             x: x,
             y: y,
 
-            //background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
-                //.setStrokeStyle(2, COLOR_LIGHT),
+            background: null,
 
-            //icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+            icon: null,
 
             text: scene.add.bitmapText(0, 0, 'gothic').setFontSize(20).setMaxWidth(wrapWidth),
 
