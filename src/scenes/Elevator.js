@@ -22,8 +22,9 @@ class Elevator extends Phaser.Scene{
     preload(){
         this.load.image('button', './assets/');
         this.load.image('keypad', './assets/keypadBase.png');
-        this.load.image('dogDialogue', './assets/catDialogue.png');
-        this.load.image('catDialogue', './assets/dogdialogue.png');
+        this.load.image('dialogueBG', './assets/elevatorScreen.png');
+        this.load.image('dogDialogue', './assets/dogdialogue.png');
+        this.load.image('catDialogue', './assets/catDialogue.png');
         this.load.spritesheet('elevatorScene', 'assets/elevatorWaiting.png', {frameWidth: 480, frameHeight: 360, startFrame: 0, endFrame: 11});
         this.load.scenePlugin({
             key: 'rexuiplugin',
@@ -87,7 +88,6 @@ class Elevator extends Phaser.Scene{
         this.failedPassword = false;
         this.correctPassword = false;
         this.resetGame = true;
-        this.dialogueInProgress = false;
         this.conversationDone = false;
 
         this.button1_clicked = false;
@@ -101,12 +101,19 @@ class Elevator extends Phaser.Scene{
         this.button9_clicked = false;
         this.button10_clicked = false;
 
+        this.dialogue_1_InProgress = false;
+        this.dialogue_2_InProgress = false;
+        this.dialogue_3_InProgress = false;
+        this.dialogue_4_InProgress = false;
+        this.dialogue_5_InProgress = false;
+        this.dialogue_6_InProgress = false;
+
 
         this.elevator_bgm = this.sound.add('elevatorMusic', BGMConfig);
         this.musicplaying = false;
 
 
-        this.elevatorTime = 50000;
+        this.elevatorTime = 0;
 
         this.anims.create({
             key: 'elevatorScene',
@@ -118,10 +125,12 @@ class Elevator extends Phaser.Scene{
         this.elevatorScene = this.add.sprite(game.config.width/2, game.config.height/2, 'elevatorScene', 0);
         this.elevatorScene.anims.play('elevatorScene', true);
 
-        this.elevatorScene.alpha = 0.1;
-
+        this.dialogueBG = this.add.sprite(game.config.width/2, game.config.height/2, 'dialogueBG', 0);
         this.dogDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'dogDialogue', 0);
         this.catDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'catDialogue', 0);
+        this.dialogueBG.alpha = 0;
+        this.dogDialogue.alpha = 0;
+        this.catDialogue.alpha = 0;
         this.dialogueFinished1 = false;
         this.dialogueFinished2 = false;
         this.dialogueFinished3 = false;
@@ -501,7 +510,7 @@ class Elevator extends Phaser.Scene{
             this.musicplaying = true;
             this.elevator_bgm.play();
         }
-        this.elevatorTime -= delta;
+        this.elevatorTime += delta;
         this.elevatorScene.anims.play('elevatorScene', true);
         if(this.inputPassword.length > 4){
             this.inputPassword.pop();
@@ -562,14 +571,66 @@ class Elevator extends Phaser.Scene{
                 this.scene.start('Lobby');
             })
         }
-        if(!this.dialogueFinished1 && !this.dialogueInProgress){
-            this.dialogueInProgress = true;
+
+        /////////////////////////////////////////
+        //Dialogue
+        ////////////////////////////////////////
+
+        //Fade In
+        if(this.elevatorTime >= 2000 && !this.conversationDone && !this.dialogue_1_InProgress){
+            if( this.elevatorScene.alpha > 0.2){
+                this.elevatorScene.alpha -= 0.1;
+            }
+            if(this.dialogueBG.alpha < 0.7){
+                this.dialogueBG.alpha += 0.1;
+            }
+            if(this.catDialogue.alpha < 1){
+                this.catDialogue.alpha += 0.07;
+            }
+            if(this.dogDialogue.alpha < 1){
+                this.dogDialogue.alpha += 0.07;
+            }
+
+        }
+
+        //First Conversation
+        if(!this.dialogueFinished1 && !this.dialogue_1_InProgress && this.elevatorTime >= 3000){
+            this.dialogue_1_InProgress = true;
             this.firstConversation.start(dialogue1, 100);
-            
         }
-        if(this.firstConversation.pageIndex == 2){
-            this.conversationDone = true;
+        console.log(this.firstConversation.pageIndex)
+        if(this.dialogue_1_InProgress){
+            if(this.firstConversation.pageIndex == 0){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.firstConversation.pageIndex == 1){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if(this.firstConversation.pageIndex == 2){
+                this.conversationDone = true;
+            }
+
         }
+        //Fade Out
+        if(this.conversationDone){
+            if( this.elevatorScene.alpha < 1){
+                this.elevatorScene.alpha += 0.1;
+            }
+            if(this.dialogueBG.alpha > 0){
+                this.dialogueBG.alpha -= 0.1;
+            }
+            if(this.catDialogue.alpha > 0){
+                this.catDialogue.alpha -= 0.1;
+            }
+            if(this.dogDialogue.alpha > 0){
+                this.dogDialogue.alpha -= 0.1;
+            }
+        }
+         /////////////////////////////////////////
+        //Dialogue^^^
+        ////////////////////////////////////////
     }
 
 }
