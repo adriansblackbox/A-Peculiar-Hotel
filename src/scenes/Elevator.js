@@ -82,6 +82,7 @@ class Elevator extends Phaser.Scene{
         this.failedPassword = false;
         this.correctPassword = false;
         this.resetGame = true;
+        this.dialogueInProgress = false;
 
         this.button1_clicked = false;
         this.button2_clicked = false;
@@ -120,9 +121,6 @@ class Elevator extends Phaser.Scene{
         this.dialogueFinished3 = false;
         this.dialogueFinished4 = false;
 
-        if(!this.dialogueFinished1){
-            createTextBox(this, 100, 100, {wrapWidth: 500,}).start(dialogue1, 100);
-        }
         if(this.dialogueFinished1 && !this.dialogueFinished2){
 
         }
@@ -485,7 +483,12 @@ class Elevator extends Phaser.Scene{
 
 
         }
+
+        this.createTextBoxes();
        
+    }
+    createTextBoxes(){
+        this.firstConversation = createTextBox(this, 100, 100, {wrapWidth: 500,});
     }
     update(time, delta){
         if(!(this.musicplaying) && !this.fadingOut){
@@ -553,6 +556,10 @@ class Elevator extends Phaser.Scene{
                 this.scene.start('Lobby');
             })
         }
+        if(!this.dialogueFinished1 && !this.dialogueInProgress){
+            this.dialogueInProgress = true;
+            this.firstConversation.start(dialogue1, 100);
+        }
     }
 
 }
@@ -566,10 +573,10 @@ var createTextBox = function (scene, x, y, config) {
             x: x,
             y: y,
 
-            background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
-                .setStrokeStyle(2, COLOR_LIGHT),
+            //background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
+                //.setStrokeStyle(2, COLOR_LIGHT),
 
-            icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+            //icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
 
             text: scene.add.bitmapText(0, 0, 'gothic').setFontSize(20).setMaxWidth(wrapWidth),
 
