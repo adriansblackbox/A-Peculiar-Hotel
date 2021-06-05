@@ -131,14 +131,6 @@ class Elevator extends Phaser.Scene{
         this.dialogueBG.alpha = 0;
         this.dogDialogue.alpha = 0;
         this.catDialogue.alpha = 0;
-        this.dialogueFinished1 = false;
-        this.dialogueFinished2 = false;
-        this.dialogueFinished3 = false;
-        this.dialogueFinished4 = false;
-
-        if(this.dialogueFinished1 && !this.dialogueFinished2){
-
-        }
 
         console.log(this.password);
 
@@ -594,7 +586,7 @@ class Elevator extends Phaser.Scene{
         }
 
         //First Conversation
-        if(!this.dialogueFinished1 && !this.dialogue_1_InProgress && this.elevatorTime >= 3000){
+        if(!this.dialogue_1_InProgress && this.elevatorTime >= 3000){
             this.dialogue_1_InProgress = true;
             this.firstConversation.start(dialogue1, 100);
         }
