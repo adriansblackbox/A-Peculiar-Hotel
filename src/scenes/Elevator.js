@@ -81,6 +81,7 @@ class Elevator extends Phaser.Scene{
         this.index = -1;
         this.failedPassword = false;
         this.correctPassword = false;
+        this.resetGame = true;
 
         this.button1_clicked = false;
         this.button2_clicked = false;
@@ -545,7 +546,15 @@ class Elevator extends Phaser.Scene{
             game.config.prevScene = 'Elevator';
             this.scene.switch('Drawing');
         }
+        if(this.failedPassword && this.resetGame){
+            this.resetGame = false;
+            this.cameras.main.fadeOut(1500, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }
     }
+
 }
 
 const GetValue = Phaser.Utils.Objects.GetValue;

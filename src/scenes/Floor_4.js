@@ -311,7 +311,7 @@ class Floor_4 extends Phaser.Scene{
         if(!this.finishedLevel && !this.playerDeciding){
             this.objectInteraction();
         }else if(this.finishedLevel && !this.enteredElevator){
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+            this.physics.world.collide(this.player, this.elevator, this.elevatorExit, null, this);
         }
         if(this.playerDeciding){
             this.confirmObject();
@@ -442,7 +442,7 @@ class Floor_4 extends Phaser.Scene{
         this.physics.add.collider(this.player, this.obj_4);
     }
 
-    elveatorExit(){
+    elevatorExit(){
         let SFXConfig ={
             mute: false,
             volume: 0.4,
