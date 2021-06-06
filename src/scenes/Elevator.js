@@ -211,9 +211,13 @@ class Elevator extends Phaser.Scene{
 
        this.inputPassword = [];
        this.confirmPassword = false;
+
         
         
         this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
+
+        // Returns the next floor that will be visited
+        // "floor_1, floor_2, floor_3, floor_4"
         this.nextFloor = this.floorList[this.randFloor];
 
         if(this.floorList.length > 0){
@@ -658,6 +662,22 @@ class Elevator extends Phaser.Scene{
             this.dialogue_1_InProgress = true;
             this.firstConversation.start(dialogue1, 100);
         }
+        /* by floor names
+        if(&& this.elevatorTime >= 3000){
+            this.dialogue_2_InProgress = true;
+            this.firstConversation.start(dialogue2, 100);
+        }
+        if(&& this.elevatorTime >= 3000){
+            this.dialogue_3_InProgress = true;
+            this.firstConversation.start(dialogue3, 100);
+        }
+        if(&& this.elevatorTime >= 3000){
+            this.dialogue_4_InProgress = true;
+            this.firstConversation.start(dialogue4, 100);
+        }
+        */
+
+
         if(this.dialogue_1_InProgress){
             if(this.firstConversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
