@@ -5,8 +5,6 @@ const COLOR_DARK = 0x260e04;
 
 // IMPORTANT NOTE: 3 lines = 1 page
 
-//Cat Dialogue: hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...
-var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nthisisatestthisisatestthisisatestthisisatestthisisatestthisisatestthisisatest";
 /* Floor 1 dialogue:
  * Cat: We are now arriving at the first floor,\n home to our hotel's common rooms.\n\n
  * Dog: Common rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\n 
@@ -16,7 +14,7 @@ var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope y
  * Cat: We're here. \n\n\n
  * Cat: May you find what you're looking for, dear guest.\n\n\n
 */ 
-var floor1 = "We are now arriving at the first floor,\n home to our hotel's common rooms.\n\nCommon rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\nWe pride ourselves on providing luxury to all\n our guests, regardless of their own status.\n\nSo despite these rooms being called common, \n they adhere to our standards of excellence.\n\nAs a result of being both affordable and lavish,\n hordes of people book rooms on this floor, \n even if it's only to be a guest for one night\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n";
+var floor1 = "We are now arriving at the first floor,\nhome to our hotel's common rooms.\n\nCommon rooms?\n I didn't think you provide normal rooms\n considering the standards I've seen so far.\nWe pride ourselves on providing luxury to all\nour guests, regardless of their own status.\n\nSo despite these rooms being called common, \nthey adhere to our standards of excellence.\n\nAs a result of being both affordable and lavish,\nhordes of people book rooms on this floor, \neven if it's only to be a guest for one night.\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n\n\n";
 
 /* Floor 2 dialogue:
  * Cat: We are now arriving at the second floor,\n home to our hotel's staff residence and lounge.\n\n
@@ -26,7 +24,7 @@ var floor1 = "We are now arriving at the first floor,\n home to our hotel's comm
  * Cat: We're here. \n\n\n
  * Cat: May you find what you're looking for, dear guest.\n\n\n
 */
-var floor2 = "We are now arriving at the second floor,\n home to our hotel's staff residence and lounge.\n\nStaff residence?\n I feel like I'm intruding by being here.\nDon't worry, I assure you that the rest of the \n staff are busy moving around other guests.\n\nHowever, do be cordial to the other guests\n even if they are in a rush.\n\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n"
+var floor2 = "We are now arriving at the second floor,\nhome to our hotel's staff residence and lounge.\n\nStaff residence?\nI feel like I'm intruding by being here.\n\nDon't worry, I assure you that the rest of the\nstaff are busy moving around other guests.\n\nHowever, do be cordial to the other guests\neven if they are in a rush.\n\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n\n\n";
 
 /* Floor 3 dialogue: 
  * Cat: We are now arriving at the third floor,\n home to our hotel's grand ballroom.\n\n
@@ -38,8 +36,7 @@ var floor2 = "We are now arriving at the second floor,\n home to our hotel's sta
  * Cat: We're here. \n\n\n
  * Cat: May you find what you are looking for, dear guest.\n\n\n
  */
-var floor3 = "We are now arriving at the third floor,\n home to our hotel's grand ballroom.\n\nA ballroom?\n From the outside, I would have never expected\n something like that fitting in here\n.Yes, well our hotel is more than what it\n appears to be to some people.\n\nBut I digress, this ballroom has held many \n extravagant dances and events throughout the\n history of this hotel.\nSome guests say that on certain nights, they\n can see dancers from the past twirling away.\n\nBut that's just a rumor...\n\n\nWe're here. \n\n\nMay you find what you are looking for, dear guest.\n\n\n";
-
+var floor3 = "We are now arriving at the third floor,\nhome to our hotel's grand ballroom.\n\nA ballroom?\nFrom the outside, I would have never expected\nsomething like that fitting in here.\nYes, well our hotel is more than what it\nappears to be to some people.\n\nBut I digress, this ballroom has held many \nextravagant dances and events throughout the\nhistory of this hotel.\nSome guests say that on certain nights, they\ncan see dancers from the past twirling away.\n\nBut that's just a rumor...\n\n\nWe're here.\n\n\nMay you find what you are looking for, dear guest.\n\n\n\n\n";
 /* Floor 4 dialogue:
  * Cat: We are now arriving at the fourth floor,\n home to our hotel's royal suites.\n\n
  * Dog: The pinnacle of luxury on the highest floor.\n The people that get these suites must\n eat that stuff up, huh?\n
@@ -51,7 +48,7 @@ var floor3 = "We are now arriving at the third floor,\n home to our hotel's gran
  * Cat: We're here. \n\n\n
  * Cat: May you find what you are looking for, dear guest.\n\n\n
  */
-var floor4 = "We are now arriving at the fourth floor,\n home to our hotel's royal suites.\n\nThe pinnacle of luxury on the highest floor.\n The people that get these suites must\n eat that stuff up, huh?\nI'm glad you recognize that it is intentional.\n However, there is a story about this floor.\n\nOnce, we had a famous composer come and lock\n themselves away in the best suite of this floor\n so they could compose their best work yet.\nDay and night, music poured out of that room.\n None of the staff bothered the composer\n as they were deathly shy and the music flowed.\nBut then one day, the music stopped and no one\n could find the composer in the room or \n anywhere in the hotel.\nBecause of that incident, the room remains \n locked away from the guests.\n\nWe're here.\n\n\nMay you find what you are looking for, dear guest.\n\n\n";
+var floor4 = "We are now arriving at the fourth floor,\nhome to our hotel's royal suites.\n\nThe pinnacle of luxury on the highest floor.\nThe people that get these suites must\neat that stuff up, huh?\nI'm glad you recognize that it is intentional.\nHowever, there is a story about this floor.\n\nOnce, we had a famous composer come and lock\nhimself away in the best suite of this floor\nso he could compose his best work yet.\nDay and night, music poured out of that room.\nNone of the staff bothered the composer\nas he was deathly shy and the music flowed.\nBut then one day, the music stopped and no one\ncould find the composer in the room or\nanywhere in the hotel.\nBecause of that incident, the room remains \nlocked away from the guests.\n\nWe're here.\n\n\nMay you find what you are looking for, dear guest.\n\n\n\n\n";
 
 /* Password sequence begin:
  * Cat: Well, it seems we've visited every floor already\n which means that we've provided you with all\n the assistance the hotel can offer.\n
@@ -174,7 +171,7 @@ class Elevator extends Phaser.Scene{
         this.dialogue_3_InProgress = false;
         this.dialogue_4_InProgress = false;
         this.dialogue_5_InProgress = false;
-        this.dialogue_6_InProgress = false;
+        //this.dialogue_6_InProgress = false;
 
 
         this.elevator_bgm = this.sound.add('elevatorMusic', BGMConfig);
@@ -214,7 +211,7 @@ class Elevator extends Phaser.Scene{
         
         
         this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
-        this.nextFloor = this.floorList[this.randFloor];
+        this.nextFloor = this.floorList[this.randFloor]; // returns a string or null if no more floors 
 
         if(this.floorList.length > 0){
             this.floorList.splice(this.randFloor, 1);
@@ -563,7 +560,7 @@ class Elevator extends Phaser.Scene{
        
     }
     createTextBoxes(){
-        this.firstConversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
+        this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
     }
     update(time, delta){
         if(!(this.musicplaying) && !this.fadingOut){
@@ -652,22 +649,105 @@ class Elevator extends Phaser.Scene{
             }
 
         }
-
-        //First Conversation
-        if(!this.dialogue_1_InProgress && this.elevatorTime >= 3000){
+        if(!this.dialogue_1_InProgress && this.nextFloor == "Floor_1" && this.elevatorTime >= 3000){
             this.dialogue_1_InProgress = true;
-            this.firstConversation.start(dialogue1, 100);
+            this.Conversation.start(floor1, 100);
         }
+        if(!this.dialogue_2_InProgress && this.nextFloor == "Floor_2" && this.elevatorTime >= 3000){
+            this.dialogue_2_InProgress = true;
+            this.Conversation.start(floor2, 100);
+        }
+        if(!this.dialogue_3_InProgress && this.nextFloor == "Floor_3" && this.elevatorTime >= 3000){
+            this.dialogue_3_InProgress = true;
+            this.Conversation.start(floor3, 100);
+        }
+        if(!this.dialogue_4_InProgress && this.nextFloor == "Floor_4" && this.elevatorTime >= 3000){
+            this.dialogue_4_InProgress = true;
+            this.Conversation.start(floor4, 100);
+        }
+        if(!this.dialogue_5_InProgress && this.nextFloor == null && this.elevatorTime >= 3000){
+            this.dialogue_5_InProgress = true;
+            this.Conversation.start(passwordStart, 100);
+        }
+        //First Conversation
         if(this.dialogue_1_InProgress){
-            if(this.firstConversation.pageIndex == 0){
+            if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
-            if(this.firstConversation.pageIndex == 1){
+            if(this.Conversation.pageIndex == 1){
                 this.catDialogue.alpha = 0.4;
                 this.dogDialogue.alpha = 1;
             }
-            if(this.firstConversation.pageIndex == 2){
+            if((this.Conversation.pageIndex >= 2) && (this.Conversation.pageIndex < 7) ){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 7){
+                this.conversationDone = true;
+            }
+
+        }
+        if(this.dialogue_2_InProgress){
+            if(this.Conversation.pageIndex == 0){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 1){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if((this.Conversation.pageIndex >= 2) && (this.Conversation.pageIndex < 6) ){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 6){
+                this.conversationDone = true;
+            }
+
+        }
+        if(this.dialogue_3_InProgress){
+            if(this.Conversation.pageIndex == 0){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 1){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if((this.Conversation.pageIndex >= 2) && (this.Conversation.pageIndex < 8) ){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 8){
+                this.conversationDone = true;
+            }
+
+        }
+        if(this.dialogue_4_InProgress){
+            if(this.Conversation.pageIndex == 0){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 1){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if((this.Conversation.pageIndex >= 2) && (this.Conversation.pageIndex < 9) ){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 9){
+                this.conversationDone = true;
+            }
+
+        }
+        if(this.dialogue_5_InProgress){
+            if(this.Conversation.pageIndex  < 3){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 3){
                 this.conversationDone = true;
             }
 
@@ -743,7 +823,7 @@ var createTextBox = function (scene, x, y, config) {
                 return;
             }
 
-            var icon = this.getElement('action').setVisible(true);
+            var icon = this.getElement('action').setVisible(true); // this is the arrow icon for going next. 
             this.resetChildVisibleState(icon);
             icon.y -= 30;
             var tween = scene.tweens.add({
