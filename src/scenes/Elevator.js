@@ -13,10 +13,44 @@ var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope y
  * Cat: We pride ourselves on providing luxury to all\n our guests, regardless of their own status.\n\n
  * Cat: So despite these rooms being called common, \n they adhere to our standards of excellence.\n\n
  * Cat: As a result of being both affordable and lavish,\n hordes of people book rooms on this floor, \n even if it's only to be a guest for one night\n
- * Cat: We're here. \n \n\n
+ * Cat: We're here. \n\n\n
  * Cat: May you find what you're looking for, dear guest.\n\n\n
 */ 
 var floor1 = "We are now arriving at the first floor,\n home to our hotel's common rooms.\n\nCommon rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\nWe pride ourselves on providing luxury to all\n our guests, regardless of their own status.\n\nSo despite these rooms being called common, \n they adhere to our standards of excellence.\n\nAs a result of being both affordable and lavish,\n hordes of people book rooms on this floor, \n even if it's only to be a guest for one night\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n";
+
+/* Floor 2 dialogue:
+ * Cat: We are now arriving at the second floor,\n home to our hotel's staff residence and lounge.\n\n
+ * Dog: Staff residence?\n I feel like I'm intruding by being here.\n
+ * Cat: Don't worry, I assure you that the rest of the \n staff are busy moving around other guests.\n\n
+ * Cat: However, do be cordial to the other guests\n even if they are in a rush.\n\n
+ * Cat: We're here. \n\n\n
+ * Cat: May you find what you're looking for, dear guest.\n\n\n
+*/
+var floor2 = "We are now arriving at the second floor,\n home to our hotel's staff residence and lounge.\n\nStaff residence?\n I feel like I'm intruding by being here.\nDon't worry, I assure you that the rest of the \n staff are busy moving around other guests.\n\nHowever, do be cordial to the other guests\n even if they are in a rush.\n\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n"
+
+/* Floor 3 dialogue: 
+ * Cat: We are now arriving at the third floor,\n home to our hotel's grand ballroom.\n\n
+ * Dog: A ballroom?\n From the outside, I would never expected\n something like that fitting in here\n.
+ * Cat: Yes, well our hotel is more than what it\n appears to be to some people.\n\n
+ * Cat: But I digress, this ballroom has held many \n extravagant dances and events throughout the\n history of this hotel.\n
+ * Cat: Some guests say that on certain nights, they\n can see dancers from the past twirling away.\n\n
+ * Cat: But that's just a rumor...\n\n\n
+ * Cat: We're here. \n\n\n
+ * Cat: May you find what you are looking for, dear guest.\n\n\n
+ */
+var floor3 = "We are now arriving at the third floor,\n home to our hotel's grand ballroom.\n\nA ballroom?\n From the outside, I would have never expected\n something like that fitting in here\n.Yes, well our hotel is more than what it\n appears to be to some people.\n\nBut I digress, this ballroom has held many \n extravagant dances and events throughout the\n history of this hotel.\nSome guests say that on certain nights, they\n can see dancers from the past twirling away.\n\nBut that's just a rumor...\n\n\nWe're here. \n\n\nMay you find what you are looking for, dear guest.\n\n\n";
+
+/* Floor 4 dialogue:
+ * Cat: We are now arriving at the fourth floor,\n home to our hotel's royal suites.\n
+ * Dog: The pinnacle of luxury on the highest floor.\n The people that get these suites must\n eat that stuff up, huh?\n
+ * Cat: I'm glad you recognize that it is intentional.\n However, there is a story about this floor.\n\n
+ * Cat: Once, we had a famous composer come and lock\n themselves away in the best suite of this floor\n so they could compose their best work yet.\n
+ * Cat: Day and night, music poured out of that room.\n None of the staff bothered the composer\n as they were deathly shy and the music flowed.\n
+ * Cat: But then one day, the music stopped and no one\n could find the composer in the room or \n anywhere in the hotel.\n
+ * Cat: Because of that incident, the room remains \n locked away from the guests.\n\n
+ * Cat: We're here. \n\n\n
+ * Cat: May you find what you are looking for, dear guest.\n\n\n
+ */
 
 class Elevator extends Phaser.Scene{
 
