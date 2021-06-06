@@ -30,6 +30,7 @@ class Drawing extends Phaser.Scene{
             delay: 0,
             pan: 0
         } 
+        this.sound.play('notebookOpen', this.SFXConfig);
         this.canvas = this.sys.canvas;
         this.canvas.style.cursor = 'none';
         
