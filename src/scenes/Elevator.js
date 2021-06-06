@@ -6,7 +6,17 @@ const COLOR_DARK = 0x260e04;
 // IMPORTANT NOTE: 3 lines = 1 page
 
 //Cat Dialogue: hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...
-var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nUhmmmm... Thank you?\n\n\n";
+var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nthisisatestthisisatestthisisatestthisisatestthisisatestthisisatestthisisatest";
+/* Floor 1 dialogue:
+ * Cat: We are now arriving at the first floor,\n home to our hotel's common rooms.\n\n
+ * Dog: Common rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\n 
+ * Cat: We pride ourselves on providing luxury to all\n our guests, regardless of their own status.\n\n
+ * Cat: So despite these rooms being called common, \n they adhere to our standards of excellence.\n\n
+ * Cat: As a result of being both affordable and lavish,\n hordes of people book rooms on this floor, \n even if it's only to be a guest for one night\n
+ * Cat: We're here. \n \n\n
+ * Cat: May you find what you're looking for, dear guest.\n\n\n
+*/ 
+var floor1 = "We are now arriving at the first floor,\n home to our hotel's common rooms.\n\nCommon rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\nWe pride ourselves on providing luxury to all\n our guests, regardless of their own status.\n\nSo despite these rooms being called common, \n they adhere to our standards of excellence.\n\nAs a result of being both affordable and lavish,\n hordes of people book rooms on this floor, \n even if it's only to be a guest for one night\nWe're here.\n\n\nMay you find what you're looking for, dear guest.\n\n\n";
 
 class Elevator extends Phaser.Scene{
 
