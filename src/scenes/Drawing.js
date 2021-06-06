@@ -30,13 +30,16 @@ class Drawing extends Phaser.Scene{
             delay: 0,
             pan: 0
         } 
+        this.style = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#000000", align: "center" };
+
+        this.sound.play('notebookOpen', this.SFXConfig);
         this.canvas = this.sys.canvas;
         this.canvas.style.cursor = 'none';
         
         this.background = this.add.image(game.config.width/2, game.config.height/2, 'Notepad');
         this.rt = this.add.renderTexture(0,0,960,720);
-        this.text = this.add.text(game.config.width/1.6, game.config.height/1.1, "T-Key to clear notebook", this.style);
-        this.text = this.add.text(game.config.width/1.68, game.config.height/1.2, "R-Key to go back to level", this.style);
+        this.text = this.add.text(420, 290, "T-Key to clear notebook", this.style);
+        this.text = this.add.text(game.config.width/1.68 + 38, 270, "R-Key to close notebook", this.style);
         //the 32's depend on the sprite size and screen size
         this.input.on('pointermove', function (pointer) {
             if (pointer.isDown)

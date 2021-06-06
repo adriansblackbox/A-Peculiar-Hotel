@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haunted Hotel</title>
+    <title>A Pecuiliar Hotel</title>
+    <link rel="preload" href="./assets/IndieFlower-Regular.ttf" as="font" crossorigin="anonymous"/>
+    <style>
+
+        @font-face {
+            font-family: IndieFlower;
+            src: url('./assets/IndieFlower-Regular.ttf');
+        }
+    </style>
 </head>
 <body id = 'phaserGame'>
     <script src="./lib/phaser.js"></script>
@@ -23,6 +31,7 @@
     <script src="./src/scenes/Floor_4_OTHER.js"></script>
     <script src="./src/scenes/Floor_0.js"></script>
     <script src="./src/scenes/Drawing.js"></script>
+    <div style="font-family:'IndieFlower'; display: none;">IndieFlower</div>
     <script src="./src/main.js"></script>
 </body>
 </html>

@@ -98,8 +98,8 @@ class Floor_4 extends Phaser.Scene{
         this.yesbtn.alpha = 0;
         this.nobtn = this.add.sprite(0, 0, 'dialogue_button_empty').setInteractive();
         this.nobtn.alpha = 0;
-        this.style = { font: "15px Arial", fill: "#000000", align: "center" };
-        this.style1 = { font: "15px Arial", fill: "#ff0000", align: "center" };
+        this.style = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#000000", align: "center" };
+        this.style1 = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#ff0000", align: "center" };
         this.foundText = this.add.text(0,0, "", this.style);
         this.itemText = this.add.text(0,0, "", this.style1);
         this.confirmText = this.add.text(0,0, "", this.style);
@@ -384,7 +384,7 @@ class Floor_4 extends Phaser.Scene{
             this.itemText.setText(this.selectedItem);
             this.itemText.setX(this.player.x - 10);
             this.itemText.setY(this.player.y + 80);
-            this.confirmText.setText("Use this item?    Yes       No");
+            this.confirmText.setText("Use this item?   Yes      No");
             this.confirmText.setX(this.player.x - 94);
             this.confirmText.setY(this.player.y + 110);
 

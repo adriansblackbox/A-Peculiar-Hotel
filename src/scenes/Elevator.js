@@ -208,10 +208,14 @@ class Elevator extends Phaser.Scene{
 
        this.inputPassword = [];
        this.confirmPassword = false;
+
         
         
         this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
-        this.nextFloor = this.floorList[this.randFloor]; // returns a string or null if no more floors 
+
+        // Returns the next floor that will be visited
+        // "floor_1, floor_2, floor_3, floor_4"
+        this.nextFloor = this.floorList[this.randFloor];
 
         if(this.floorList.length > 0){
             this.floorList.splice(this.randFloor, 1);
@@ -767,7 +771,7 @@ class Elevator extends Phaser.Scene{
                 this.dogDialogue.alpha -= 0.1;
             }
         }
-         /////////////////////////////////////////
+        /////////////////////////////////////////
         //Dialogue^^^
         ////////////////////////////////////////
     }

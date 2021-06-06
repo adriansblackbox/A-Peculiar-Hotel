@@ -40,8 +40,20 @@ class Lobby extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
+        this.SFXConfig = {
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0
+        } 
+
         this.regular_bgm = this.sound.add('floorMusic', lobbyBGMConfig);
         this.musicplaying = this.regular_bgm.isPlaying;
+        this.musicPaused = false;
         //this.musicpaused = this.regular_bgm.isPaused;
 
         this.enteredElevator = false;
@@ -63,11 +75,11 @@ class Lobby extends Phaser.Scene{
         this.createMap();
 
         //starting to add the text (make sure to add character sprites below these lines)
-        this.style = { font: "10px Arial", fill: "#ffff00", align: "center" };
+        this.style = { fontFamily: "IndieFlower", fontSize: '14px', fill: "#ffffff", align: "center" };
 
-        this.text = this.add.text(game.config.width/2.4, game.config.height*1.2, "WASD to move", this.style);
-        this.text = this.add.text(game.config.width/2.55, game.config.height, "R-Key to open notebook", this.style);
-        this.text = this.add.text(game.config.width/2.88, game.config.height * 1.1, "E-Key to interact with glowing objects", this.style);
+        this.text = this.add.text(260,470, "WASD to move", this.style);
+        this.text = this.add.text(235, 335, "R-Key to open notebook", this.style);
+        this.text = this.add.text(248, 390, "E-Key to interact\n with glowing objects", this.style);
 
         //end of text stuff
 
@@ -182,16 +194,10 @@ class Lobby extends Phaser.Scene{
             console.log("===============================");
         }
         if(!this.enteredElevator){
-            if(Phaser.Input.Keyboard.JustDown(testKey)){
-                if(this.regular_bgm.isPaused){
-                    this.regular_bgm.resume();
-                }else{
-                    this.regular_bgm.pause();
-                }
-            }
             if(!(this.musicplaying)){
                 this.musicplaying = true;
                 this.regular_bgm.play();
+  
             }
             this.player.update();
             if(this.player.direction == 'LEFT'){
@@ -240,20 +246,13 @@ class Lobby extends Phaser.Scene{
         }
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
-            let SFXConfig = {
-                mute: false,
-                volume: 0.4,
-                rate: 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay: 0,
-                pan: 0
-            } 
             this.regular_bgm.pause();
+            this.musicPaused = true;
+            this.musicplaying = false;
+            
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            this.sound.play('notebookOpen', SFXConfig);
+            this.sound.play('notebookOpen', this.SFXConfig);
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
@@ -266,19 +265,9 @@ class Lobby extends Phaser.Scene{
     }
     
     elveatorExit(){
-        let SFXConfig ={
-            mute: false,
-            volume: 0.4,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: false,
-            delay: 0,
-            pan: 0 
-        }
         this.regular_bgm.stop();
         this.musicplaying = false;
-        this.sound.play('elevatorOpen',SFXConfig);
+        this.sound.play('elevatorOpen',this.SFXConfig);
         this.enteredElevator = true;
         this.player.body.setVelocity(0, 0);
         this.elevator.anims.play('elevatorDoors', true);
