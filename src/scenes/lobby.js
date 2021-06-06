@@ -252,6 +252,7 @@ class Lobby extends Phaser.Scene{
             
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
+            this.sound.play('notebookOpen', this.SFXConfig);
             game.config.prevScene = 'Lobby';
             this.scene.switch('Drawing');
         }
