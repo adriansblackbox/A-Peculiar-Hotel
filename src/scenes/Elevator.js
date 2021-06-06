@@ -796,11 +796,11 @@ var createTextBox = function (scene, x, y, config) {
             action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
 
             space: {
-                left: 20,
+                left: -5,
                 right: 20,
                 top: 20,
                 bottom: 20,
-                icon: 10,
+                icon: 0,
                 text: 10,
             },
       
