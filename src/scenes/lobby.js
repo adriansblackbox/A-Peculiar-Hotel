@@ -11,7 +11,7 @@ class Lobby extends Phaser.Scene{
     }
     ///////////////////////////
     preload(){
-        this.load.image('player', './assets/Detective Doggert 001.png');
+        this.load.image('player', './assets/idleForward.png');
         this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
         this.load.image('front_desk', './assets/front_desk.png');
         this.load.image('front_desk_Lit', './assets/front_desk_Lit.png');
@@ -144,7 +144,7 @@ class Lobby extends Phaser.Scene{
         this.elevator.body.immovable = true;
         this.elevator.body.offset.y = 0.5;
         this.createObjects();
-        this.player = new Player(this, game.config.width/2 - 12, game.config.height + 150, 'player', 0);
+        this.player = new Player(this, game.config.width/2 - 12, game.config.height + 250, 'playerIdleUP', 0);
         map.createLayer('abovePlayer', tileset);
         this.physics.add.collider(this.player, walls);
         this.physics.add.collider(this.player, props);
