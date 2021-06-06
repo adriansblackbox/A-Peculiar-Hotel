@@ -41,7 +41,7 @@ var floor2 = "We are now arriving at the second floor,\n home to our hotel's sta
 var floor3 = "We are now arriving at the third floor,\n home to our hotel's grand ballroom.\n\nA ballroom?\n From the outside, I would have never expected\n something like that fitting in here\n.Yes, well our hotel is more than what it\n appears to be to some people.\n\nBut I digress, this ballroom has held many \n extravagant dances and events throughout the\n history of this hotel.\nSome guests say that on certain nights, they\n can see dancers from the past twirling away.\n\nBut that's just a rumor...\n\n\nWe're here. \n\n\nMay you find what you are looking for, dear guest.\n\n\n";
 
 /* Floor 4 dialogue:
- * Cat: We are now arriving at the fourth floor,\n home to our hotel's royal suites.\n
+ * Cat: We are now arriving at the fourth floor,\n home to our hotel's royal suites.\n\n
  * Dog: The pinnacle of luxury on the highest floor.\n The people that get these suites must\n eat that stuff up, huh?\n
  * Cat: I'm glad you recognize that it is intentional.\n However, there is a story about this floor.\n\n
  * Cat: Once, we had a famous composer come and lock\n themselves away in the best suite of this floor\n so they could compose their best work yet.\n
@@ -51,6 +51,30 @@ var floor3 = "We are now arriving at the third floor,\n home to our hotel's gran
  * Cat: We're here. \n\n\n
  * Cat: May you find what you are looking for, dear guest.\n\n\n
  */
+var floor4 = "We are now arriving at the fourth floor,\n home to our hotel's royal suites.\n\nThe pinnacle of luxury on the highest floor.\n The people that get these suites must\n eat that stuff up, huh?\nI'm glad you recognize that it is intentional.\n However, there is a story about this floor.\n\nOnce, we had a famous composer come and lock\n themselves away in the best suite of this floor\n so they could compose their best work yet.\nDay and night, music poured out of that room.\n None of the staff bothered the composer\n as they were deathly shy and the music flowed.\nBut then one day, the music stopped and no one\n could find the composer in the room or \n anywhere in the hotel.\nBecause of that incident, the room remains \n locked away from the guests.\n\nWe're here.\n\n\nMay you find what you are looking for, dear guest.\n\n\n";
+
+/* Password sequence begin:
+ * Cat: Well, it seems we've visited every floor already\n which means that we've provided you with all\n the assistance the hotel can offer.\n
+ * Cat: With that being said, allow us to be the staff\n that will conduct your checkout process\n\n.
+ * Cat: Remember, an incorrect signatures makes a guest\n liable to corrective actions as stated\n in the rules of this hotel.\n
+ */
+var passwordStart = "Well, it seems we've visited every floor already\n which means that we've provided you with all\n the assistance the hotel can offer.\nWith that being said, allow us to be the staff\n that will conduct your checkout process\n\n.Remember, an incorrect signatures makes a guest\n liable to corrective actions as stated\n in the rules of this hotel.\n";
+
+/* Password wrong:
+ * Dog: So is this correct?\n\n\n
+ * Cat: Well...\n\n\n
+ * Cat: I regret to inform you, detective, that it's not.\n\n\n
+ * Cat: And also, I apologize for what occurs next.\n\n\n
+ */
+var passwordWrong = "So is this correct?\n\n\nWell...\n\n\nI regret to inform you, detective, that it's not.\n\n\nAnd also, I apologize for what occurs next.\n\n\n";
+
+/* Password correct:
+ * Dog: So is this correct?\n\n\n
+ * Cat: Well...\n\n\n
+ * Cat: It appears to be so, detective.\n\n\n
+ * Cat: Now let us escort you to the exit of this place
+ */
+var passwordRight ="So is this correct?\n\n\nWell...\n\n\nIt appears to be so, detective.\n\n\nNow, let us escort you to the exit of this place.\n\n\n";
 
 class Elevator extends Phaser.Scene{
 
