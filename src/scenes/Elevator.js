@@ -6,7 +6,7 @@ const COLOR_DARK = 0x260e04;
 // IMPORTANT NOTE: 3 lines = 1 page
 
 //Cat Dialogue: hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...
-var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nthisisatestthisisatestthisisatestthisisatestthisisatestthisisatestthisisatest";
+var dialogue1 = "hello my name is cat\nI'll be your guide this evening\nI hope you have a wonderful stay...\nThanks...\n\n\n";
 /* Floor 1 dialogue:
  * Cat: We are now arriving at the first floor,\n home to our hotel's common rooms.\n\n
  * Dog: Common rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\n 
