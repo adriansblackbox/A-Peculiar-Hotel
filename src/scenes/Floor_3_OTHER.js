@@ -96,23 +96,23 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         this.timer = this.add.text(0,0, "", this.style);
 
-        this.graphics = this.add.graphics().lineStyle(1,0xffffff, .5);
-        this.path = new Phaser.Curves.Path(600,300).circleTo(200);
-        this.path.draw(this.graphics, 128);
+
+        var graphics = this.add.graphics().lineStyle(1,0xffffff, .5);
+        var path = new Phaser.Curves.Path(600,300).circleTo(200);
+        path.draw(graphics, 128);
+        var testMonster = this.add.follower(path, 600, 300, 'monster').setAlpha(.5);
+        this.physics.add.existing(testMonster);
+        testMonster.body.setImmovable(true);
+        testMonster.moves = false;
         
-        this.testMonster = this.add.follower(this.path, 600, 300, 'monster').setAlpha(.5);
-        this.physics.add.existing(this.testMonster);
-        this.testMonster.body.setImmovable(true);
-        this.testMonster.moves = false;
-        
-        this.testMonster.startFollow({
+        testMonster.startFollow({
             duration: 10000,
             yoyo: true,
             loop: -1,
-            onStart: function() { this.path.getPoint(0,this.testMonster.pathVector);},
-            onUpdate: function (tween){this.testMonster.body.velocity.copy(this.testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onStart: function() { path.getPoint(0,testMonster.pathVector);},
+            onUpdate: function (tween){testMonster.body.velocity.copy(testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
             onLoop: function(){},
-            onComplete: function() {this.testMonster.body.stop();}
+            onComplete: function() {testMonster.body.stop();}
         });
         
     }
