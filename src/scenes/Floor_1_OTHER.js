@@ -263,6 +263,18 @@ class Floor_1_OTHER extends Phaser.Scene{
     onGhostCollision(){
         if(!this.ghostHit){
             this.ghostHit = true;
+            this.otherworld_bgm.stop();
+            let SFXConfig ={
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0 
+            }
+            this.sound.play('otherworldExit', SFXConfig);
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.player.body.setVelocity(0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
