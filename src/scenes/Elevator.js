@@ -153,7 +153,9 @@ class Elevator extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
-
+        //
+        statusKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        //
         this.index = -1;
         this.failedPassword = false;
         this.correctPassword = false;
@@ -177,13 +179,13 @@ class Elevator extends Phaser.Scene{
         this.dialogue_1_InProgress = false;
         this.dialogue_1_End = false;
         this.dialogue_2_InProgress = false;
-        this.dialogue_1_End = false;
+        this.dialogue_2_End = false;
         this.dialogue_3_InProgress = false;
-        this.dialogue_1_End = false;
+        this.dialogue_3_End = false;
         this.dialogue_4_InProgress = false;
-        this.dialogue_1_End = false;
+        this.dialogue_4_End = false;
         this.dialogue_5_InProgress = false;
-        this.dialogue_1_End = false;
+        this.dialogue_5_End = false;
         //this.dialogue_6_InProgress = false;
 
 
@@ -282,6 +284,33 @@ class Elevator extends Phaser.Scene{
             }
             */
         }
+        if(Phaser.Input.Keyboard.JustDown(statusKey)){
+            console.log("===============================");
+            console.log("Is conversation done? ");
+            console.log(this.conversationDone);
+            console.log("dialogue 1 started?");
+            console.log(this.dialogue_1_InProgress);
+            console.log("dialogue 1 finished?");
+            console.log(this.dialogue_1_End);
+            console.log("dialogue 2 started?");
+            console.log(this.dialogue_2_InProgress);
+            console.log("dialogue 2 finished?");
+            console.log(this.dialogue_2_End);
+            console.log("dialogue 3 started?");
+            console.log(this.dialogue_3_InProgress);
+            console.log("dialogue 3 finished?");
+            console.log(this.dialogue_3_End);
+            console.log("dialogue 4 started?");
+            console.log(this.dialogue_4_InProgress);
+            console.log("dialogue 4 finished?");
+            console.log(this.dialogue_4_End);
+            console.log("dialogue 5 started?");
+            console.log(this.dialogue_5_InProgress);
+            console.log("dialogue 5 finished?");
+            console.log(this.dialogue_5_End);
+            console.log("===============================");
+        }
+
         
         if(!(this.musicplaying) && !this.fadingOut){
             this.musicplaying = true;
