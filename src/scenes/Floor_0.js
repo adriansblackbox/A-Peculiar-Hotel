@@ -59,16 +59,17 @@ class Floor_0 extends Phaser.Scene{
             this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
 
-        const map = this.make.tilemap({key: 'floor4'});
-        const tileset = map.addTilesetImage('Lobby_Tiles', 'lobbytiles');
+        const map = this.make.tilemap({key: 'floor0'});
+        const tileset = map.addTilesetImage('last_floor_tiles', 'lobbytiles');
 
         map.createLayer('Ground', tileset);
         const walls = map.createLayer('Walls', tileset);
         walls.setCollisionByProperty({collides: true});
-        map.createLayer('extra', tileset);
+        const props = map.createLayer('props', tileset);
+        props.setCollisionByProperty({collides: true});
 
 
-        this.elevator = this.physics.add.sprite(game.config.width - 336, 560, 'elevatorDoors', 0);
+        this.elevator = this.physics.add.sprite(112, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
         //if(!this.finishedLevel)
@@ -78,6 +79,7 @@ class Floor_0 extends Phaser.Scene{
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, props)
 
         this.createAnims();
         this.playerisRight = false;
@@ -222,7 +224,7 @@ class Floor_0 extends Phaser.Scene{
             this.regular_bgm.stop();
             this.musicplaying = false; 
             this.sound.play('notebookOpen', SFXConfig);
-            game.config.prevScene = 'Floor_4';
+            game.config.prevScene = 'Floor_0';
             this.scene.switch('Drawing');
         }
         if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
@@ -243,7 +245,7 @@ class Floor_0 extends Phaser.Scene{
             this.player.body.setVelocity(0, 0);
             this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('Floor_4_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                this.scene.start('0_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
                 playerX: this.player.x, playerY: this.player.y});
             });
         }else if(this.finishedLevel && !this.enteredElevator){
