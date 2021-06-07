@@ -1,4 +1,4 @@
-class Floor_0 extends Phaser.Scene{
+class Floor_0_OTHER extends Phaser.Scene{
 
     // Pt. 2 of transfering state to a different scene
     ////////////////////////////
@@ -13,14 +13,14 @@ class Floor_0 extends Phaser.Scene{
     ///////////////////////////
  
     constructor() {
-        super("Floor_0");    
+        super("Floor_0_OTHER");    
     }
     
 
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/last_floor_tiles.png');
-        this.load.tilemapTiledJSON('floor0','./assets/Floor_0.json' );
+        this.load.tilemapTiledJSON('floor0_OTHER','./assets/Floor_0_OTHER.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
@@ -33,7 +33,7 @@ class Floor_0 extends Phaser.Scene{
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
         this.load.audio('elevatorOpen', './assets/sounds/Elevator_open.wav');
         this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
-        this.load.audio('otherworldExit', './assets/sounds/toOtherworld.wav');
+        this.load.audio('otherworldEnter', './assets/sounds/toOtherworld.wav');
     }
     create(){
         let floorBGMConfig = {
@@ -52,14 +52,10 @@ class Floor_0 extends Phaser.Scene{
         this.enteredElevator = false;
         this.spiritStart = false;
 
+        this.cameras.main.fadeIn(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
 
-        if(!this.finishedLevel)
-            this.cameras.main.fadeIn(1000, 0, 0, 0);
-        else
-            this.cameras.main.fadeIn(1000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
-        this.createKeys();
 
-        const map = this.make.tilemap({key: 'floor0'});
+        const map = this.make.tilemap({key: 'floor0_OTHER'});
         const tileset = map.addTilesetImage('last_floor_tiles', 'lobbytiles');
 
         map.createLayer('Ground', tileset);
@@ -69,13 +65,8 @@ class Floor_0 extends Phaser.Scene{
         props.setCollisionByProperty({collides: true});
 
 
-        this.elevator = this.physics.add.sprite(112, 48, 'elevatorDoors', 0);
-        this.elevator.body.offset.y = 0.5;
-        this.elevator.body.immovable = true;
-        //if(!this.finishedLevel)
-            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
-        //else
-        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        this.player = new Player(this, 100, 170, 'playerIdleLEFT', 0);
+
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
@@ -87,9 +78,6 @@ class Floor_0 extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
-        if(!this.finishedLevel){
-            this.elevator.anims.play('elevatorDoorsClose', true);
-        }
     }
     createAnims(){
         this.anims.create({
@@ -165,7 +153,6 @@ class Floor_0 extends Phaser.Scene{
                 this.musicplaying = true;
                 //this.regular_bgm.play();
             }
-            this.player.update();
             if(this.player.direction == 'LEFT'){
                 this.player.anims.play('playerLEFT', true);
                 this.playerisLeft = true;
@@ -208,30 +195,7 @@ class Floor_0 extends Phaser.Scene{
             this.player.anims.stop();
         }
         this.collisions();
-        if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
-            //this.regular_bgm.stop();
-            this.musicplaying = false; 
-            let SFXConfig ={
-                mute: false,
-                volume: 0.4,
-                rate: 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay: 0,
-                pan: 0 
-            }
-            this.sound.play('otherworldExit', SFXConfig);
-            this.spiritStart = true;
-            this.player.body.setVelocity(0, 0);
-            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('Floor_0_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-                playerX: this.player.x, playerY: this.player.y});
-            });
-        }else if(this.finishedLevel && !this.enteredElevator){
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
-        }
+        
     }
     collisions(){
     }
