@@ -45,7 +45,7 @@ class Drawing extends Phaser.Scene{
         this.input.on('pointermove', function (pointer) {
             if (pointer.isDown)
             {
-                this.rt.draw('brush', pointer.x-48, pointer.y+16);
+                this.rt.draw('brush', pointer.x-48, pointer.y+16);      //to change the ink, change this 'brush' to some other sprite
             }
         }, this);
         //https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.RenderTexture.html#clear__anchor   graphics stuff
