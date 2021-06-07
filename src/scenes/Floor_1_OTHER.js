@@ -237,7 +237,7 @@ class Floor_1_OTHER extends Phaser.Scene{
             this.findingTime -= delta;
 
         this.collisions();
-        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey) && !this.ghostHit &&  this.findingTime > 0){
             let SFXConfig = {
                 mute: false,
                 volume: 0.4,
