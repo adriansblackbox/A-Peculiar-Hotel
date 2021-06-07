@@ -105,6 +105,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         testMonster.body.setImmovable(true);
         testMonster.moves = false;
         
+        
         testMonster.startFollow({
             duration: 10000,
             yoyo: true,
