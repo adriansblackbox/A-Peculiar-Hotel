@@ -253,6 +253,7 @@ class Floor_1_OTHER extends Phaser.Scene{
             //this.elevator_bgm.stop();
             this.musicplaying = false;
             game.config.prevScene = 'Floor_1_OTHER';
+            this.sound.play('notebookOpen', SFXConfig);
             this.scene.switch('Drawing');
         }
 
