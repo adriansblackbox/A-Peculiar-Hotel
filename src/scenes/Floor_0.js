@@ -30,8 +30,8 @@ class Floor_0 extends Phaser.Scene{
         this.load.spritesheet('playerIdleLEFT', 'assets/idleLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('playerIdleRIGHT', 'assets/idleRight.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 0});
         this.load.spritesheet('elevatorDoors', 'assets/elevatorAnim.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 32});
-        this.load.audio('notebookOpen','./assets/sounds.Notebook_open.wav');
-        this.load.audio('elevatorOpen', './assets/sounbs/Elevator_open.wav');
+        this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
+        this.load.audio('elevatorOpen', './assets/sounds/Elevator_open.wav');
         this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
         this.load.audio('otherworldEnter', './assets/sounds/toOtherworld.wav');
     }
@@ -240,7 +240,7 @@ class Floor_0 extends Phaser.Scene{
                 delay: 0,
                 pan: 0 
             }
-            this.sound.play('otherworldExit', SFXConfig);
+            this.sound.play('otherworldEnter', SFXConfig);
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
             this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
