@@ -246,6 +246,11 @@ class Elevator extends Phaser.Scene{
         this.elevatorTime += delta;
         this.elevatorScene.anims.play('elevatorScene', true);
         
+        if(this.floorList.length >= 3 ){
+
+        }
+
+
         if(this.conversationDone && this.dialogue_5_End && !this.keySequenceSetUp){
             this.keySequenceSetUp = true;
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
@@ -657,27 +662,29 @@ class Elevator extends Phaser.Scene{
             if(this.dogDialogue.alpha < 1){
                 this.dogDialogue.alpha += 0.07;
             }
-            this.dialogueSetUp = true;
+            if(this.dogDialogue.alpha >= 1 && this.catDialogue.alpha >= 1 && this.dialogueBG.alpha >= 0.7 && this.elevatorScene.alpha <= 0.2){
+                this.dialogueSetUp = true;
+            }
         }
         if(!this.dialogue_1_InProgress && this.nextFloor == "Floor_1" && this.elevatorTime >= 3000){
             this.dialogue_1_InProgress = true;
-            this.Conversation.start(floor1, 100);
+            this.Conversation.start(floor1, 50);
         }
         if(!this.dialogue_2_InProgress && this.nextFloor == "Floor_2" && this.elevatorTime >= 3000){
             this.dialogue_2_InProgress = true;
-            this.Conversation.start(floor2, 100);
+            this.Conversation.start(floor2, 50);
         }
         if(!this.dialogue_3_InProgress && this.nextFloor == "Floor_3" && this.elevatorTime >= 3000){
             this.dialogue_3_InProgress = true;
-            this.Conversation.start(floor3, 100);
+            this.Conversation.start(floor3, 50);
         }
         if(!this.dialogue_4_InProgress && this.nextFloor == "Floor_4" && this.elevatorTime >= 3000){
             this.dialogue_4_InProgress = true;
-            this.Conversation.start(floor4, 100);
+            this.Conversation.start(floor4, 50);
         }
         if(!this.dialogue_5_InProgress && this.nextFloor == null && this.elevatorTime >= 3000){
             this.dialogue_5_InProgress = true;
-            this.Conversation.start(passwordStart, 100);
+            this.Conversation.start(passwordStart, 50);
         }
         //Conversation
         if(this.dialogue_1_InProgress && !this.dialogue_1_End){
@@ -781,7 +788,10 @@ class Elevator extends Phaser.Scene{
             if(this.dogDialogue.alpha > 0){
                 this.dogDialogue.alpha -= 0.1;
             }
-            this.dialogueSetUp = false;
+            if(this.dogDialogue.alpha <= 0 && this.catDialogue.alpha <= 0 && this.dialogueBG.alpha <= 0 && this.elevatorScene.alpha >= 1 ){
+                this.dialogueSetUp = false;
+            }
+
         }
         /////////////////////////////////////////
         //Dialogue^^^
