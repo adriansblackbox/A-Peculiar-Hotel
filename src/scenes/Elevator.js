@@ -154,6 +154,7 @@ class Elevator extends Phaser.Scene{
         this.correctPassword = false;
         this.resetGame = true;
         this.conversationDone = false;
+        this.keySequenceSetUp = false; 
 
         this.button1_clicked = false;
         this.button2_clicked = false;
@@ -225,9 +226,22 @@ class Elevator extends Phaser.Scene{
 
         console.log(this.floorList);
 
-        if(this.nextFloor != null){
-
-        }else{
+        this.createTextBoxes();
+       
+    }
+    createTextBoxes(){
+        this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
+    }
+    update(time, delta){
+        if(!(this.musicplaying) && !this.fadingOut){
+            this.musicplaying = true;
+            this.elevator_bgm.play();
+        }
+        this.elevatorTime += delta;
+        this.elevatorScene.anims.play('elevatorScene', true);
+        
+        if(this.conversationDone && this.dialogue_5_InProgress && !this.keySequenceSetUp){
+            this.keySequenceSetUp = true;
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
             this.button1 = this.physics.add.sprite(256, 78).setInteractive();
             this.button1.setSize(30, 30);
@@ -556,23 +570,9 @@ class Elevator extends Phaser.Scene{
                     }
                 }
             },this);
-
-
+    
         }
 
-        this.createTextBoxes();
-       
-    }
-    createTextBoxes(){
-        this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
-    }
-    update(time, delta){
-        if(!(this.musicplaying) && !this.fadingOut){
-            this.musicplaying = true;
-            this.elevator_bgm.play();
-        }
-        this.elevatorTime += delta;
-        this.elevatorScene.anims.play('elevatorScene', true);
         if(this.inputPassword.length > 4){
             this.inputPassword.pop();
         }
@@ -581,7 +581,7 @@ class Elevator extends Phaser.Scene{
         if(this.inputPassword.length == 4){
             this.correctPassword = true;
         }
-
+        
         //TESTING LEVEL ELEVATOR TRANSITION
         
         if(this.conversationDone && !this.fadingOut){
@@ -673,7 +673,7 @@ class Elevator extends Phaser.Scene{
             this.dialogue_5_InProgress = true;
             this.Conversation.start(passwordStart, 100);
         }
-        //First Conversation
+        //Conversation
         if(this.dialogue_1_InProgress){
             if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
