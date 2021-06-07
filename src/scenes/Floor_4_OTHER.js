@@ -270,6 +270,7 @@ class Floor_4_OTHER extends Phaser.Scene{
                 delay: 0,
                 pan: 0 
             }
+            this.musicplaying = true;
             this.sound.play('otherworldExit', SFXConfig);
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.player.body.setVelocity(0, 0);
@@ -280,7 +281,7 @@ class Floor_4_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
-        this.musicplaying = false;
+        this.musicplaying = true;
         this.otherworld_bgm.stop();
         let SFXConfig ={
             mute: false,

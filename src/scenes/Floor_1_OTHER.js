@@ -78,7 +78,7 @@ class Floor_1_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
-        this.createSymbol();
+        //this.createSymbol();
 
         this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
         this.timer = this.add.text(0,0, "", this.style);

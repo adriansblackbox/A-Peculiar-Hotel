@@ -312,7 +312,7 @@ class Floor_1 extends Phaser.Scene{
             }
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            this.regular_bgm.stop();
+            this.regular_bgm.pause();
             this.musicplaying = false; 
             this.sound.play('notebookOpen', SFXConfig);
             game.config.prevScene = 'Floor_1';
@@ -326,30 +326,7 @@ class Floor_1 extends Phaser.Scene{
         if(this.playerDeciding){
             this.confirmObject();
         }
-        /*if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
-            this.regular_bgm.stop();
-            this.musicplaying = false;
-            let SFXConfig ={
-                mute: false,
-                volume: 0.4,
-                rate: 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay: 0,
-                pan: 0 
-            }
-            this.sound.play('otherworldEnter', SFXConfig);
-            this.spiritStart = true;
-            this.player.body.setVelocity(0, 0);
-            this.cameras.main.fadeOut(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('Floor_1_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
-                playerX: this.player.x, playerY: this.player.y});
-            });
-        }else if(this.finishedLevel && !this.enteredElevator){
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
-        }*/
+        
     }
     objectInteraction(){
         if(this.player.x <= this.obj_1.x + 30 && this.player.x >= this.obj_1.x - 30 && 
@@ -433,8 +410,8 @@ class Floor_1 extends Phaser.Scene{
         }
 
         if(this.yesSelected && !this.finishedLevel && !this.spiritStart){
+            this.musicplaying = true;
             this.regular_bgm.stop();
-            this.musicplaying = false;
             let SFXConfig ={
                 mute: false,
                 volume: 0.4,
@@ -489,7 +466,7 @@ class Floor_1 extends Phaser.Scene{
             pan: 0 
         }
         this.regular_bgm.stop();
-        this.musicplaying = false;
+        this.musicplaying = true;
         this.sound.play('elevatorOpen',SFXConfig);
         this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);

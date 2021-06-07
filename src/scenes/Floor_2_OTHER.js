@@ -184,7 +184,7 @@ class Floor_2_OTHER extends Phaser.Scene{
 
         this.timer = this.add.text(0,0, "", this.style);
 
-        //this.createSymbol();
+        this.createSymbol();
     }
     createMap(){
         const map = this.make.tilemap({key: 'floor2OTHER'});
@@ -423,6 +423,7 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.player.body.setVelocity(0, 0);
             this.otherworld_bgm.stop();
+            this.musicplaying = true;
             let SFXConfig ={
                 mute: false,
                 volume: 0.4,
@@ -441,7 +442,7 @@ class Floor_2_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
-        this.musicplaying = false;
+        this.musicplaying = true;
         this.otherworld_bgm.stop();
         let SFXConfig ={
             mute: false,
