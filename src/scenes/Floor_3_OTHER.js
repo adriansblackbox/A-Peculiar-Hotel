@@ -69,22 +69,6 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
-
-        /*
-        this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster4 = new Monster(this, game.config.width/1.5, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster5 = new Monster(this, game.config.width, game.config.height*1.5, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster6 = new Monster(this, game.config.width/1.5, game.config.height*1.5, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster7 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster8 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster9 = new Monster(this, game.config.width/Phaser.Math.Between(1,1.7), game.config.height*Phaser.Math.Between(1,1.7), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
-        */
-
         this.cameras.main.startFollow(this.player);
 
         this.createAnims();
@@ -93,7 +77,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
-        //this.createSymbol();
+        this.createSymbol();
 
         this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
 
@@ -110,7 +94,7 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         
         testMonster.startFollow({
-            duration: 7000,
+            duration: 7000,     //controls the ghost speed
             //yoyo: true,
             loop: -1,
             onStart: function() { path.getPoint(0,testMonster.pathVector);},
@@ -118,7 +102,7 @@ class Floor_3_OTHER extends Phaser.Scene{
             onLoop: function(){},
             onComplete: function() {this.testMonster.body.stop();}
         });
-        this.testObjectMonster = testMonster;
+        this.testObjectMonster = testMonster;   //allows us to access it for collision functions inside of other functions
 
             //ghost 2
         var path2 = new Phaser.Curves.Path(400,400).circleTo(150);   //the circleTo() controls radius, .path controls position
@@ -138,7 +122,7 @@ class Floor_3_OTHER extends Phaser.Scene{
             onLoop: function(){},
             onComplete: function() {this.testMonster2.body.stop();}
         });
-        this.testObjectMonster2 = testMonster2;
+        this.testObjectMonster2 = testMonster2;     
 
            //ghost 3
         var path3 = new Phaser.Curves.Path(570,500).circleTo(150);   //the circleTo() controls radius, .path controls position
@@ -341,22 +325,6 @@ class Floor_3_OTHER extends Phaser.Scene{
         }
 
         this.findingTime -= delta;
-
-        /*
-        this.monster.update(this.player.x, this.player.y);
-        this.monster2.update(this.player.x, this.player.y);
-        this.monster3.update(this.player.x, this.player.y);
-        this.monster4.update(this.player.x, this.player.y);
-        this.monster5.update(this.player.x, this.player.y);
-        this.monster6.update(this.player.x, this.player.y);
-        this.monster7.update(this.player.x, this.player.y);
-        this.monster8.update(this.player.x, this.player.y);
-        this.monster9.update(this.player.x, this.player.y);
-        this.monster10.update(this.player.x, this.player.y);
-        this.monster11.update(this.player.x, this.player.y);
-        this.monster12.update(this.player.x, this.player.y);
-        */
-
         //console.log(testMonster.x, testMonster.y);+
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
@@ -380,22 +348,6 @@ class Floor_3_OTHER extends Phaser.Scene{
         }
     }
     collisions(){
-        /*
-        this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster2, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster3, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster4, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster5, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster6, this.onGhostCollision, null, this);
-
-        this.physics.world.collide(this.player, this.monster7, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster8, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster9, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster10, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster11, this.onGhostCollision, null, this);
-        this.physics.world.collide(this.player, this.monster12, this.onGhostCollision, null, this);
-        */
-
         this.physics.world.collide(this.player, this.testObjectMonster, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.testObjectMonster2, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.testObjectMonster3, this.onGhostCollision, null, this);
