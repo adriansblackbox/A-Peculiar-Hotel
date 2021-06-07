@@ -299,7 +299,7 @@ class Floor_1 extends Phaser.Scene{
             this.player.anims.stop();
         }
         this.collisions();
-        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey) &&!this.spiritStart){
             let SFXConfig = {
                 mute: false,
                 volume: 0.4,
@@ -312,7 +312,7 @@ class Floor_1 extends Phaser.Scene{
             }
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            this.regular_bgm.pause();
+            this.regular_bgm.stop();
             this.musicplaying = false; 
             this.sound.play('notebookOpen', SFXConfig);
             game.config.prevScene = 'Floor_1';
