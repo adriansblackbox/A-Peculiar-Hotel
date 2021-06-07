@@ -107,14 +107,14 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         
         this.testMonster.startFollow({
-            duration: 10000,
-            yoyo: true,
+            duration: 1000,
+            //yoyo: true,
             loop: -1,
             onStart: function() { this.path.getPoint(0,this.testMonster.pathVector);},
             onUpdate: function (tween){this.testMonster.body.velocity.copy(this.testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
             onLoop: function(){},
             onComplete: function() {this.testMonster.body.stop();}
-        });
+        }, this);
 
         this.physics.world.collide(this.player, this.testMonster, this.onGhostCollision, null, this);  
         
