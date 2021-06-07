@@ -38,6 +38,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
     }
 
     movement(pX, pY){
+        //level 1 is long corridor
         if(this.level == 1){
             this.startingY = game.config.height/6;
             //back and fourth movement based on starting position
@@ -100,6 +101,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
             
         }
 
+        //could add random dance moves, but at the moment it's always circle
         if(this.level == 3){
             //ballroom
             if(this.danceMove == 1){
@@ -129,6 +131,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
             }
         }
         
+        //the following ghosts (added checks to make it not fidget as much)
         if(this.level == 4){
             if(this.x > pX - 2 && this.x < pX + 2)
             {
