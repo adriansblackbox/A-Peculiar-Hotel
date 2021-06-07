@@ -19,8 +19,8 @@ class Floor_0 extends Phaser.Scene{
 
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
-        this.load.image('lobbytiles', './assets/Lobby_Tiles.png');
-        this.load.tilemapTiledJSON('floor4','./assets/Floor_4.json' );
+        this.load.image('lobbytiles', './assets/last_floor_tiles.png');
+        this.load.tilemapTiledJSON('floor0','./assets/Floor_0.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerLEFT', 'assets/DetDogLeft.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 13});
