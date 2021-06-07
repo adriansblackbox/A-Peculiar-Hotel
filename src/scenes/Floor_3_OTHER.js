@@ -59,6 +59,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         }
         this.otherworld_bgm = this.sound.add('otherworldBGM', otherworldBGMConfig);
         this.musicplaying = false;
+        this.ghostHit = false;
 
         this.timeOut = false;
         this.speedLow = 50;

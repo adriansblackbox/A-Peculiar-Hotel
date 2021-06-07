@@ -64,6 +64,7 @@ class Floor_3 extends Phaser.Scene{
         this.enteredElevator = false;
         this.spiritStart = false;
         this.playerDeciding = false;
+        this.elevatorEntered = false;
 
         this.tieObjects();
 

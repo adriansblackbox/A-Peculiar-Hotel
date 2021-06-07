@@ -69,6 +69,9 @@ class Floor_1 extends Phaser.Scene{
         this.enteredElevator = false;
         this.spiritStart = false;
         this.playerDeciding = false;
+        this.elevatorEntered = false;
+
+        
         if(!this.finishedLevel)
             this.cameras.main.fadeIn(1000, 0, 0, 0);
         else

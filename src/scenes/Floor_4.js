@@ -65,6 +65,9 @@ class Floor_4 extends Phaser.Scene{
         this.findingTime = 10000;
         this.enteredElevator = false;
         this.spiritStart = false;
+        this.elevatorEntered = false;
+        this.playerDeciding = false;
+
 
 
         if(!this.finishedLevel)
