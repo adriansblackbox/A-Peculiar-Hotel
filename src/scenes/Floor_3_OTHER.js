@@ -90,11 +90,31 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
-        this.createSymbol();
+        //this.createSymbol();
 
         this.style = { font: "15px Arial", fill: "#FFFFFF", align: "center" };
 
         this.timer = this.add.text(0,0, "", this.style);
+
+        this.graphics = this.add.graphics().lineStyle(1,0xffffff, .5);
+        this.path = new Phaser.Curves.Path(600,300).circleTo(200);
+        this.path.draw(this.graphics, 128);
+        
+        this.testMonster = this.add.follower(this.path, 600, 300, 'monster').setAlpha(.5);
+        this.physics.add.existing(this.testMonster);
+        this.testMonster.body.setImmovable(true);
+        this.testMonster.moves = false;
+        
+        this.testMonster.startFollow({
+            duration: 10000,
+            yoyo: true,
+            loop: -1,
+            onStart: function() { this.path.getPoint(0,this.testMonster.pathVector);},
+            onUpdate: function (tween){this.testMonster.body.velocity.copy(this.testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onLoop: function(){},
+            onComplete: function() {this.testMonster.body.stop();}
+        });
+        
     }
     createMap(){
         const map = this.make.tilemap({key: 'floor3OTHER'});
@@ -237,6 +257,7 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         this.findingTime -= delta;
 
+        /*
         this.monster.update(this.player.x, this.player.y);
         this.monster2.update(this.player.x, this.player.y);
         this.monster3.update(this.player.x, this.player.y);
@@ -249,6 +270,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.monster10.update(this.player.x, this.player.y);
         this.monster11.update(this.player.x, this.player.y);
         this.monster12.update(this.player.x, this.player.y);
+        */
 
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){

@@ -18,7 +18,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         this.index = 0;
         this.circleSpeedX = 2;
         this.circleSpeedY = 2;
-        this.danceMove = Phaser.Math.Between(1,2); //Phaser.Math.Between(1,2)
+        this.danceMove = 2; //Phaser.Math.Between(1,2)
         this.vec = new Phaser.Math.Vector2();
         this.whichCorner = 1;
     }
@@ -30,6 +30,8 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
         
         this.pivot.x = 100;
         this.anchor.set(.5);
+
+        
     }
     update(playerX, playerY){
         this.movement(playerX, playerY);
@@ -119,7 +121,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
                 this.setVelocity(this.speed*this.circleSpeedX, this.speed*this.circleSpeedY);
             }
             if(this.danceMove == 2){
-                this.vec.setToPolar(this.rotation, 50);
+                this.vec.setToPolar(this.rotation, 400);
                 this.vx = this.vec.x * 1;
                 this.vy = this.vec.y * 1;
                 this.setVelocity(this.vx,this.vy);
