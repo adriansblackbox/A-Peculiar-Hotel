@@ -105,10 +105,10 @@ class Floor_3_OTHER extends Phaser.Scene{
         testMonster.body.setImmovable(true);
         testMonster.moves = false;
         
-        
+
         testMonster.startFollow({
-            duration: 10000,
-            yoyo: true,
+            duration: 1000,
+            //yoyo: true,
             loop: -1,
             onStart: function() { path.getPoint(0,testMonster.pathVector);},
             onUpdate: function (tween){testMonster.body.velocity.copy(testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
