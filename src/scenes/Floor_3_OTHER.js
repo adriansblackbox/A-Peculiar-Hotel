@@ -98,15 +98,15 @@ class Floor_3_OTHER extends Phaser.Scene{
 
 
         var graphics = this.add.graphics().lineStyle(1,0xffffff, .5);
-        let path = new Phaser.Curves.Path(600,300).circleTo(200);
+        var path = new Phaser.Curves.Path(600,300).circleTo(200);
         path.draw(graphics, 128);
-        let testMonster = this.add.follower(path, 600, 300, 'monster').setAlpha(.5);
+        var testMonster = this.add.follower(path, 600, 300, 'monster').setAlpha(.5);
         this.physics.add.existing(testMonster);
         testMonster.body.setImmovable(true);
         testMonster.moves = false;
 
         
-        this.testMonster.startFollow({
+        testMonster.startFollow({
             duration: 1000,
             //yoyo: true,
             loop: -1,
@@ -114,10 +114,10 @@ class Floor_3_OTHER extends Phaser.Scene{
             onUpdate: function (tween){testMonster.body.velocity.copy(testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
             onLoop: function(){},
             onComplete: function() {this.testMonster.body.stop();}
-        }, this);
+        });
 
         this.physics.world.collide(this.player, testMonster, this.onGhostCollision, null, this);
-        this.update(0,0,testMonster)
+        //this.update(0,0,testMonster)
         
     }
     createMap(){
@@ -276,7 +276,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.monster12.update(this.player.x, this.player.y);
         */
 
-        console.log(testMonster.x, testMonster.y);+
+        //console.log(testMonster.x, testMonster.y);+
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
             let SFXConfig = {
