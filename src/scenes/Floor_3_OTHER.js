@@ -115,8 +115,7 @@ class Floor_3_OTHER extends Phaser.Scene{
             onLoop: function(){},
             onComplete: function() {this.testMonster.body.stop();}
         });
-
-        this.physics.world.collide(this.player, testMonster, this.onGhostCollision, null, this);
+        this.testObjectMonster = testMonster;
         //this.update(0,0,testMonster)
         
     }
@@ -311,8 +310,12 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.physics.world.collide(this.player, this.monster10, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.monster11, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.monster12, this.onGhostCollision, null, this);
+
+        this.physics.world.collide(this.player, this.testObjectMonster, this.onGhostCollision, null, this);
+
     }
     onGhostCollision(){
+        console.log("ghost hit");
         if(!this.ghostHit){
             this.ghostHit = true;
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
