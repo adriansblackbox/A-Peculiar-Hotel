@@ -70,6 +70,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.cameras.main.fadeIn(1500, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
         this.createKeys();
 
+        /*
         this.monster = new Monster(this, game.config.width/2, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster2 = new Monster(this, game.config.width/2, game.config.height*2, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster3 = new Monster(this, game.config.width/1.5, game.config.height, 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
@@ -82,6 +83,8 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.monster10 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.8,2.2), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster11 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
         this.monster12 = new Monster(this, game.config.width/Phaser.Math.Between(1.8,2.5), game.config.height*Phaser.Math.Between(1.6,2.4), 'monster',0, Phaser.Math.Between(this.speedLow,this.speedHigh), 3);
+        */
+
         this.cameras.main.startFollow(this.player);
 
         this.createAnims();
@@ -96,10 +99,10 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         this.timer = this.add.text(0,0, "", this.style);
 
-
+        //  ----Code for ghosts----
         var graphics = this.add.graphics().lineStyle(1,0xffffff, .5);
-        var path = new Phaser.Curves.Path(600,300).circleTo(200);
-        path.draw(graphics, 128);
+        var path = new Phaser.Curves.Path(600,300).circleTo(150);   //the circleTo() controls radius, .path controls position
+        //path.draw(graphics, 128);
         var testMonster = this.add.follower(path, 600, 300, 'monster').setAlpha(.5);
         this.physics.add.existing(testMonster);
         testMonster.body.setImmovable(true);
@@ -107,7 +110,7 @@ class Floor_3_OTHER extends Phaser.Scene{
 
         
         testMonster.startFollow({
-            duration: 1000,
+            duration: 7000,
             //yoyo: true,
             loop: -1,
             onStart: function() { path.getPoint(0,testMonster.pathVector);},
@@ -116,7 +119,86 @@ class Floor_3_OTHER extends Phaser.Scene{
             onComplete: function() {this.testMonster.body.stop();}
         });
         this.testObjectMonster = testMonster;
-        //this.update(0,0,testMonster)
+
+            //ghost 2
+        var path2 = new Phaser.Curves.Path(400,400).circleTo(150);   //the circleTo() controls radius, .path controls position
+        //path.draw(graphics, 128);
+        var testMonster2 = this.add.follower(path2, 400, 400, 'monster').setAlpha(.5);
+        this.physics.add.existing(testMonster2);
+        testMonster2.body.setImmovable(true);
+        testMonster2.moves = false;
+
+        
+        testMonster2.startFollow({
+            duration: 6000,
+            //yoyo: true,
+            loop: -1,
+            onStart: function() { path2.getPoint(0,testMonster2.pathVector);},
+            onUpdate: function (tween){testMonster2.body.velocity.copy(testMonster2.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onLoop: function(){},
+            onComplete: function() {this.testMonster2.body.stop();}
+        });
+        this.testObjectMonster2 = testMonster2;
+
+           //ghost 3
+        var path3 = new Phaser.Curves.Path(570,500).circleTo(150);   //the circleTo() controls radius, .path controls position
+        //path.draw(graphics, 128);
+        var testMonster3 = this.add.follower(path3, 570, 500, 'monster').setAlpha(.5);
+        this.physics.add.existing(testMonster3);
+        testMonster3.body.setImmovable(true);
+        testMonster3.moves = false;
+
+        
+        testMonster3.startFollow({
+            duration: 7200,
+            //yoyo: true,
+            loop: -1,
+            onStart: function() { path3.getPoint(0,testMonster3.pathVector);},
+            onUpdate: function (tween){testMonster3.body.velocity.copy(testMonster3.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onLoop: function(){},
+            onComplete: function() {this.testMonster3.body.stop();}
+        });
+        this.testObjectMonster3 = testMonster3;
+
+           //ghost 4
+        var path4 = new Phaser.Curves.Path(220,600).circleTo(150);   //the circleTo() controls radius, .path controls position
+        //path.draw(graphics, 128);
+        var testMonster4 = this.add.follower(path4, 220, 600, 'monster').setAlpha(.5);
+        this.physics.add.existing(testMonster4);
+        testMonster4.body.setImmovable(true);
+        testMonster4.moves = false;
+
+        
+        testMonster4.startFollow({
+            duration: 5200,
+            //yoyo: true,
+            loop: -1,
+            onStart: function() { path4.getPoint(0,testMonster4.pathVector);},
+            onUpdate: function (tween){testMonster4.body.velocity.copy(testMonster4.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onLoop: function(){},
+            onComplete: function() {this.testMonster4.body.stop();}
+        });
+        this.testObjectMonster4 = testMonster4;
+
+           //ghost 5
+        var path5 = new Phaser.Curves.Path(560,610).circleTo(150);   //the circleTo() controls radius, .path controls position
+        //path.draw(graphics, 128);
+        var testMonster5 = this.add.follower(path5, 560, 610, 'monster').setAlpha(.5);
+        this.physics.add.existing(testMonster5);
+        testMonster5.body.setImmovable(true);
+        testMonster5.moves = false;
+
+        
+        testMonster5.startFollow({
+            duration: 5000,
+            //yoyo: true,
+            loop: -1,
+            onStart: function() { path4.getPoint(0,testMonster5.pathVector);},
+            onUpdate: function (tween){testMonster5.body.velocity.copy(testMonster5.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onLoop: function(){},
+            onComplete: function() {this.testMonster5.body.stop();}
+        });
+        this.testObjectMonster5 = testMonster5;
         
     }
     createMap(){
@@ -298,6 +380,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         }
     }
     collisions(){
+        /*
         this.physics.world.collide(this.player, this.monster, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.monster2, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.monster3, this.onGhostCollision, null, this);
@@ -311,12 +394,16 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.physics.world.collide(this.player, this.monster10, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.monster11, this.onGhostCollision, null, this);
         this.physics.world.collide(this.player, this.monster12, this.onGhostCollision, null, this);
+        */
 
         this.physics.world.collide(this.player, this.testObjectMonster, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.testObjectMonster2, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.testObjectMonster3, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.testObjectMonster4, this.onGhostCollision, null, this);
+        this.physics.world.collide(this.player, this.testObjectMonster5, this.onGhostCollision, null, this);
 
     }
     onGhostCollision(){
-        console.log("ghost hit");
         if(!this.ghostHit){
             this.ghostHit = true;
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
