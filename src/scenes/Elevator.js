@@ -55,7 +55,7 @@ var floor4 = "We are now arriving at the fourth floor,\nhome to our hotel's roya
  * Cat: With that being said, allow us to be the staff\n that will conduct your checkout process\n\n.
  * Cat: Remember, an incorrect signatures makes a guest\n liable to corrective actions as stated\n in the rules of this hotel.\n
  */
-var passwordStart = "Well, it seems we've visited every floor already\n which means that we've provided you with all\n the assistance the hotel can offer.\nWith that being said, allow us to be the staff\n that will conduct your checkout process\n\n.Remember, an incorrect signatures makes a guest\n liable to corrective actions as stated\n in the rules of this hotel.\n";
+var passwordStart = "Well, it seems we've visited every floor already\n which means that we've provided you with all\n the assistance the hotel can offer.\nWith that being said, allow us to be the staff\n that will conduct your checkout process.\n\nRemember, an incorrect signatures makes a guest\n liable to corrective actions as stated\n in the rules of this hotel.\n";
 
 /* Password wrong:
  * Dog: So is this correct?\n\n\n
@@ -155,6 +155,7 @@ class Elevator extends Phaser.Scene{
         this.resetGame = true;
         this.conversationDone = false;
         this.keySequenceSetUp = false; 
+        this.dialogueSetUp = false;
 
         this.button1_clicked = false;
         this.button2_clicked = false;
@@ -168,10 +169,15 @@ class Elevator extends Phaser.Scene{
         this.button10_clicked = false;
 
         this.dialogue_1_InProgress = false;
+        this.dialogue_1_End = false;
         this.dialogue_2_InProgress = false;
+        this.dialogue_1_End = false;
         this.dialogue_3_InProgress = false;
+        this.dialogue_1_End = false;
         this.dialogue_4_InProgress = false;
+        this.dialogue_1_End = false;
         this.dialogue_5_InProgress = false;
+        this.dialogue_1_End = false;
         //this.dialogue_6_InProgress = false;
 
 
@@ -240,7 +246,7 @@ class Elevator extends Phaser.Scene{
         this.elevatorTime += delta;
         this.elevatorScene.anims.play('elevatorScene', true);
         
-        if(this.conversationDone && this.dialogue_5_InProgress && !this.keySequenceSetUp){
+        if(this.conversationDone && this.dialogue_5_End && !this.keySequenceSetUp){
             this.keySequenceSetUp = true;
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
             this.button1 = this.physics.add.sprite(256, 78).setInteractive();
@@ -638,7 +644,7 @@ class Elevator extends Phaser.Scene{
         ////////////////////////////////////////
 
         //Fade In
-        if(this.elevatorTime >= 2000 && !this.conversationDone && !this.dialogue_1_InProgress){
+        if(this.elevatorTime >= 2000 && !this.conversationDone && !this.dialogueSetUp){
             if( this.elevatorScene.alpha > 0.2){
                 this.elevatorScene.alpha -= 0.1;
             }
@@ -651,7 +657,7 @@ class Elevator extends Phaser.Scene{
             if(this.dogDialogue.alpha < 1){
                 this.dogDialogue.alpha += 0.07;
             }
-
+            this.dialogueSetUp = true;
         }
         if(!this.dialogue_1_InProgress && this.nextFloor == "Floor_1" && this.elevatorTime >= 3000){
             this.dialogue_1_InProgress = true;
@@ -674,7 +680,7 @@ class Elevator extends Phaser.Scene{
             this.Conversation.start(passwordStart, 100);
         }
         //Conversation
-        if(this.dialogue_1_InProgress){
+        if(this.dialogue_1_InProgress && !this.dialogue_1_End){
             if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
@@ -689,10 +695,11 @@ class Elevator extends Phaser.Scene{
             }
             if(this.Conversation.pageIndex == 7){
                 this.conversationDone = true;
+                this.dialogue_1_End = true;
             }
 
         }
-        if(this.dialogue_2_InProgress){
+        if(this.dialogue_2_InProgress && !this.dialogue_2_End){
             if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
@@ -707,10 +714,11 @@ class Elevator extends Phaser.Scene{
             }
             if(this.Conversation.pageIndex == 6){
                 this.conversationDone = true;
+                this.dialogue_2_End = true;
             }
 
         }
-        if(this.dialogue_3_InProgress){
+        if(this.dialogue_3_InProgress && !this.dialogue_3_End){
             if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
@@ -725,10 +733,11 @@ class Elevator extends Phaser.Scene{
             }
             if(this.Conversation.pageIndex == 8){
                 this.conversationDone = true;
+                this.dialogue_3_End = true;
             }
 
         }
-        if(this.dialogue_4_InProgress){
+        if(this.dialogue_4_InProgress && !this.dialogue_4_End){
             if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
@@ -743,16 +752,18 @@ class Elevator extends Phaser.Scene{
             }
             if(this.Conversation.pageIndex == 9){
                 this.conversationDone = true;
+                this.dialogue_4_End = true;
             }
 
         }
-        if(this.dialogue_5_InProgress){
+        if(this.dialogue_5_InProgress&& !this.dialogue_5_End){
             if(this.Conversation.pageIndex  < 3){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
             if(this.Conversation.pageIndex == 3){
                 this.conversationDone = true;
+                this.dialogue_5_End = true;
             }
 
         }
@@ -770,6 +781,7 @@ class Elevator extends Phaser.Scene{
             if(this.dogDialogue.alpha > 0){
                 this.dogDialogue.alpha -= 0.1;
             }
+            this.dialogueSetUp = false;
         }
         /////////////////////////////////////////
         //Dialogue^^^
