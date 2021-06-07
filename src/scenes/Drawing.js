@@ -15,6 +15,7 @@ class Drawing extends Phaser.Scene{
         this.load.audio('notebookClose', './assets/sounds/Notebook_close.wav');
         this.load.audio('notebookOpen', './assets/sounds/Notebook_open.wav');
         this.load.audio('notebookErase', './assets/sounds/Erase3.wav');
+        this.load.audio('floorMusic', './assets/sounds/floorbgm.wav');
     }
     
     create ()
