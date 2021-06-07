@@ -20,6 +20,11 @@ class Floor_0 extends Phaser.Scene{
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lobbytiles', './assets/last_floor_tiles.png');
+        this.load.image('desk', './assets/final_desk.png');
+        this.load.image('desk_Lit', './assets/final_desk_Lit.png');
+        this.load.image('dialogueBox', './assets/dialogueBox.png');
+        this.load.image('dialogue_button', './assets/dialogue_button.png');
+        this.load.image('dialogue_button_empty', './assets/dialogue_button_empty.png');
         this.load.tilemapTiledJSON('floor0','./assets/Floor_0.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -33,9 +38,19 @@ class Floor_0 extends Phaser.Scene{
         this.load.audio('notebookOpen','./assets/sounds/Notebook_open.wav');
         this.load.audio('elevatorOpen', './assets/sounds/Elevator_open.wav');
         this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
-        this.load.audio('otherworldExit', './assets/sounds/toOtherworld.wav');
+        this.load.audio('otherworldEnter', './assets/sounds/toOtherworld.wav');
     }
     create(){
+        this.SFXConfig ={
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+            pan: 0 
+        }
         let floorBGMConfig = {
             mute: false,
             volume: 0.75,
@@ -51,6 +66,8 @@ class Floor_0 extends Phaser.Scene{
         this.findingTime = 10000;
         this.enteredElevator = false;
         this.spiritStart = false;
+        this.playerDeciding = false;
+
 
 
         if(!this.finishedLevel)
@@ -72,14 +89,14 @@ class Floor_0 extends Phaser.Scene{
         this.elevator = this.physics.add.sprite(112, 48, 'elevatorDoors', 0);
         this.elevator.body.offset.y = 0.5;
         this.elevator.body.immovable = true;
-        //if(!this.finishedLevel)
-            this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
-        //else
-        //this.player = new Player(this, this.playerX, this.playerY, 'player', 0);
+        this.obj_1 = this.physics.add.sprite(56, 189, 'desk', 0);
+        this.obj_1.body.immovable = true;
+        this.player = new Player(this, this.elevator.x, this.elevator.y + 30, 'player', 0);
         this.cameras.main.startFollow(this.player);
 
         this.physics.add.collider(this.player, walls);
         this.physics.add.collider(this.player, props)
+        this.physics.add.collider(this.player, this.obj_1)
 
         this.createAnims();
         this.playerisRight = false;
@@ -90,6 +107,22 @@ class Floor_0 extends Phaser.Scene{
         if(!this.finishedLevel){
             this.elevator.anims.play('elevatorDoorsClose', true);
         }
+        this.createPrompts();
+    }
+    createPrompts(){
+        this.yesSelected = false;
+        this.noSelected = false;
+        this.box = this.add.sprite(0,0, 'dialogueBox', 0);
+        this.box.alpha = 0;
+        this.nobtn = this.add.sprite(0, 0, 'dialogue_button_empty').setInteractive();
+        this.nobtn.alpha = 0;
+        this.style = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#000000", align: "center" };
+        this.style1 = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#ff0000", align: "center" };
+        this.foundText = this.add.text(0,0, "", this.style);
+        this.itemText = this.add.text(0,0, "", this.style);
+        this.confirmText = this.add.text(0,0, "", this.style);
+        this.lastText = this.add.text(0,0, "", this.style1);
+        
     }
     createAnims(){
         this.anims.create({
@@ -208,48 +241,81 @@ class Floor_0 extends Phaser.Scene{
             this.player.anims.stop();
         }
         this.collisions();
-        if(interactKey.isDown && !this.finishedLevel && !this.spiritStart){
-            //this.regular_bgm.stop();
-            this.musicplaying = false; 
-            let SFXConfig ={
-                mute: false,
-                volume: 0.4,
-                rate: 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay: 0,
-                pan: 0 
-            }
-            this.sound.play('otherworldEnter', SFXConfig);
+        
+        if(!this.playerDeciding){
+            this.objectInteraction();
+        }else{
+            this.confirmObject();
+        }
+    }
+    collisions(){
+    }
+    objectInteraction(){
+        if(this.player.x <= this.obj_1.x + 10 && this.player.x >= this.obj_1.x - 15 && 
+            this.player.y <= this.obj_1.y && this.player.y >= this.obj_1.y - 70){
+                this.obj_1.setTexture('desk_Lit', 0);
+                if(interactKey.isDown){
+                    this.findingTime = this.object_1_time;
+                    this.selectedItem = this.object_1_item;
+                    this.playerDeciding = true;
+                }
+        }else{
+            this.obj_1.setTexture('desk', 0);
+        }
+    }
+    confirmObject(){
+        if(!this.yesSelected){
+            this.player.anims.pause();
+            this.box.x = this.player.x ;
+            this.box.y = this.player.y + 100;
+            this.box.alpha = 1;
+            this.nobtn.x = this.player.x  + 82;
+            this.nobtn.y = this.player.y + 124;
+            this.nobtn.alpha = 1;
+            this.foundText.setText("You found a Knife!");
+            this.foundText.setX(this.player.x - 94);
+            this.foundText.setY(this.player.y + 65);
+            this.itemText.setText("Pull it out of the Skeleton?");
+            this.itemText.setX(this.player.x - 94);
+            this.itemText.setY(this.player.y + 80);
+            this.confirmText.setX(this.player.x - 94);
+            this.confirmText.setY(this.player.y + 95);
+            this.lastText.setX(this.player.x - 94);
+            this.lastText.setText("              →");
+            this.lastText.setY(this.player.y + 114);
+
+           
+            this.nobtn.on('pointerover', function (event) {this.nobtn.setTexture('dialogue_button')}, this);
+            this.nobtn.on('pointerout', function (event) {this.nobtn.setTexture('dialogue_button_empty')}, this);
+
+
+            this.nobtn.on('pointerdown', function (event) {this.noSelected = true},this);
+        }
+
+        if(this.noSelected){
+            //this.noSelected = false;
+            this.sound.play('otherworldEnter', this.SFXConfig);
             this.spiritStart = true;
             this.player.body.setVelocity(0, 0);
+            this.playerDeciding = false;
+            this.box.alpha = 0;
+            this.nobtn.alpha = 0;
+            this.foundText.setText("");
+            this.itemText.setText("");
+            this.confirmText.setText("");
+            this.lastText.setText("");
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start('Floor_0_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
                 playerX: this.player.x, playerY: this.player.y});
             });
-        }else if(this.finishedLevel && !this.enteredElevator){
-            this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
         }
-    }
-    collisions(){
     }
 
     elveatorExit(){
-        let SFXConfig ={
-            mute: false,
-            volume: 0.4,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: false,
-            delay: 0,
-            pan: 0 
-        }
         //this.regular_bgm.stop();
         this.musicplaying = false;
-        this.sound.play('elevatorOpen',SFXConfig);
+        this.sound.play('elevatorOpen',this.SFXConfig);
         this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);
         this.player.body.setVelocity(0, 0);
