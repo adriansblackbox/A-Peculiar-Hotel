@@ -6,7 +6,7 @@ let config = {
     height: 320,
     pixelArt: true,
     scene: [Menu, Lobby, Drawing, Floor_0, Elevator, Floor_4, Floor_3, Floor_2, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Floor_1],
-
+    //qux
     //3 is ballroom, 1 is square patrolling ghost, 2 is long corridor, 4 is following ghosts
     // variables for states in game
     prevScene: '',
