@@ -98,25 +98,26 @@ class Floor_3_OTHER extends Phaser.Scene{
 
 
         var graphics = this.add.graphics().lineStyle(1,0xffffff, .5);
-        this.path = new Phaser.Curves.Path(600,300).circleTo(200);
-        this.path.draw(graphics, 128);
-        this.testMonster = this.add.follower(this.path, 600, 300, 'monster').setAlpha(.5);
-        this.physics.add.existing(this.testMonster);
-        this.testMonster.body.setImmovable(true);
-        this.testMonster.moves = false;
+        let path = new Phaser.Curves.Path(600,300).circleTo(200);
+        path.draw(graphics, 128);
+        let testMonster = this.add.follower(path, 600, 300, 'monster').setAlpha(.5);
+        this.physics.add.existing(testMonster);
+        testMonster.body.setImmovable(true);
+        testMonster.moves = false;
 
         
-        this.testMonster.startFollow({
+        testMonster.startFollow({
             duration: 10000,
             yoyo: true,
             loop: -1,
-            onStart: function() { this.path.getPoint(0,this.testMonster.pathVector);},
-            onUpdate: function (tween){this.testMonster.body.velocity.copy(this.testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
+            onStart: function() { path.getPoint(0,testMonster.pathVector);},
+            onUpdate: function (tween){testMonster.body.velocity.copy(testMonster.pathDelta).scale(1000/tween.parent.systems.game.loop.delta);},
             onLoop: function(){},
-            onComplete: function() {this.testMonster.body.stop();}
+            onComplete: function() {testMonster.body.stop();}
         });
 
-        this.physics.world.collide(this.player, this.testMonster, this.onGhostCollision, null, this);  
+        this.physics.world.collide(this.player, testMonster, this.onGhostCollision, null, this);
+        this.update(0,0,testMonster)
         
     }
     createMap(){
@@ -199,7 +200,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
-    update(time, delta){
+    update(time, delta, testMonster){
         if(!(this.musicplaying)){
             this.musicplaying = true;
             this.otherworld_bgm.play();
@@ -275,6 +276,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.monster12.update(this.player.x, this.player.y);
         */
 
+        console.log(testMonster.x, testMonster.y);+
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
             let SFXConfig = {
