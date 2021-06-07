@@ -79,6 +79,7 @@ class Elevator extends Phaser.Scene{
         this.password = data.password;
         this.passwordIndex = data.passwordIndex;
         this.floorList = data.floorList;
+        this.restartElevator = data.restartElevator
     }
     constructor() {
         super("Elevator");    
@@ -138,6 +139,10 @@ class Elevator extends Phaser.Scene{
     }
 
     create(){
+        if(this.restartElevator){
+            console.log('works');
+            this.scene.restart({password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: false});
+        }
         let BGMConfig = {
             mute: false,
             volume: 0.75,
@@ -205,9 +210,8 @@ class Elevator extends Phaser.Scene{
         this.dogDialogue.alpha = 0;
         this.catDialogue.alpha = 0;
 
-        console.log(this.password);
 
-        if(this.passwordIndex < 4)
+        if(this.passwordIndex < 4 && !this.restartElevator)
             this.passwordIndex++;
 
         this.fadingOut = false;
@@ -217,21 +221,20 @@ class Elevator extends Phaser.Scene{
        this.inputPassword = [];
        this.confirmPassword = false;
 
+        if(!this.restartElevator){
         
-        
-        this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
+            this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
 
-        // Returns the next floor that will be visited
-        // "floor_1, floor_2, floor_3, floor_4"
-        this.nextFloor = this.floorList[this.randFloor];
+            // Returns the next floor that will be visited
+            // "floor_1, floor_2, floor_3, floor_4"
+            this.nextFloor = this.floorList[this.randFloor];
 
-        if(this.floorList.length > 0){
-            this.floorList.splice(this.randFloor, 1);
+            if(this.floorList.length > 0){
+                this.floorList.splice(this.randFloor, 1);
+            }
+            
+            noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         }
-        
-        noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-        console.log(this.floorList);
 
         this.createTextBoxes();
        
@@ -241,6 +244,7 @@ class Elevator extends Phaser.Scene{
     }
     update(time, delta){
         if(this.floorList.length >= 3){
+            /*
             if(!this.refresh){
                 this.dialogue_1_InProgress = false;
                 this.dialogue_1_End = false;
@@ -266,7 +270,6 @@ class Elevator extends Phaser.Scene{
             
                 this.confirmPassword = false;
                 this.musicplaying = false;
-                this.fadingOut = false;
 
                 this.index = -1;
                 this.failedPassword = false;
@@ -277,6 +280,7 @@ class Elevator extends Phaser.Scene{
                 this.dialogueSetUp = false;
                 this.refresh = true; 
             }
+            */
         }
         
         if(!(this.musicplaying) && !this.fadingOut){
@@ -288,6 +292,7 @@ class Elevator extends Phaser.Scene{
 
 
         if(this.conversationDone && this.dialogue_5_End && !this.keySequenceSetUp){
+            this.dialogue_5_End = false;
             this.keySequenceSetUp = true;
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
             this.button1 = this.physics.add.sprite(256, 78).setInteractive();
@@ -630,8 +635,7 @@ class Elevator extends Phaser.Scene{
         }
         
         //TESTING LEVEL ELEVATOR TRANSITION
-        
-        if(this.conversationDone && !this.fadingOut){
+        if(this.conversationDone && !this.fadingOut && !this.dialogue_5_End){
             this.fadingOut = true;
             let SFXConfig ={
                 mute: false,
@@ -737,7 +741,7 @@ class Elevator extends Phaser.Scene{
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
-            if(this.Conversation.pageIndex == 7){
+            if(this.Conversation.pageIndex >= 7){
                 this.conversationDone = true;
                 this.dialogue_1_End = true;
             }
@@ -756,7 +760,7 @@ class Elevator extends Phaser.Scene{
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
-            if(this.Conversation.pageIndex == 6){
+            if(this.Conversation.pageIndex >= 6){
                 this.conversationDone = true;
                 this.dialogue_2_End = true;
             }
@@ -775,7 +779,7 @@ class Elevator extends Phaser.Scene{
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
-            if(this.Conversation.pageIndex == 8){
+            if(this.Conversation.pageIndex >= 8){
                 this.conversationDone = true;
                 this.dialogue_3_End = true;
             }
@@ -794,7 +798,7 @@ class Elevator extends Phaser.Scene{
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
-            if(this.Conversation.pageIndex == 9){
+            if(this.Conversation.pageIndex >= 9){
                 this.conversationDone = true;
                 this.dialogue_4_End = true;
             }
@@ -805,7 +809,7 @@ class Elevator extends Phaser.Scene{
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
-            if(this.Conversation.pageIndex == 3){
+            if(this.Conversation.pageIndex >= 3){
                 this.conversationDone = true;
                 this.dialogue_5_End = true;
             }

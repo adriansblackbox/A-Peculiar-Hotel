@@ -406,7 +406,7 @@ class Lobby extends Phaser.Scene{
         this.elevator.anims.play('elevatorDoors', true);
         this.cameras.main.fadeOut(3000, 0,0,0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
+            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: true});
         })
     }
 }
