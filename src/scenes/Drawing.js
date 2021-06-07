@@ -41,6 +41,7 @@ class Drawing extends Phaser.Scene{
         this.rt = this.add.renderTexture(0,0,960,720);
         this.text = this.add.text(420, 290, "T-Key to clear notebook", this.style);
         this.text = this.add.text(game.config.width/1.68 + 38, 270, "R-Key to close notebook", this.style);
+        this.text = this.add.text(game.config.width/1.68 + 38, 250, "ESC-Key to restart game", this.style);
         //the 32's depend on the sprite size and screen size
         this.input.on('pointermove', function (pointer) {
             if (pointer.isDown)
@@ -56,6 +57,8 @@ class Drawing extends Phaser.Scene{
     createKeys(){
         eraseKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         goBack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        restartGame = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
     }
     update(){
         
@@ -71,6 +74,15 @@ class Drawing extends Phaser.Scene{
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
+        if(Phaser.Input.Keyboard.JustDown(restartGame)){
+            console.log("restart");
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            //this.player.body.setVelocity(0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
+        }
+
         this.newCursor.x = game.input.mousePointer.x;
         this.newCursor.y = game.input.mousePointer.y;
     }

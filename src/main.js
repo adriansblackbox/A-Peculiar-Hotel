@@ -5,7 +5,7 @@ let config = {
     width: 640,
     height: 320,
     pixelArt: true,
-    scene: [Floor_0, Drawing, Lobby, Elevator, Floor_4, Floor_3, Floor_2, Menu, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Floor_1, Floor_0_OTHER],
+    scene: [Menu, Lobby, Drawing, Floor_0, Elevator, Floor_4, Floor_3, Floor_2, Floor_1_OTHER, Floor_2_OTHER, Floor_3_OTHER, Floor_4_OTHER, Floor_1],
 
     //3 is ballroom, 1 is square patrolling ghost, 2 is long corridor, 4 is following ghosts
     // variables for states in game
@@ -35,4 +35,4 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-let keyLEFT, keyRIGHT, keyUP, keyDOWN, noteBookKey, eraseKey, goBack, interactKey, keyYes, keyNo, testKey, statusKey;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN, noteBookKey, eraseKey, goBack, interactKey, keyYes, keyNo, testKey, statusKey, restartGame;
