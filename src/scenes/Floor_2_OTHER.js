@@ -379,7 +379,7 @@ class Floor_2_OTHER extends Phaser.Scene{
             }
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            //this.elevator_bgm.stop();
+            this.otherworld_bgm.stop();
             this.musicplaying = false;
             game.config.prevScene = 'Floor_2_OTHER';
             this.sound.play('notebookOpen', SFXConfig);
@@ -424,7 +424,7 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.player.body.setVelocity(0, 0);
             this.otherworld_bgm.stop();
-            this.musicplaying = true;
+            this.musicplaying = false;
             let SFXConfig ={
                 mute: false,
                 volume: 0.4,
@@ -443,7 +443,7 @@ class Floor_2_OTHER extends Phaser.Scene{
     }
 
     exitLevel(){
-        this.musicplaying = true;
+        this.musicplaying = false;
         this.otherworld_bgm.stop();
         let SFXConfig ={
             mute: false,

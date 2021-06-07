@@ -264,6 +264,7 @@ class Floor_1_OTHER extends Phaser.Scene{
     onGhostCollision(){
         if(!this.ghostHit){
             this.ghostHit = true;
+            this.musicplaying = false;
             this.otherworld_bgm.stop();
             let SFXConfig ={
                 mute: false,
