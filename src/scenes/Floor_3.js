@@ -58,7 +58,6 @@ class Floor_3 extends Phaser.Scene{
         }
         this.regular_bgm = this.sound.add('floorMusic', floorBGMConfig);
         this.musicplaying = false;
-        this.musicpaused = false;
 
         this.findingTime = 10000;
         this.enteredElevator = false;
@@ -231,27 +230,10 @@ class Floor_3 extends Phaser.Scene{
     }
     update(){
         if(!this.elevatorEntered){
-            if(Phaser.Input.Keyboard.JustDown(testKey)){
-                if(this.musicpaused){
-                    this.musicpaused = false;
-                    this.regular_bgm.resume();
-                }else{
-                    this.musicpaused = true;
-                    this.regular_bgm.pause();
-                }
-            }
-            if(!(this.musicplaying) && !this.spiritStart){
+            if(!(this.musicplaying)){
                 this.musicplaying = true;
-                console.log("accessed music playing")
                 this.regular_bgm.play();
             }
-            /*if(this.musicpaused && !this.spiritStart){
-                this.musicpaused = false;
-                console.log("accessed music paused");
-                console.log(this.musicpaused);
-                console.log(this.regular_bgm);
-                this.regular_bgm.resume();
-            }*/
             if(!this.playerDeciding)
                 this.player.update();
             else if (this.finishedLevel){
@@ -315,12 +297,9 @@ class Floor_3 extends Phaser.Scene{
             }
             this.canvas = this.sys.canvas;
             this.canvas.style.cursor = 'none';
-            this.regular_bgm.pause();
-            this.musicpaused = true; 
-            console.log("pressed notebook key");
-            
+            this.regular_bgm.stop();
+            this.musicplaying = false;            
             this.sound.play('notebookOpen', SFXConfig);
-            
             game.config.prevScene = 'Floor_3';
             this.scene.switch('Drawing');
         }
@@ -460,9 +439,7 @@ class Floor_3 extends Phaser.Scene{
         }
         this.regular_bgm.stop();
         this.musicplaying = false;
-        this.musicpaused = false;
         this.sound.play('elevatorOpen',SFXConfig);
-
         this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);
         this.player.body.setVelocity(0, 0);

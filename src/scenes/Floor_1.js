@@ -466,7 +466,7 @@ class Floor_1 extends Phaser.Scene{
             pan: 0 
         }
         this.regular_bgm.stop();
-        this.musicplaying = true;
+        this.musicplaying = false;
         this.sound.play('elevatorOpen',SFXConfig);
         this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);
