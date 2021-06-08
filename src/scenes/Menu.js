@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene{
         this.load.image('BG', './assets/titleScene.png');
         this.load.image('BG_start', './assets/titleSceneEnterHover.png');
         this.load.image('BG_credits', './assets/titleSceneCreditHover.png');
+        this.load.image('BG_lightning', './assets/titleSceneLightning.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('button', './assets/ElevatorButton.png');
         this.load.image('rain', './assets/Rain.png');
@@ -88,8 +89,22 @@ class Menu extends Phaser.Scene{
         this.creditBtn.on('pointerdown', function (event) {this.scene.start('Credits', {test: this.test}); },this); // Start credits on click.
 
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
+
+        this.randInterval = 0;
+        this.lightningStruck = false;
     }
-    update(){
-        
+    update(time, delta){
+        this.randInterval -= delta;
+        if(this.randInterval <= 0){
+            if(this.randInterval <= -500)
+                this.randInterval =  Phaser.Math.Between(1000, 10000);
+
+            this.background.setTexture('BG_lightning',0);
+            this.lightningStruck = true;
+
+        }else if(this.lightningStruck){
+            this.lightningStruck = false;
+            this.background.setTexture('BG',0);
+        }
     }
 }

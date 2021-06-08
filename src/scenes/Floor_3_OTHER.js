@@ -265,7 +265,7 @@ class Floor_3_OTHER extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
-    update(time, delta, testMonster){
+    update(time, delta){
         if(!(this.musicplaying)){
             this.musicplaying = true;
             this.otherworld_bgm.play();
