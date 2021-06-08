@@ -31,6 +31,7 @@ class Drawing extends Phaser.Scene{
             delay: 0,
             pan: 0
         } 
+        this.antiSpamKey = true;
         this.style = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#000000", align: "center" };
 
         this.sound.play('notebookOpen', this.SFXConfig);
@@ -74,7 +75,8 @@ class Drawing extends Phaser.Scene{
             console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
-        if(Phaser.Input.Keyboard.JustDown(restartGame)){
+        if(Phaser.Input.Keyboard.JustDown(restartGame) && this.antiSpamKey == true){
+            this.antiSpamKey = false;
             console.log("restart");
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             //this.player.body.setVelocity(0, 0);
