@@ -455,7 +455,6 @@ class Floor_2_OTHER extends Phaser.Scene{
             delay: 0,
             pan: 0 
         }
-        this.sound.stop()
         this.sound.play('otherworldExit', SFXConfig);
         this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
         this.player.body.setVelocity(0, 0);
