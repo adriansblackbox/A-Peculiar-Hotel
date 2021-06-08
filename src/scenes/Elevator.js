@@ -274,7 +274,7 @@ class Elevator extends Phaser.Scene{
         }
 
         
-        if(!(this.musicplaying) && !this.fadingOut){
+        if(!(this.musicplaying) && !this.fadingOut && !this.failedPassword){
             this.musicplaying = true;
             this.elevator_bgm.play();
         }
@@ -672,6 +672,8 @@ class Elevator extends Phaser.Scene{
             this.refresh = false;
             this.cameras.main.fadeOut(1500, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.musicplaying = false;
+                this.elevator_bgm.stop();
                 this.scene.start('Lobby');
             })
         }
