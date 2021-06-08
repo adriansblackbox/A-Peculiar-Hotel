@@ -275,7 +275,7 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.timer.setX(this.player.x - 50);
             this.timer.setY(this.player.y - 150);
             this.timer.setText("Time left: " + Math.round(this.findingTime*.001));
-            if(!(this.musicplaying)){
+            if(!(this.musicplaying) && !(this.ghostHit)){
                 this.musicplaying = true;
                 this.otherworld_bgm.play();
             }
@@ -424,7 +424,6 @@ class Floor_2_OTHER extends Phaser.Scene{
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.player.body.setVelocity(0, 0);
             this.otherworld_bgm.stop();
-            this.musicplaying = false;
             let SFXConfig ={
                 mute: false,
                 volume: 0.4,
@@ -437,13 +436,13 @@ class Floor_2_OTHER extends Phaser.Scene{
             }
             this.sound.play('otherworldExit', SFXConfig);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.musicplaying = false;
                 this.scene.start('Lobby');
             })
         }   
     }
 
     exitLevel(){
-        this.musicplaying = false;
         this.otherworld_bgm.stop();
         let SFXConfig ={
             mute: false,
@@ -459,6 +458,7 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
         this.player.body.setVelocity(0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.musicplaying = false;
             this.scene.start('Floor_2', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, finishedLevel: true
             , playerX: this.player.x, playerY: this.player.y});
         })
