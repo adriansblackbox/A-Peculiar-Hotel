@@ -573,7 +573,7 @@ class Elevator extends Phaser.Scene{
                         this.button8_good.alpha = 1;
                     }else{
                         if(!this.correctPassword){
-                            this.button9_bad.alpha = 1;
+                            this.button8_bad.alpha = 1;
                             this.failedPassword = true;
                         }
                     }
@@ -590,7 +590,7 @@ class Elevator extends Phaser.Scene{
                         this.button9_good.alpha = 1;
                     }else{
                         if(!this.correctPassword){
-                            this.button10_bad.alpha = 1;
+                            this.button9_bad.alpha = 1;
                             this.failedPassword = true;
                         }
                     }
@@ -621,7 +621,7 @@ class Elevator extends Phaser.Scene{
         }
 
 
-        if(this.inputPassword.length == 4){
+        if(this.inputPassword.length == 4 && !this.failedPassword){
             this.correctPassword = true;
         }
         
