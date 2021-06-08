@@ -8,6 +8,7 @@ class Menu extends Phaser.Scene{
         //this.load.atlas('particle', './assets/particle.png','./assets/particleJSON.json');
         this.load.image('BG', './assets/titleScene.png');
         this.load.image('BG_start', './assets/titleSceneEnterHover.png');
+        this.load.image('BG_credits', './assets/titleSceneCreditHover.png');
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('button', './assets/ElevatorButton.png');
         this.load.image('rain', './assets/Rain.png');
@@ -18,6 +19,9 @@ class Menu extends Phaser.Scene{
         this.background = this.add.image(game.config.width/2, game.config.height/2, 'BG');
         this.startBtn = this.physics.add.sprite(320, 240).setInteractive();
         this.startBtn.setSize(130,110);
+
+        this.creditBtn = this.physics.add.sprite(320, 45).setInteractive();
+        this.creditBtn.setSize(130,110);
         
         this.imageSource = {
             getRandomPoint: function(vec){
@@ -65,8 +69,6 @@ class Menu extends Phaser.Scene{
            //follow: this.startBtn
         });
 
-        //States for state machine will be declared here. 
-        this.test = 5;
 
         this.startBtn.on('pointerover', function (event) {
             this.background.setTexture('BG_start',0)
@@ -74,9 +76,16 @@ class Menu extends Phaser.Scene{
         this.startBtn.on('pointerout', function (event) {
             this.background.setTexture('BG',0)
         }, this);
+        this.creditBtn.on('pointerover', function (event) {
+            this.background.setTexture('BG_credits',0)
+        }, this);
+        this.creditBtn.on('pointerout', function (event) {
+            this.background.setTexture('BG',0)
+        }, this);
 
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.startBtn.on('pointerdown', function (event) {this.scene.start('Lobby', {test: this.test}); },this); // Start game on click.
+        this.creditBtn.on('pointerdown', function (event) {this.scene.start('Credits', {test: this.test}); },this); // Start credits on click.
 
         this.style = { font: "15px Arial", fill: "#ffff00", align: "center" };
     }
