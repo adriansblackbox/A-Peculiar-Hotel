@@ -165,9 +165,9 @@ class Floor_3_OTHER extends Phaser.Scene{
         this.testObjectMonster4 = testMonster4;
 
            //ghost 5
-        var path5 = new Phaser.Curves.Path(560,610).circleTo(150);   //the circleTo() controls radius, .path controls position
+        var path5 = new Phaser.Curves.Path(600,590).circleTo(150);   //the circleTo() controls radius, .path controls position
         //path.draw(graphics, 128);
-        var testMonster5 = this.add.follower(path5, 560, 610, 'monster').setAlpha(.5);
+        var testMonster5 = this.add.follower(path5, 600, 590, 'monster').setAlpha(.5);
         this.physics.add.existing(testMonster5);
         testMonster5.body.setImmovable(true);
         testMonster5.moves = false;
