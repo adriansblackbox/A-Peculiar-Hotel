@@ -19,7 +19,7 @@ class Floor_0 extends Phaser.Scene{
 
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
-        this.load.image('lobbytiles', './assets/last_floor_tiles.png');
+        this.load.image('lasttiles', './assets/last_floor_tiles.png');
         this.load.image('desk', './assets/final_desk.png');
         this.load.image('desk_Lit', './assets/final_desk_Lit.png');
         this.load.image('dialogueBox', './assets/dialogueBox.png');
@@ -77,7 +77,7 @@ class Floor_0 extends Phaser.Scene{
         this.createKeys();
 
         const map = this.make.tilemap({key: 'floor0'});
-        const tileset = map.addTilesetImage('last_floor_tiles', 'lobbytiles');
+        const tileset = map.addTilesetImage('last_floor_tiles', 'lasttiles');
 
         map.createLayer('Ground', tileset);
         const walls = map.createLayer('Walls', tileset);
@@ -281,7 +281,7 @@ class Floor_0 extends Phaser.Scene{
             this.confirmText.setText("Pull it out of the Skeleton?");
             this.confirmText.setX(this.player.x - 94);
             this.confirmText.setY(this.player.y + 95);
-            this.lastText.setText("                     yes");
+            this.lastText.setText("                    yes");
             this.lastText.setY(this.player.y + 114);
 
            

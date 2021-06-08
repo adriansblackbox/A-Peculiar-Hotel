@@ -19,7 +19,7 @@ class Floor_0_OTHER extends Phaser.Scene{
 
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
-        this.load.image('lobbytiles', './assets/last_floor_tiles.png');
+        this.load.image('lasttiles', './assets/last_floor_tiles.png');
         this.load.tilemapTiledJSON('floor0_OTHER','./assets/Floor_0_OTHER.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -56,7 +56,7 @@ class Floor_0_OTHER extends Phaser.Scene{
 
 
         const map = this.make.tilemap({key: 'floor0_OTHER'});
-        const tileset = map.addTilesetImage('last_floor_tiles', 'lobbytiles');
+        const tileset = map.addTilesetImage('last_floor_tiles', 'lasttiles');
 
         map.createLayer('Ground', tileset);
         const walls = map.createLayer('Walls', tileset);

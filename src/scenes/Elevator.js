@@ -676,7 +676,7 @@ class Elevator extends Phaser.Scene{
             })
         }
 
-        if(this.correctPassword){
+        if(this.correctPassword && !this.fadingOut){
             this.fadingOut = true;
             let SFXConfig ={
                 mute: false,
