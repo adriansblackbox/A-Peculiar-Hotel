@@ -1,3 +1,9 @@
+const COLOR_PRIMARY = 0x4e342e;
+const COLOR_LIGHT = 0x7b5e57;
+const COLOR_DARK = 0x260e04;
+
+var dialogue1 = "This isn't the exit...\n\n\nI found everything you asked for so \nwhy can't I leave this place?\n\nYes, you did but...\n\n\nI never said doing so would let you leave.\n\n\nWhy? I trusted you!\n\n\nI trusted people once too and then one day,\nsomeone trusted ended my life.\n\nNow I hope to teach others the same lesson.\n\n\nDon't worry I will never put you through\nthe same thing.\n\nBut you will never be able to leave this\nplace just like the other guests.\n\nI'll find a way...\n\n\nAnd every time you do I'll wipe\nyour memory.\n\nJust like I have every other time before.\n\n\nNo I don't believe you.\n\n\nYou never do but here we are again.\n\n\nWell, it's time for 'corrective action'.\n\n\nWait, no! Stop!\n\n\nI hope you enjoy your stay, dear guest.\n\n\nPlease, keep entertaining me for eternity.\n\n\n\n\n\n";
+
 class Floor_0_OTHER extends Phaser.Scene{
 
     // Pt. 2 of transfering state to a different scene
@@ -20,6 +26,19 @@ class Floor_0_OTHER extends Phaser.Scene{
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lasttiles', './assets/last_floor_tiles.png');
+        this.load.image('catDialogue', './assets/ghostCatDialogue.png');
+        this.load.image('dogDialogue', './assets/dogdialogue.png');
+        this.load.image('dialogueBG', './assets/elevatorScreen.png');
+
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
+
+        this.load.bitmapFont('gothic', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/fonts/gothic.xml');
+        this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
+
         this.load.tilemapTiledJSON('floor0_OTHER','./assets/Floor_0_OTHER.json' );
         this.load.spritesheet('playerDOWN', 'assets/DetDogForward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
         this.load.spritesheet('playerUP', 'assets/DetDogBackward.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6});
@@ -46,9 +65,21 @@ class Floor_0_OTHER extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
-        //this.regular_bgm = this.sound.add('floorMusic', floorBGMConfig);
-        this.musicplaying = false;
-        this.findingTime = 10000;
+        this.conversationDone = false;
+        this.dialogueSetUp = false;
+        this.dialogue_1_InProgress = false;
+        this.dialogue_1_End = false; 
+
+
+        this.dialogueBG = this.add.sprite(game.config.width/2, game.config.height/2, 'dialogueBG', 0);
+        this.dogDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'dogDialogue', 0);
+        this.catDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'catDialogue', 0);
+        this.dialogueBG.alpha = 0;
+        this.dogDialogue.alpha = 0;
+        this.catDialogue.alpha = 0;
+
+
+        this.elevatorTime = 0;
         this.enteredElevator = false;
         this.spiritStart = false;
 
@@ -77,6 +108,8 @@ class Floor_0_OTHER extends Phaser.Scene{
         this.playerisLeft = false;
         this.playerisUp = false;
         this.playerisDown = false;
+
+        this.createTextBoxes();
 
     }
     createAnims(){
@@ -147,54 +180,74 @@ class Floor_0_OTHER extends Phaser.Scene{
         noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
-    update(){
-        if(!this.elevatorEntered){
-            if(!(this.musicplaying)){
-                this.musicplaying = true;
-                //this.regular_bgm.play();
-            }
-            if(this.player.direction == 'LEFT'){
-                this.player.anims.play('playerLEFT', true);
-                this.playerisLeft = true;
-                this.playerisRight = false;
-                this.playerisUp = false;
-                this.playerisDown = false;
-            }
-            if(this.player.direction == 'RIGHT'){
-                this.player.anims.play('playerRIGHT', true);
-                this.playerisLeft = false;
-                this.playerisRight = true;
-                this.playerisUp = false;
-                this.playerisDown = false;
-            }
-            if(this.player.direction == 'UP'){
-                this.player.anims.play('playerUP', true);
-                this.playerisLeft = false;
-                this.playerisRight = false;
-                this.playerisUp = true;
-                this.playerisDown = false;
-            }
-            if(this.player.direction == 'DOWN'){
-                this.player.anims.play('playerDOWN', true);
-                this.playerisLeft = false;
-                this.playerisRight = false;
-                this.playerisUp = false;
-                this.playerisDown = true;
-            }
-            if(this.player.direction == 'IDLE'){
-                if(this.playerisDown)
-                    this.player.anims.play('playerIdleDOWN', true);
-                if(this.playerisUp)
-                    this.player.anims.play('playerIdleUP', true);
-                if(this.playerisLeft)
-                    this.player.anims.play('playerIdleLEFT', true);
-                if(this.playerisRight)
-                    this.player.anims.play('playerIdleRIGHT', true);
-            }
-        }else{
-            this.player.anims.stop();
+    createTextBoxes(){
+        this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
+    }
+    update(time, delta){
+
+        if(this.conversationDone && this.dialogue_1_End && !this.dialogueSetUp){
+            this.cameras.main.fadeOut(1500, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Lobby');
+            })
         }
-        this.collisions();
+
+        this.elevatorTime += delta;
+
+        if(this.elevatorTime >= 2000 && !this.conversationDone && !this.dialogueSetUp){
+            if( this.elevatorScene.alpha > 0.2){
+                this.elevatorScene.alpha -= 0.1;
+            }
+            if(this.dialogueBG.alpha < 0.7){
+                this.dialogueBG.alpha += 0.1;
+            }
+            if(this.catDialogue.alpha < 1){
+                this.catDialogue.alpha += 0.07;
+            }
+            if(this.dogDialogue.alpha < 1){
+                this.dogDialogue.alpha += 0.07;
+            }
+            if(this.dogDialogue.alpha >= 1 && this.catDialogue.alpha >= 1 && this.dialogueBG.alpha >= 0.7 && this.elevatorScene.alpha <= 0.2){
+                this.dialogueSetUp = true;
+            }
+        }
+        if(!this.dialogue_1_InProgress && this.elevatorTime >= 3000){
+            this.dialogue_1_InProgress = true;
+            this.Conversation.start(dialogue1, 50);
+        }
+        if(this.dialogue_1_InProgress && !this.dialogue_1_End){
+            if(this.Conversation.pageIndex == 1 || this.Conversation.pageIndex == 0 || this.Conversation.pageIndex == 4 || this.Conversation.pageIndex == 6 || this.Conversation.pageIndex == 10 || this.Conversation.pageIndex == 13 || this.Conversation.pageIndex == 16){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if(this.Conversation.pageIndex == 2 || this.Conversation.pageIndex == 3 || this.Conversation.pageIndex == 5 || this.Conversation.pageIndex == 7 ||this.Conversation.pageIndex == 8 || this.Conversation.pageIndex == 9 ||this.Conversation.pageIndex == 11 || this.Conversation.pageIndex == 12 ||this.Conversation.pageIndex == 14 || this.Conversation.pageIndex == 15 ||this.Conversation.pageIndex == 17 || this.Conversation.pageIndex == 18){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex >= 19){
+                this.conversationDone = true;
+                this.dialogue_1_End = true;
+            }
+        
+        }
+        if(this.conversationDone){
+            if( this.elevatorScene.alpha < 1){
+                this.elevatorScene.alpha += 0.1;
+            }
+            if(this.dialogueBG.alpha > 0){
+                this.dialogueBG.alpha -= 0.1;
+            }
+            if(this.catDialogue.alpha > 0){
+                this.catDialogue.alpha -= 0.1;
+            }
+            if(this.dogDialogue.alpha > 0){
+                this.dogDialogue.alpha -= 0.1;
+            }
+            if(this.dogDialogue.alpha <= 0 && this.catDialogue.alpha <= 0 && this.dialogueBG.alpha <= 0 && this.elevatorScene.alpha >= 1 ){
+                this.dialogueSetUp = false;
+            }
+        
+        }
         
     }
     collisions(){
@@ -222,4 +275,71 @@ class Floor_0_OTHER extends Phaser.Scene{
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList});
         })
     }
+}
+
+const GetValue = Phaser.Utils.Objects.GetValue;
+var createTextBox = function (scene, x, y, config) {
+    var wrapWidth = GetValue(config, 'wrapWidth', 0);
+    var fixedWidth = GetValue(config, 'fixedWidth', 0);
+    var fixedHeight = GetValue(config, 'fixedHeight', 0);
+    var textBox = scene.rexUI.add.textBox({ // adding the text box function 
+            x: x,
+            y: y,
+
+            background: null,
+
+            icon: null,
+
+            text: scene.add.bitmapText(0, 0, 'gothic').setFontSize(20).setMaxWidth(wrapWidth),
+
+            action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
+
+            space: {
+                left: -5,
+                right: 20,
+                top: 20,
+                bottom: 20,
+                icon: 0,
+                text: 10,
+            },
+      
+            page: {
+                maxLines: 3
+            }
+        })
+        .setOrigin(0)
+        .layout();
+
+    textBox
+        .setInteractive()
+        .on('pointerdown', function () {
+            var icon = this.getElement('action').setVisible(false);
+            this.resetChildVisibleState(icon);
+            if (this.isTyping) {
+                this.stop(true);
+            } else {
+                this.typeNextPage();
+            }
+        }, textBox)
+        .on('pageend', function () {
+            if (this.isLastPage) {
+                return;
+            }
+
+            var icon = this.getElement('action').setVisible(true); // this is the arrow icon for going next. 
+            this.resetChildVisibleState(icon);
+            icon.y -= 30;
+            var tween = scene.tweens.add({
+                targets: icon,
+                y: '+=30', // '+=100'
+                ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
+                duration: 500,
+                repeat: 0, // -1: infinity
+                yoyo: false
+            });
+        }, textBox)
+    //.on('type', function () {
+    //})
+
+    return textBox;
 }
