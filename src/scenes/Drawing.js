@@ -66,20 +66,15 @@ class Drawing extends Phaser.Scene{
         if(Phaser.Input.Keyboard.JustDown(eraseKey)){
             this.sound.play('notebookErase', this.SFXConfig);
             this.rt.clear();
-            //console.log(this.game.config.prevScene);
-            //this.scene.switch(this.game.config.prevScene);
         }
         if(Phaser.Input.Keyboard.JustDown(goBack)){
             this.canvas.style.cursor = 'default';
             this.sound.play('notebookClose', this.SFXConfig);
-            console.log(this.game.config.prevScene);
             this.scene.switch(this.game.config.prevScene);
         }
         if(Phaser.Input.Keyboard.JustDown(restartGame) && this.antiSpamKey == true){
             this.antiSpamKey = false;
-            console.log("restart");
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
-            //this.player.body.setVelocity(0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start('Lobby');
             })

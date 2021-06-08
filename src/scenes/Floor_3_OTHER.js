@@ -325,7 +325,6 @@ class Floor_3_OTHER extends Phaser.Scene{
         }
 
         this.findingTime -= delta;
-        //console.log(testMonster.x, testMonster.y);+
         this.collisions();
         if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
             let SFXConfig = {

@@ -75,7 +75,6 @@ class Lobby extends Phaser.Scene{
             this.password.push(this.passwordElements[randIndex]);
             this.passwordElements.splice(randIndex, 1);
         }
-        console.log('Password: ' + this.password);
 
         this.createKeys();
         this.createMap();
@@ -216,22 +215,6 @@ class Lobby extends Phaser.Scene{
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     update(){
-        if(Phaser.Input.Keyboard.JustDown(statusKey)){
-            console.log("===============================");
-            console.log("Music playing status is: ");
-            console.log(this.regular_bgm.isPlaying);
-            console.log("Music paused status is: ");
-            console.log(this.regular_bgm.isPaused);
-            console.log("is Scene asleep?");
-            console.log(this.scene.isSleeping());
-            console.log("is Scene paused?");
-            console.log(this.scene.isPaused());
-            console.log("is Scene active?");
-            console.log(this.scene.isActive());
-            console.log("is Scene visible?");
-            console.log(this.scene.isVisible());
-            console.log("===============================");
-        }
         if(!this.enteredElevator){
             if(!(this.musicplaying)){
                 this.musicplaying = true;

@@ -1,6 +1,6 @@
-const COLOR_PRIMARY = 0x4e342e;
-const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
+//const COLOR_PRIMARY = 0x4e342e;
+//const COLOR_LIGHT = 0x7b5e57;
+//const COLOR_DARK = 0x260e04;
 
 var dialogue1 = "This isn't the exit...\n\n\nI found everything you asked for so \nwhy can't I leave this place?\n\nYes, you did but...\n\n\nI never said doing so would let you leave.\n\n\nWhy? I trusted you!\n\n\nI trusted people once too and then one day,\nsomeone trusted ended my life.\n\nNow I hope to teach others the same lesson.\n\n\nDon't worry I will never put you through\nthe same thing.\n\nBut you will never be able to leave this\nplace just like the other guests.\n\nI'll find a way...\n\n\nAnd every time you do I'll wipe\nyour memory.\n\nJust like I have every other time before.\n\n\nNo I don't believe you.\n\n\nYou never do but here we are again.\n\n\nWell, it's time for 'corrective action'.\n\n\nWait, no! Stop!\n\n\nI hope you enjoy your stay, dear guest.\n\n\nPlease, keep entertaining me for eternity.\n\n\n\n\n\n";
 
@@ -26,7 +26,7 @@ class Floor_0_OTHER extends Phaser.Scene{
     preload(){
         this.load.image('player', './assets/Detective Doggert 001.png');
         this.load.image('lasttiles', './assets/last_floor_tiles.png');
-        this.load.image('catDialogue', './assets/ghostCatDialogue.png');
+        this.load.image('ghostcatDialogue', './assets/ghostCatDialogue.png');
         this.load.image('dogDialogue', './assets/dogdialogue.png');
         this.load.image('dialogueBG', './assets/elevatorScreen.png');
 
@@ -71,17 +71,13 @@ class Floor_0_OTHER extends Phaser.Scene{
         this.dialogue_1_End = false; 
 
 
-        this.dialogueBG = this.add.sprite(game.config.width/2, game.config.height/2, 'dialogueBG', 0);
-        this.dogDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'dogDialogue', 0);
-        this.catDialogue = this.add.sprite(game.config.width/2, game.config.height/2, 'catDialogue', 0);
-        this.dialogueBG.alpha = 0;
-        this.dogDialogue.alpha = 0;
-        this.catDialogue.alpha = 0;
 
 
         this.elevatorTime = 0;
         this.enteredElevator = false;
         this.spiritStart = false;
+        this.endGame = false;
+        this.fadingOut = false;
 
         this.cameras.main.fadeIn(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF);
 
@@ -109,6 +105,13 @@ class Floor_0_OTHER extends Phaser.Scene{
         this.playerisUp = false;
         this.playerisDown = false;
 
+
+        this.dialogueBG = this.add.sprite(game.config.width/2 - 200, game.config.height/2, 'dialogueBG', 0);
+        this.dogDialogue = this.add.sprite(game.config.width/2 - 200, game.config.height/2, 'dogDialogue', 0);
+        this.catDialogue = this.add.sprite(game.config.width/2 - 200, game.config.height/2, 'ghostcatDialogue', 0);
+        this.dialogueBG.alpha = 0;
+        this.dogDialogue.alpha = 0;
+        this.catDialogue.alpha = 0;
         this.createTextBoxes();
 
     }
@@ -181,23 +184,16 @@ class Floor_0_OTHER extends Phaser.Scene{
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
     createTextBoxes(){
-        this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
+        this.Conversation = createTextBox(this, -70, 210, {wrapWidth: 500,});
     }
     update(time, delta){
-
-        if(this.conversationDone && this.dialogue_1_End && !this.dialogueSetUp){
-            this.cameras.main.fadeOut(1500, 0, 0, 0);
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('Lobby');
-            })
-        }
 
         this.elevatorTime += delta;
 
         if(this.elevatorTime >= 2000 && !this.conversationDone && !this.dialogueSetUp){
-            if( this.elevatorScene.alpha > 0.2){
-                this.elevatorScene.alpha -= 0.1;
-            }
+            //if( this.elevatorScene.alpha > 0.2){
+                //this.elevatorScene.alpha -= 0.1;
+            //}
             if(this.dialogueBG.alpha < 0.7){
                 this.dialogueBG.alpha += 0.1;
             }
@@ -207,7 +203,7 @@ class Floor_0_OTHER extends Phaser.Scene{
             if(this.dogDialogue.alpha < 1){
                 this.dogDialogue.alpha += 0.07;
             }
-            if(this.dogDialogue.alpha >= 1 && this.catDialogue.alpha >= 1 && this.dialogueBG.alpha >= 0.7 && this.elevatorScene.alpha <= 0.2){
+            if(this.dogDialogue.alpha >= 1 && this.catDialogue.alpha >= 1 && this.dialogueBG.alpha >= 0.7){ //&& this.elevatorScene.alpha <= 0.2){
                 this.dialogueSetUp = true;
             }
         }
@@ -227,13 +223,14 @@ class Floor_0_OTHER extends Phaser.Scene{
             if(this.Conversation.pageIndex >= 19){
                 this.conversationDone = true;
                 this.dialogue_1_End = true;
+                this.endGame = true;
             }
         
         }
         if(this.conversationDone){
-            if( this.elevatorScene.alpha < 1){
-                this.elevatorScene.alpha += 0.1;
-            }
+            //if( this.elevatorScene.alpha < 1){
+                //this.elevatorScene.alpha += 0.1;
+            //}
             if(this.dialogueBG.alpha > 0){
                 this.dialogueBG.alpha -= 0.1;
             }
@@ -243,10 +240,19 @@ class Floor_0_OTHER extends Phaser.Scene{
             if(this.dogDialogue.alpha > 0){
                 this.dogDialogue.alpha -= 0.1;
             }
-            if(this.dogDialogue.alpha <= 0 && this.catDialogue.alpha <= 0 && this.dialogueBG.alpha <= 0 && this.elevatorScene.alpha >= 1 ){
+            if(this.dogDialogue.alpha <= 0 && this.catDialogue.alpha <= 0 && this.dialogueBG.alpha <= 0){// && this.elevatorScene.alpha >= 1 ){
                 this.dialogueSetUp = false;
             }
         
+        }
+
+        if(this.endGame && !this.fadingOut){
+            this.fadingOut = true;
+            this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Credits', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
+                playerX: this.player.x, playerY: this.player.y});
+            });
         }
         
     }
@@ -277,7 +283,7 @@ class Floor_0_OTHER extends Phaser.Scene{
     }
 }
 
-const GetValue = Phaser.Utils.Objects.GetValue;
+//const GetValue = Phaser.Utils.Objects.GetValue;
 var createTextBox = function (scene, x, y, config) {
     var wrapWidth = GetValue(config, 'wrapWidth', 0);
     var fixedWidth = GetValue(config, 'fixedWidth', 0);

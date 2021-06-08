@@ -140,7 +140,6 @@ class Elevator extends Phaser.Scene{
 
     create(){
         if(this.restartElevator){
-            console.log('works');
             this.scene.restart({password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: false});
         }
         let BGMConfig = {
@@ -246,32 +245,6 @@ class Elevator extends Phaser.Scene{
         this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
     }
     update(time, delta){
-        if(Phaser.Input.Keyboard.JustDown(statusKey)){
-            console.log("===============================");
-            console.log("Is conversation done? ");
-            console.log(this.conversationDone);
-            console.log("dialogue 1 started?");
-            console.log(this.dialogue_1_InProgress);
-            console.log("dialogue 1 finished?");
-            console.log(this.dialogue_1_End);
-            console.log("dialogue 2 started?");
-            console.log(this.dialogue_2_InProgress);
-            console.log("dialogue 2 finished?");
-            console.log(this.dialogue_2_End);
-            console.log("dialogue 3 started?");
-            console.log(this.dialogue_3_InProgress);
-            console.log("dialogue 3 finished?");
-            console.log(this.dialogue_3_End);
-            console.log("dialogue 4 started?");
-            console.log(this.dialogue_4_InProgress);
-            console.log("dialogue 4 finished?");
-            console.log(this.dialogue_4_End);
-            console.log("dialogue 5 started?");
-            console.log(this.dialogue_5_InProgress);
-            console.log("dialogue 5 finished?");
-            console.log(this.dialogue_5_End);
-            console.log("===============================");
-        }
 
         
         if(!(this.musicplaying) && !this.fadingOut && !this.failedPassword){

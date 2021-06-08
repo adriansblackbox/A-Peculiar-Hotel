@@ -207,9 +207,6 @@ class Floor_2_OTHER extends Phaser.Scene{
         this.symbolTexture = this.symbolArray[this.password[this.passwordIndex]];
         this.symbol = this.add.sprite(game.config.width + 944, 48 + 32 + 32, this.symbolTexture, 0);
 
-        console.log(this.password);
-        console.log(this.passwordIndex)
-        console.log(this.symbolTexture);
     }
     createAnims(){
         this.anims.create({
