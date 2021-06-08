@@ -186,7 +186,8 @@ class Elevator extends Phaser.Scene{
         this.dialogue_4_End = false;
         this.dialogue_5_InProgress = false;
         this.dialogue_5_End = false;
-        //this.dialogue_6_InProgress = false;
+
+        this.password_inProgress = false;
 
 
         this.elevator_bgm = this.sound.add('elevatorMusic', BGMConfig);
@@ -245,45 +246,6 @@ class Elevator extends Phaser.Scene{
         this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
     }
     update(time, delta){
-        if(this.floorList.length >= 3){
-            /*
-            if(!this.refresh){
-                this.dialogue_1_InProgress = false;
-                this.dialogue_1_End = false;
-                this.dialogue_2_InProgress = false;
-                this.dialogue_1_End = false;
-                this.dialogue_3_InProgress = false;
-                this.dialogue_1_End = false;
-                this.dialogue_4_InProgress = false;
-                this.dialogue_1_End = false;
-                this.dialogue_5_InProgress = false;
-                this.dialogue_1_End = false;
-
-                this.button1_clicked = false;
-                this.button2_clicked = false;
-                this.button3_clicked = false;
-                this.button4_clicked = false;
-                this.button5_clicked = false;
-                this.button6_clicked = false;
-                this.button7_clicked = false;
-                this.button8_clicked = false;
-                this.button9_clicked = false;
-                this.button10_clicked = false;
-            
-                this.confirmPassword = false;
-                this.musicplaying = false;
-
-                this.index = -1;
-                this.failedPassword = false;
-                this.correctPassword = false;
-                this.resetGame = true;
-                this.conversationDone = false;
-                this.keySequenceSetUp = false; 
-                this.dialogueSetUp = false;
-                this.refresh = true; 
-            }
-            */
-        }
         if(Phaser.Input.Keyboard.JustDown(statusKey)){
             console.log("===============================");
             console.log("Is conversation done? ");
@@ -321,6 +283,7 @@ class Elevator extends Phaser.Scene{
 
 
         if(this.conversationDone && this.dialogue_5_End && !this.keySequenceSetUp){
+            this.password_inProgress = true;
             this.dialogue_5_End = false;
             this.keySequenceSetUp = true;
             this.keypad = this.add.image(game.config.width/2, game.config.height/2, 'keypad');
@@ -595,7 +558,6 @@ class Elevator extends Phaser.Scene{
                     }else{
                         if(!this.correctPassword){
                             this.button7_bad.alpha = 1;
-                            this.failedPassword = true;
                         }
                     }
                 }
@@ -664,7 +626,7 @@ class Elevator extends Phaser.Scene{
         }
         
         //TESTING LEVEL ELEVATOR TRANSITION
-        if(this.conversationDone && !this.fadingOut && !this.dialogue_5_End){
+        if(this.conversationDone && !this.fadingOut && !this.password_inProgress && !this.correctPassword){
             this.fadingOut = true;
             let SFXConfig ={
                 mute: false,
@@ -711,6 +673,28 @@ class Elevator extends Phaser.Scene{
             this.cameras.main.fadeOut(1500, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start('Lobby');
+            })
+        }
+
+        if(this.correctPassword){
+            this.fadingOut = true;
+            let SFXConfig ={
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+                pan: 0 
+            }
+            this.elevator_bgm.stop();
+            this.musicplaying = false;
+            this.sound.play('elevatorOpen',SFXConfig);
+
+            this.cameras.main.fadeOut(1500, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start('Floor_0');
             })
         }
 
