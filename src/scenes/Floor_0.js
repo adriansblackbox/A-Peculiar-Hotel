@@ -119,7 +119,7 @@ class Floor_0 extends Phaser.Scene{
         this.style = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#000000", align: "center" };
         this.style1 = { fontFamily: "IndieFlower", fontSize: '16px', fill: "#ff0000", align: "center" };
         this.foundText = this.add.text(0,0, "", this.style);
-        this.itemText = this.add.text(0,0, "", this.style);
+        this.itemText = this.add.text(0,0, "", this.style1);
         this.confirmText = this.add.text(0,0, "", this.style);
         this.lastText = this.add.text(0,0, "", this.style1);
         
@@ -272,16 +272,16 @@ class Floor_0 extends Phaser.Scene{
             this.nobtn.x = this.player.x  + 82;
             this.nobtn.y = this.player.y + 124;
             this.nobtn.alpha = 1;
-            this.foundText.setText("You found a Knife!");
+            this.foundText.setText("You found a ");
             this.foundText.setX(this.player.x - 94);
-            this.foundText.setY(this.player.y + 65);
-            this.itemText.setText("Pull it out of the Skeleton?");
-            this.itemText.setX(this.player.x - 94);
+            this.foundText.setY(this.player.y + 80);
+            this.itemText.setText("Knife");
+            this.itemText.setX(this.player.x - 10);
             this.itemText.setY(this.player.y + 80);
+            this.confirmText.setText("Pull it out of the Skeleton?");
             this.confirmText.setX(this.player.x - 94);
             this.confirmText.setY(this.player.y + 95);
-            this.lastText.setX(this.player.x - 94);
-            this.lastText.setText("              →");
+            this.lastText.setText("                     yes");
             this.lastText.setY(this.player.y + 114);
 
            
