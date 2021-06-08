@@ -244,7 +244,7 @@ class Floor_1 extends Phaser.Scene{
     }
     update(){
 
-        if(!this.elevatorEntered){
+        if(!this.elevatorEntered && !this.playerDeciding){
             if(!(this.musicplaying)){
                 this.musicplaying = true;
                 this.regular_bgm.play();
@@ -410,7 +410,6 @@ class Floor_1 extends Phaser.Scene{
         }
 
         if(this.yesSelected && !this.finishedLevel && !this.spiritStart){
-            this.musicplaying = true;
             this.regular_bgm.stop();
             let SFXConfig ={
                 mute: false,
@@ -433,6 +432,8 @@ class Floor_1 extends Phaser.Scene{
             this.confirmText.setText("");
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.musicplaying = false;
+                this.regular_bgm.stop();
                 this.scene.start('Floor_1_OTHER', {findingTime: this.findingTime, password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList,
                 playerX: this.player.x, playerY: this.player.y});
             });
@@ -466,13 +467,13 @@ class Floor_1 extends Phaser.Scene{
             pan: 0 
         }
         this.regular_bgm.stop();
-        this.musicplaying = false;
         this.sound.play('elevatorOpen',SFXConfig);
         this.elevatorEntered = true;
         this.elevator.anims.play('elevatorDoors', true);
         this.player.body.setVelocity(0, 0);
         this.cameras.main.fadeOut(3000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.musicplaying = false;
             this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: true});
         })
     }
