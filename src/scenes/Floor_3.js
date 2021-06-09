@@ -445,7 +445,7 @@ class Floor_3 extends Phaser.Scene{
         this.cameras.main.fadeOut(3000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.musicplaying = false;
-            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: true});
+            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: true, firstTime: false});
         })
     }
 }

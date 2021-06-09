@@ -35,6 +35,8 @@ class Lobby extends Phaser.Scene{
     create(){
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
+        this.playerDeciding = false;
+
         let lobbyBGMConfig = {
             mute: false,
             volume: .5,
@@ -287,7 +289,7 @@ class Lobby extends Phaser.Scene{
         }
         if(!this.finishedLevel && !this.playerDeciding){
             this.objectInteraction();
-        }else if(this.finishedLevel && !this.enteredElevator){
+        }else if(!this.enteredElevator){
             this.physics.world.collide(this.player, this.elevator, this.elevatorExit, null, this);
         }
         if(this.playerDeciding){
@@ -389,7 +391,7 @@ class Lobby extends Phaser.Scene{
         this.cameras.main.fadeOut(3000, 0,0,0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.musicplaying = false;
-            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: true});
+            this.scene.start('Elevator', {password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: true, firstTime: true});
         })
     }
 }

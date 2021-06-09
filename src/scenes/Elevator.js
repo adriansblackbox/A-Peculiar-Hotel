@@ -5,6 +5,24 @@ const COLOR_DARK = 0x260e04;
 
 // IMPORTANT NOTE: 3 lines = 1 page
 
+var instructions = "Hello dear guest, I will be your guide\nthroughout your visit here at the\nPeculiar Hotel.\nAllow me to give you your guest key...\n\n\n*The bellHop slips a odd looking\nkey into your pocket*\n\nWith this, you will be able to meet our\nguests, and witness our hotel in\na different kind of way.\nThat's kind of strange... but okay?\n\n\nNow, I must warn you, our guests are\na little hostile due to some uh...\n conflict that we've had in the past.\nMake sure you avoid contact with them\nat all coasts. if you run into one\nit will be as if you never entered this hotel\n...\n\n\nWhen you do see this hotel in its other\nlight, make sure that you look for\nanything that stands out in particular\nYou will know what I'm talking about\n when you see it. Once you see\nit, draw it in your notepad of yours\nShould I be worried about these things?\n\n\nNot at all! You will just need them\n later in our tour. After you've\n finished your time on the other side\nMake your way back to the elevator\n I will be waiting for you here.\n\nNow then...\n\n\n";
+/*
+* Cat: Hello dear guest, I will be your guide\nthroughout your visit here at the\nPeculiar Hotel.\n
+* Cat: Allow me to give you your guest key...
+* NUETRAL: *The bellHop slips a odd looking\nkey into your pocket*\n\n
+* Cat: With this, you will be able to meet our\nguests, and witness our hotel in\na different kind of way.
+* Dog: That's kind of strange... but okay?\n\n\n
+* Cat: Now, I must warn you, our guests are\na little hostile due to some uh...\n conflict that we've had in the past.\n
+* Cat: Make sure you avoid contact with them\nat all coasts. if you run into one\nit will be as if you never entered this hotel\n
+* Dog: ...\n\n\n
+* Cat: When you do see this hotel in its other\nlight, make sure that you look for\nanything that stands out in particular\n
+* Cat: You will know what I'm talking about\n when you see it. Once you see\nit, draw it in your notepad of yours\n
+* Dog: Should I be worried about these things?\n\n\n
+* Cat: Not at all! You will just need them\n later in our tour. After you've\n finished your time on the other side\n
+* Cat: Make your wat back to the elevator\n I will be waiting for you here.\n\n
+* Cat: Now then...\n\n\n
+*/
+
 /* Floor 1 dialogue:
  * Cat: We are now arriving at the first floor,\n home to our hotel's common rooms.\n\n
  * Dog: Common rooms? \n I didn't think you provide normal rooms\n considering the standards I've seen so far.\n 
@@ -80,6 +98,7 @@ class Elevator extends Phaser.Scene{
         this.passwordIndex = data.passwordIndex;
         this.floorList = data.floorList;
         this.restartElevator = data.restartElevator
+        this.firstTime = data.firstTime;
     }
     constructor() {
         super("Elevator");    
@@ -139,9 +158,6 @@ class Elevator extends Phaser.Scene{
     }
 
     create(){
-        if(this.restartElevator){
-            this.scene.restart({password: this.password, passwordIndex: this.passwordIndex, floorList: this.floorList, restartElevator: false});
-        }
         let BGMConfig = {
             mute: false,
             volume: 0.75,
@@ -152,6 +168,7 @@ class Elevator extends Phaser.Scene{
             delay: 0,
             pan: 0
         }
+        
         //
         statusKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         //
@@ -174,6 +191,9 @@ class Elevator extends Phaser.Scene{
         this.button8_clicked = false;
         this.button9_clicked = false;
         this.button10_clicked = false;
+
+        this.dialogue_0_InProgress = false;
+        this.dialogue_0_End = false;
 
         this.dialogue_1_InProgress = false;
         this.dialogue_1_End = false;
@@ -222,21 +242,18 @@ class Elevator extends Phaser.Scene{
 
        this.inputPassword = [];
        this.confirmPassword = false;
-
-        if(!this.restartElevator){
         
-            this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
+        this.randFloor = Phaser.Math.Between(0, this.floorList.length - 1);
 
-            // Returns the next floor that will be visited
-            // "floor_1, floor_2, floor_3, floor_4"
-            this.nextFloor = this.floorList[this.randFloor];
+        // Returns the next floor that will be visited
+        // "floor_1, floor_2, floor_3, floor_4"
+        this.nextFloor = this.floorList[this.randFloor];
 
-            if(this.floorList.length > 0){
-                this.floorList.splice(this.randFloor, 1);
-            }
-            
-            noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        if(this.floorList.length > 0){
+            this.floorList.splice(this.randFloor, 1);
         }
+        
+        noteBookKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         this.createTextBoxes();
        
@@ -695,27 +712,96 @@ class Elevator extends Phaser.Scene{
                 this.dialogueSetUp = true;
             }
         }
-        if(!this.dialogue_1_InProgress && this.nextFloor == "Floor_1" && this.elevatorTime >= 3000){
-            this.dialogue_1_InProgress = true;
-            this.Conversation.start(floor1, 50);
+        if(this.firstTime && !this.dialogue_0_InProgress && this.elevatorTime >= 3000){
+            this.dialogue_0_InProgress = true;
+            this.Conversation.start(instructions, 50);
         }
-        if(!this.dialogue_2_InProgress && this.nextFloor == "Floor_2" && this.elevatorTime >= 3000){
-            this.dialogue_2_InProgress = true;
-            this.Conversation.start(floor2, 50);
-        }
-        if(!this.dialogue_3_InProgress && this.nextFloor == "Floor_3" && this.elevatorTime >= 3000){
-            this.dialogue_3_InProgress = true;
-            this.Conversation.start(floor3, 50);
-        }
-        if(!this.dialogue_4_InProgress && this.nextFloor == "Floor_4" && this.elevatorTime >= 3000){
-            this.dialogue_4_InProgress = true;
-            this.Conversation.start(floor4, 50);
-        }
-        if(!this.dialogue_5_InProgress && this.nextFloor == null && this.elevatorTime >= 3000){
-            this.dialogue_5_InProgress = true;
-            this.Conversation.start(passwordStart, 50);
+        if(!this.firstTime){
+            if(!this.dialogue_1_InProgress && this.nextFloor == "Floor_1" && this.elevatorTime >= 3000){
+                this.dialogue_1_InProgress = true;
+                this.Conversation.start(floor1, 50);
+            }
+            if(!this.dialogue_2_InProgress && this.nextFloor == "Floor_2" && this.elevatorTime >= 3000){
+                this.dialogue_2_InProgress = true;
+                this.Conversation.start(floor2, 50);
+            }
+            if(!this.dialogue_3_InProgress && this.nextFloor == "Floor_3" && this.elevatorTime >= 3000){
+                this.dialogue_3_InProgress = true;
+                this.Conversation.start(floor3, 50);
+            }
+            if(!this.dialogue_4_InProgress && this.nextFloor == "Floor_4" && this.elevatorTime >= 3000){
+                this.dialogue_4_InProgress = true;
+                this.Conversation.start(floor4, 50);
+            }
+            if(!this.dialogue_5_InProgress && this.nextFloor == null && this.elevatorTime >= 3000){
+                this.dialogue_5_InProgress = true;
+                this.Conversation.start(passwordStart, 50);
+            }
+        }else{
+            if(!this.dialogue_1_InProgress && this.nextFloor == "Floor_1" && this.dialogue_0_End){
+                this.dialogue_1_InProgress = true;
+                this.Conversation.start(floor1, 50);
+            }
+            if(!this.dialogue_2_InProgress && this.nextFloor == "Floor_2" &&  this.dialogue_0_End){
+                this.dialogue_2_InProgress = true;
+                this.Conversation.start(floor2, 50);
+            }
+            if(!this.dialogue_3_InProgress && this.nextFloor == "Floor_3" &&  this.dialogue_0_End){
+                this.dialogue_3_InProgress = true;
+                this.Conversation.start(floor3, 50);
+            }
+            if(!this.dialogue_4_InProgress && this.nextFloor == "Floor_4" &&  this.dialogue_0_End){
+                this.dialogue_4_InProgress = true;
+                this.Conversation.start(floor4, 50);
+            }
         }
         //Conversation
+        if(this.dialogue_0_InProgress && !this.dialogue_0_End){
+            if(this.Conversation.pageIndex == 0){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 1){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 2){
+                this.catDialogue.alpha = 0.4
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 3){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 4){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if(this.Conversation.pageIndex >= 5 && this.Conversation.pageIndex <= 6){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 7){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if(this.Conversation.pageIndex >= 8 && this.Conversation.pageIndex <= 9){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 10){
+                this.catDialogue.alpha = 0.4;
+                this.dogDialogue.alpha = 1;
+            }
+            if(this.Conversation.pageIndex >= 11 && this.Conversation.pageIndex <= 13){
+                this.catDialogue.alpha = 1;
+                this.dogDialogue.alpha = 0.4;
+            }
+            if(this.Conversation.pageIndex == 14){
+                this.dialogue_0_End = true;
+            }
+
+        }
         if(this.dialogue_1_InProgress && !this.dialogue_1_End){
             if(this.Conversation.pageIndex == 0){
                 this.catDialogue.alpha = 1;
