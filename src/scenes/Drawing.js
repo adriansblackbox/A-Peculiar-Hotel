@@ -76,7 +76,7 @@ class Drawing extends Phaser.Scene{
             this.antiSpamKey = false;
             this.cameras.main.fadeOut(3000, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('Lobby');
+                this.scene.start('Lobby', {restart: true});
             })
         }
 

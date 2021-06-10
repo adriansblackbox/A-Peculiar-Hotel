@@ -7,7 +7,7 @@ class Lobby extends Phaser.Scene{
         // Pt. 2 of transfering state to a different scene
     ////////////////////////////
     init(data){
-        // data to be passed into lobby
+        this.restart = data.restart;
     }
     ///////////////////////////
     preload(){
@@ -33,6 +33,9 @@ class Lobby extends Phaser.Scene{
         this.load.audio('floorMusic','./assets/sounds/floorbgm.wav');
     }
     create(){
+        if(this.restart != null && this.restart){
+            this.scene.restart('Lobby')
+        }
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         this.playerDeciding = false;
@@ -277,7 +280,7 @@ class Lobby extends Phaser.Scene{
             this.player.anims.stop();
         }
         this.collisions();
-        if(Phaser.Input.Keyboard.JustDown(noteBookKey)){
+        if(Phaser.Input.Keyboard.JustDown(noteBookKey) && !this.playerDeciding){
             this.regular_bgm.pause();
             this.musicPaused = true;
             this.musicplaying = false;
@@ -376,8 +379,9 @@ class Lobby extends Phaser.Scene{
         }
     }
     collisions(){
-        if(!this.enteredElevator && this.front_desk_fin)
+        if(!this.enteredElevator && this.front_desk_fin){
             this.physics.world.collide(this.player, this.elevator, this.elveatorExit, null, this);
+        }
         this.physics.add.collider(this.player, this.obj_1);
 
         
