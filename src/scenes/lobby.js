@@ -77,6 +77,7 @@ class Lobby extends Phaser.Scene{
             this.password.push(this.passwordElements[randIndex]);
             this.passwordElements.splice(randIndex, 1);
         }
+        
 
         this.createKeys();
         this.createMap();

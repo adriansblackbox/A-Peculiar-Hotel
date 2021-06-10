@@ -233,7 +233,7 @@ class Elevator extends Phaser.Scene{
         this.catDialogue.alpha = 0;
 
 
-        if(this.passwordIndex < 4 && !this.restartElevator)
+        if(this.passwordIndex < 4)
             this.passwordIndex++;
 
         this.fadingOut = false;
