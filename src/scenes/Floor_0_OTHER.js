@@ -216,7 +216,7 @@ class Floor_0_OTHER extends Phaser.Scene{
                 this.catDialogue.alpha = 0.4;
                 this.dogDialogue.alpha = 1;
             }
-            if(this.Conversation.pageIndex == 2 || this.Conversation.pageIndex == 3 || this.Conversation.pageIndex == 5 || this.Conversation.pageIndex == 6 ||this.Conversation.pageIndex == 7 || this.Conversation.pageIndex == 8 ||this.Conversation.pageIndex == 10 || this.Conversation.pageIndex == 11 ||this.Conversation.pageIndex == 13 || this.Conversation.pageIndex == 14 ||this.Conversation.pageIndex == 15 || this.Conversation.pageIndex == 16 || this.Conversation.pageIndex == 17){
+            if(this.Conversation.pageIndex == 2 || this.Conversation.pageIndex == 3 || this.Conversation.pageIndex == 5 || this.Conversation.pageIndex == 6 ||this.Conversation.pageIndex == 7 || this.Conversation.pageIndex == 8 ||this.Conversation.pageIndex == 10 || this.Conversation.pageIndex == 11 ||this.Conversation.pageIndex == 13 || this.Conversation.pageIndex == 14 || this.Conversation.pageIndex == 16 || this.Conversation.pageIndex == 17){
                 this.catDialogue.alpha = 1;
                 this.dogDialogue.alpha = 0.4;
             }
