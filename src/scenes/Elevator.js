@@ -266,7 +266,7 @@ class Elevator extends Phaser.Scene{
         
         if(!(this.musicplaying) && !this.fadingOut && !this.failedPassword){
             this.musicplaying = true;
-            this.elevator_bgm.play();
+            //this.elevator_bgm.play();
         }
         this.elevatorTime += delta;
         this.elevatorScene.anims.play('elevatorScene', true);
@@ -628,7 +628,7 @@ class Elevator extends Phaser.Scene{
                 delay: 0,
                 pan: 0 
             }
-            this.elevator_bgm.stop();
+            //this.elevator_bgm.stop();
             this.musicplaying = false;
             this.sound.play('elevatorOpen',SFXConfig);
 
@@ -650,7 +650,7 @@ class Elevator extends Phaser.Scene{
                 delay: 0,
                 pan: 0
             }
-            this.elevator_bgm.stop();
+            //this.elevator_bgm.stop();
             this.musicplaying = false;
             this.sound.play('notebookOpen',SFXConfig);
 
@@ -663,7 +663,7 @@ class Elevator extends Phaser.Scene{
             this.cameras.main.fadeOut(1500, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.musicplaying = false;
-                this.elevator_bgm.stop();
+                //this.elevator_bgm.stop();
                 this.scene.start('Lobby');
             })
         }
@@ -680,7 +680,7 @@ class Elevator extends Phaser.Scene{
                 delay: 0,
                 pan: 0 
             }
-            this.elevator_bgm.stop();
+            //this.elevator_bgm.stop();
             this.musicplaying = false;
             this.sound.play('elevatorOpen',SFXConfig);
 
