@@ -185,6 +185,15 @@ class Floor_0_OTHER extends Phaser.Scene{
     }
     createTextBoxes(){
         this.Conversation = createTextBox(this, -70, 210, {wrapWidth: 500,});
+        this.input.on('pointerdown', function(){
+            var icon = this.Conversation.getElement('action').setVisible(false);
+            this.Conversation.resetChildVisibleState(icon);
+            if (this.Conversation.isTyping) {
+                this.Conversation.stop(true);
+            } else {
+                this.Conversation.typeNextPage();
+            }
+        }, this);
     }
     update(time, delta){
 
@@ -283,7 +292,6 @@ class Floor_0_OTHER extends Phaser.Scene{
     }
 }
 
-//const GetValue = Phaser.Utils.Objects.GetValue;
 var createTextBox = function (scene, x, y, config) {
     var wrapWidth = GetValue(config, 'wrapWidth', 0);
     var fixedWidth = GetValue(config, 'fixedWidth', 0);
@@ -315,23 +323,11 @@ var createTextBox = function (scene, x, y, config) {
         })
         .setOrigin(0)
         .layout();
-
-    textBox
-        .setInteractive()
-        .on('pointerdown', function () {
-            var icon = this.getElement('action').setVisible(false);
-            this.resetChildVisibleState(icon);
-            if (this.isTyping) {
-                this.stop(true);
-            } else {
-                this.typeNextPage();
-            }
-        }, textBox)
-        .on('pageend', function () {
+        
+        textBox.on('pageend', function () {
             if (this.isLastPage) {
                 return;
             }
-
             var icon = this.getElement('action').setVisible(true); // this is the arrow icon for going next. 
             this.resetChildVisibleState(icon);
             icon.y -= 30;
@@ -343,9 +339,7 @@ var createTextBox = function (scene, x, y, config) {
                 repeat: 0, // -1: infinity
                 yoyo: false
             });
-        }, textBox)
-    //.on('type', function () {
-    //})
+        }, textBox);
 
     return textBox;
 }

@@ -90,7 +90,7 @@ var passwordWrong = "So is this correct?\n\n\nWell...\n\n\nI regret to inform yo
  * Cat: Now let us escort you to the exit of this place
  */
 var passwordRight ="So is this correct?\n\n\nWell...\n\n\nIt appears to be so, detective.\n\n\nNow, let us escort you to the exit of this place.\n\n\n";
-
+const GetValue = Phaser.Utils.Objects.GetValue;
 class Elevator extends Phaser.Scene{
 
     init(data){
@@ -156,7 +156,6 @@ class Elevator extends Phaser.Scene{
         this.load.image('button9_bad', './assets/badButt09.png');
         this.load.image('button10_bad', './assets/badButt10.png');
     }
-
     create(){
         let BGMConfig = {
             mute: false,
@@ -258,12 +257,23 @@ class Elevator extends Phaser.Scene{
         this.createTextBoxes();
        
     }
+   
     createTextBoxes(){
         this.Conversation = createTextBox(this, 100, 210, {wrapWidth: 500,});
+        this.input.on('pointerdown', function(){
+            var icon = this.Conversation.getElement('action').setVisible(false);
+            this.Conversation.resetChildVisibleState(icon);
+            if (this.Conversation.isTyping) {
+                this.Conversation.stop(true);
+            } else {
+                this.Conversation.typeNextPage();
+            }
+        }, this);
     }
     update(time, delta){
 
-        
+       
+
         if(!(this.musicplaying) && !this.fadingOut && !this.failedPassword){
             this.musicplaying = true;
             //this.elevator_bgm.play();
@@ -912,72 +922,57 @@ class Elevator extends Phaser.Scene{
         //Dialogue^^^
         ////////////////////////////////////////
     }
-
+   
 }
 
-const GetValue = Phaser.Utils.Objects.GetValue;
 var createTextBox = function (scene, x, y, config) {
-    var wrapWidth = GetValue(config, 'wrapWidth', 0);
-    var fixedWidth = GetValue(config, 'fixedWidth', 0);
-    var fixedHeight = GetValue(config, 'fixedHeight', 0);
-    var textBox = scene.rexUI.add.textBox({ // adding the text box function 
-            x: x,
-            y: y,
-
-            background: null,
-
-            icon: null,
-
-            text: scene.add.bitmapText(0, 0, 'gothic').setFontSize(20).setMaxWidth(wrapWidth),
-
-            action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
-
-            space: {
-                left: -5,
-                right: 20,
-                top: 20,
-                bottom: 20,
-                icon: 0,
-                text: 10,
-            },
-      
-            page: {
-                maxLines: 3
-            }
-        })
-        .setOrigin(0)
-        .layout();
-
-    textBox
-        .setInteractive()
-        .on('pointerdown', function () {
-            var icon = this.getElement('action').setVisible(false);
-            this.resetChildVisibleState(icon);
-            if (this.isTyping) {
-                this.stop(true);
-            } else {
-                this.typeNextPage();
-            }
-        }, textBox)
-        .on('pageend', function () {
-            if (this.isLastPage) {
-                return;
-            }
-
-            var icon = this.getElement('action').setVisible(true); // this is the arrow icon for going next. 
-            this.resetChildVisibleState(icon);
-            icon.y -= 30;
-            var tween = scene.tweens.add({
-                targets: icon,
-                y: '+=30', // '+=100'
-                ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
-                duration: 500,
-                repeat: 0, // -1: infinity
-                yoyo: false
-            });
-        }, textBox)
-    //.on('type', function () {
-    //})
-
-    return textBox;
+        var wrapWidth = GetValue(config, 'wrapWidth', 0);
+        var fixedWidth = GetValue(config, 'fixedWidth', 0);
+        var fixedHeight = GetValue(config, 'fixedHeight', 0);
+        var textBox = scene.rexUI.add.textBox({ // adding the text box function 
+                x: x,
+                y: y,
+    
+                background: null,
+    
+                icon: null,
+    
+                text: scene.add.bitmapText(0, 0, 'gothic').setFontSize(20).setMaxWidth(wrapWidth),
+    
+                action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
+    
+                space: {
+                    left: -5,
+                    right: 20,
+                    top: 20,
+                    bottom: 20,
+                    icon: 0,
+                    text: 10,
+                },
+          
+                page: {
+                    maxLines: 3
+                }
+            })
+            .setOrigin(0)
+            .layout();
+            
+            textBox.on('pageend', function () {
+                if (this.isLastPage) {
+                    return;
+                }
+                var icon = this.getElement('action').setVisible(true); // this is the arrow icon for going next. 
+                this.resetChildVisibleState(icon);
+                icon.y -= 30;
+                var tween = scene.tweens.add({
+                    targets: icon,
+                    y: '+=30', // '+=100'
+                    ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
+                    duration: 500,
+                    repeat: 0, // -1: infinity
+                    yoyo: false
+                });
+            }, textBox);
+    
+        return textBox;
 }
